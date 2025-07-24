@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Basics - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+    /* Course Header */
+    .course-intro {
+      background: #9FEDD7;
+      color: #026670;
+      padding: 3rem 0;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .course-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: #000000;
+    }
+
+    .course-subtitle {
+      font-size: 1.3rem;
+      color: #333333;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      color: #026670;
+      font-weight: 500;
+    }
+
+    .progress-overview {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(2, 102, 112, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-bar {
+      background: #d0d0d0;
+      border-radius: 10px;
+      height: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-fill {
+      background: var(--primary);
+      height: 100%;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      font-size: 0.9rem;
+      color: #026670;
+      font-weight: 600;
+    }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: calc(100vh - 140px);
+      position: sticky;
+      top: 120px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">Software Basics</h1>
+      <p class="course-subtitle">Learn about the programs and applications that make your devices useful and productive. Perfect for adults 50+ who want to understand software fundamentals.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>📚</span>
+          <span>4 Units • 12 Lessons</span>
+        </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~2.5 hours total</span>
+        </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner Level</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: Understanding Software</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="what-is-software">
+              <div class="lesson-status active">1</div>
+              <span>What is Software?</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="software-vs-hardware">
+              <div class="lesson-status">2</div>
+              <span>Software vs. Hardware</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="how-software-works">
+              <div class="lesson-status">3</div>
+              <span>How Software Works</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Types of Software</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="operating-systems">
+              <div class="lesson-status">4</div>
+              <span>Operating Systems</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="applications-programs">
+              <div class="lesson-status">5</div>
+              <span>Applications & Programs</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="utilities-tools">
+              <div class="lesson-status">6</div>
+              <span>Utilities & Tools</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: Managing Software</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="installing-software">
+              <div class="lesson-status">7</div>
+              <span>Installing Software</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="updating-software">
+              <div class="lesson-status">8</div>
+              <span>Updating Software</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="uninstalling-software">
+              <div class="lesson-status">9</div>
+              <span>Uninstalling Software</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 4: Software Safety</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="software-security">
+              <div class="lesson-status">10</div>
+              <span>Software Security</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="common-problems">
+              <div class="lesson-status">11</div>
+              <span>Common Software Problems</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="course-completion">
+              <div class="lesson-status">12</div>
+              <span>Course Completion & Next Steps</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - Software Basics Structure ======
+    const lessons = {
+      "what-is-software": {
+        title: "What is Software?",
+        description: "Understand the fundamental concept of software and how it makes your devices functional and useful.",
+        objectives: [
+          "Define what software is in simple terms",
+          "Understand the difference between software and apps",
+          "Recognize software on your devices", 
+          "Appreciate how software makes devices useful"
+        ],
+        videoTitle: "Introduction to Software",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "💻 Let's Practice: Identifying Software",
+          devices: {
+            phone: {
+              title: "Software on Your Phone",
+              steps: [
+                { title: "Look at your home screen", content: "Every icon you see represents a piece of software (called an 'app' on phones). These are programs that do specific tasks." },
+                { title: "Identify built-in software", content: "Your phone comes with built-in software like Camera, Messages, Phone, and Settings. These are essential programs." },
+                { title: "Find downloaded software", content: "Look for apps you've downloaded like Facebook, games, or news apps. These are additional software you've added." },
+                { title: "Notice the operating system", content: "The overall interface - how your screen looks and works - is also software called the 'operating system' (iOS or Android)." }
+              ]
+            },
+            tablet: {
+              title: "Software on Your Tablet",
+              steps: [
+                { title: "Explore your app collection", content: "Tablets have the same concept as phones - each app icon represents software designed for specific tasks." },
+                { title: "Notice productivity software", content: "Tablets often have software for productivity like word processing, spreadsheets, or presentation apps." },
+                { title: "Find entertainment software", content: "Look for apps that provide entertainment: streaming video, music, games, or reading applications." },
+                { title: "Understand the interface", content: "The tablet's interface (home screen, settings, menus) is all part of the operating system software." }
+              ]
+            },
+            computer: {
+              title: "Software on Your Computer",
+              steps: [
+                { title: "Look at your desktop", content: "Icons on your desktop represent software programs. Double-click any icon to see the program open." },
+                { title: "Explore the Start menu", content: "Click the Start button to see all installed software organized in folders and categories." },
+                { title: "Notice system software", content: "Windows (or macOS) itself is software - it's the operating system that manages everything else." },
+                { title: "Find utility software", content: "Look for programs like Calculator, Notepad, or File Explorer - these are utility software that help with basic tasks." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is software in simple terms?",
+            options: [
+              "The physical parts of your device",
+              "Instructions that tell your device what to do",
+              "The electricity that powers your device",
+              "The internet connection"
+            ],
+            answer: 1,
+            explanation: "Software is a set of instructions that tells your device what to do. It's what makes the physical hardware useful and functional."
+          },
+          {
+            question: "Which of these is an example of software?",
+            options: [
+              "Your phone's screen",
+              "The battery in your tablet",
+              "The Calculator app on your computer",
+              "The power cord"
+            ],
+            answer: 2,
+            explanation: "The Calculator app is software - it's a program that performs mathematical calculations. The other options are physical hardware components."
+          }
+        ]
+      },
+
+      "software-vs-hardware": {
+        title: "Software vs. Hardware",
+        description: "Learn the important distinction between software (programs) and hardware (physical components) of your devices.",
+        objectives: [
+          "Clearly distinguish between software and hardware",
+          "Understand how software and hardware work together",
+          "Identify examples of each on your devices",
+          "Appreciate why both are necessary"
+        ],
+        videoTitle: "Software and Hardware Working Together",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔧 Let's Practice: Software vs Hardware",
+          devices: {
+            phone: {
+              title: "Phone Software vs Hardware",
+              steps: [
+                { title: "Touch the hardware", content: "Feel your phone's screen, buttons, and body. These physical parts you can touch are hardware." },
+                { title: "Use the software", content: "Open any app - the program that appears on screen is software. You can't touch it, but you can interact with it." },
+                { title: "See them work together", content: "When you tap the screen (hardware), the software responds. The camera hardware takes photos, but the camera software lets you edit them." },
+                { title: "Hardware without software", content: "Imagine your phone with no apps or operating system - it would just be a fancy paperweight! Software makes hardware useful." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Software vs Hardware",
+              steps: [
+                { title: "Identify tablet hardware", content: "The screen, speakers, charging port, and body are all hardware - physical components you can see and touch." },
+                { title: "Experience the software", content: "The apps, menus, settings, and interface are all software - programs running on the hardware." },
+                { title: "Watch the partnership", content: "When you touch the screen (hardware), apps respond (software). When you take a photo, the camera (hardware) and photo app (software) work together." },
+                { title: "Consider the necessity", content: "Hardware needs software to function, and software needs hardware to run. They're partners that make your tablet useful." }
+              ]
+            },
+            computer: {
+              title: "Computer Software vs Hardware",
+              steps: [
+                { title: "Feel the hardware", content: "Your monitor, keyboard, mouse, and computer tower (or laptop body) are hardware - the physical parts." },
+                { title: "Interact with software", content: "Windows, programs, files, and folders are software - they exist as data and instructions, not physical objects." },
+                { title: "Observe the relationship", content: "When you click your mouse (hardware), programs respond (software). When you type (hardware), text appears (software processing)." },
+                { title: "Understand the roles", content: "Hardware is like your brain and body, while software is like your thoughts and knowledge - both needed to accomplish tasks." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Which statement best describes the relationship between software and hardware?",
+            options: [
+              "They're the same thing",
+              "Software tells hardware what to do",
+              "Hardware is more important than software",
+              "They work independently of each other"
+            ],
+            answer: 1,
+            explanation: "Software provides instructions that tell hardware what to do. They work together as partners to make your device functional."
+          },
+          {
+            question: "If you can physically touch it, it's most likely:",
+            options: [
+              "Software",
+              "An app",
+              "Hardware",
+              "A program"
+            ],
+            answer: 2,
+            explanation: "Hardware refers to the physical components you can touch, while software refers to programs and instructions you can't physically touch."
+          }
+        ]
+      },
+
+      "how-software-works": {
+        title: "How Software Works", 
+        description: "Discover the basic principles of how software operates and interacts with your device.",
+        objectives: [
+          "Understand how software processes information",
+          "Learn about user interfaces and interaction",
+          "Recognize software responding to your actions",
+          "Appreciate the logic behind software behavior"
+        ],
+        videoTitle: "The Magic Behind Software",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "⚙️ Let's Practice: Observing Software in Action",
+          devices: {
+            phone: {
+              title: "Phone Software Behavior",
+              steps: [
+                { title: "Action and reaction", content: "Tap an app icon and watch how the software responds - it opens the program. This is software following instructions." },
+                { title: "Input and output", content: "Type a message in a text app. Your typing is input, the text appearing on screen is output - software processing your actions." },
+                { title: "Software memory", content: "Notice how apps remember your preferences, login information, or recent activities. Software stores and recalls information." },
+                { title: "Following rules", content: "Try swiping in different apps. Each app has rules (programmed instructions) about what swiping should do." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Software Processing",
+              steps: [
+                { title: "Touch response system", content: "When you touch the screen, software detects where you touched and decides what should happen based on its programming." },
+                { title: "Multi-tasking software", content: "Open multiple apps and switch between them. Software manages which app is active and keeps others ready in memory." },
+                { title: "Automatic software actions", content: "Notice how your tablet automatically adjusts screen brightness or connects to Wi-Fi. Software follows pre-programmed rules." },
+                { title: "Software communication", content: "When apps share information (like posting a photo from your gallery to social media), software programs are communicating." }
+              ]
+            },
+            computer: {
+              title: "Computer Software Operations",
+              steps: [
+                { title: "Click and command", content: "Every time you click, software interprets that click and executes the appropriate command based on where you clicked." },
+                { title: "File system software", content: "When you save or open files, software manages where files are stored and how to retrieve them when needed." },
+                { title: "Software coordination", content: "Notice how multiple programs can run simultaneously. Software manages computer resources and coordinates between programs." },
+                { title: "User interface software", content: "The menus, buttons, and windows you see are created by software to make the computer easier for humans to use." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "When you tap an app icon and it opens, what is happening?",
+            options: [
+              "The hardware is broken",
+              "The software is following programmed instructions",
+              "The internet is loading the app",
+              "Nothing special is happening"
+            ],
+            answer: 1,
+            explanation: "When you tap an app icon, the software follows pre-programmed instructions that tell it to open that specific application."
+          },
+          {
+            question: "What does software need to function properly?",
+            options: [
+              "Only internet connection",
+              "Hardware to run on",
+              "Other software programs",
+              "All of the above"
+            ],
+            answer: 3,
+            explanation: "Software needs hardware to run on, often works with other software programs, and many apps need internet connections. All these components work together."
+          }
+        ]
+      },
+
+      "operating-systems": {
+        title: "Operating Systems",
+        description: "Learn about the most important software on your device - the operating system that manages everything else.",
+        objectives: [
+          "Understand what an operating system does",
+          "Identify your device's operating system",
+          "Recognize operating system features",
+          "Appreciate the operating system's importance"
+        ],
+        videoTitle: "Your Device's Operating System",
+        videoDuration: "8 minutes",  
+        practice: {
+          title: "🖥️ Let's Practice: Exploring Operating Systems",
+          devices: {
+            phone: {
+              title: "Phone Operating Systems",
+              steps: [
+                { title: "Identify your OS", content: "Your phone runs either iOS (Apple) or Android (Google). Look at your settings to find which version you have." },
+                { title: "Explore OS features", content: "Your home screen, notification panel, and settings menu are all part of the operating system interface." },
+                { title: "Notice OS management", content: "The OS manages your apps - it opens them, closes them, and decides how much memory each can use." },
+                { title: "OS updates", content: "When you get system updates, you're updating the operating system to add features or fix problems." },
+                { title: "Built-in OS apps", content: "Apps like Settings, Phone, Messages, and Camera come built into the operating system." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Operating Systems", 
+              steps: [
+                { title: "Tablet OS identification", content: "Tablets typically run iOS (iPad), Android, or Windows. Check your settings to see which one you have." },
+                { title: "OS interface elements", content: "The dock, home screen, app switcher, and control center are all operating system features." },
+                { title: "File management", content: "The way your tablet organizes photos, documents, and downloads is handled by the operating system." },
+                { title: "Security features", content: "Password protection, app permissions, and privacy settings are operating system security functions." },
+                { title: "System preferences", content: "Display settings, sound controls, and network connections are managed by the operating system." }
+              ]
+            },
+            computer: {
+              title: "Computer Operating Systems",
+              steps: [
+                { title: "Identify your computer OS", content: "Most computers run Windows, macOS, or Linux. Your desktop, taskbar, and Start menu are part of your OS." },
+                { title: "File system exploration", content: "The way folders, files, and drives are organized and displayed is controlled by your operating system." },
+                { title: "Program management", content: "When you install, run, or uninstall programs, the operating system manages these processes." },
+                { title: "Hardware communication", content: "Your OS communicates with your printer, keyboard, mouse, and other hardware devices." },
+                { title: "System maintenance", content: "Features like disk cleanup, system updates, and security scanning are operating system functions." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the main job of an operating system?",
+            options: [
+              "To browse the internet",
+              "To manage all other software and hardware",
+              "To take photos",
+              "To play games"
+            ],
+            answer: 1,
+            explanation: "The operating system is like a manager that controls all other software and hardware, making sure everything works together properly."
+          },
+          {
+            question: "Which of these is a computer operating system?",
+            options: [
+              "Microsoft Word",
+              "Google Chrome",
+              "Windows 10",
+              "Facebook"
+            ],
+            answer: 2,
+            explanation: "Windows 10 is an operating system. The others are applications that run on top of an operating system."
+          }
+        ]
+      },
+
+      "applications-programs": {
+        title: "Applications & Programs",
+        description: "Understand the difference between various types of software applications and how to use them effectively.",
+        objectives: [
+          "Distinguish between different types of applications",
+          "Identify common software categories",
+          "Understand software compatibility",
+          "Learn about software licenses and costs"
+        ],
+        videoTitle: "Understanding Applications and Programs",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "📱 Let's Practice: Exploring Applications",
+          devices: {
+            phone: {
+              title: "Phone Applications",
+              steps: [
+                { title: "Productivity apps", content: "Find apps like email, calendar, notes, or office apps. These help you get work done." },
+                { title: "Communication apps", content: "Look for messaging, video calling, or social media apps that help you connect with others." },
+                { title: "Entertainment apps", content: "Identify games, music, video, or reading apps designed for fun and relaxation." },
+                { title: "Utility apps", content: "Find apps like calculator, flashlight, or weather that perform specific useful functions." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Applications",
+              steps: [
+                { title: "Creative applications", content: "Look for drawing, photo editing, or music creation apps that take advantage of the larger screen." },
+                { title: "Educational applications", content: "Find learning apps, online courses, or reference materials designed for tablets." },
+                { title: "Business applications", content: "Identify presentation, spreadsheet, or document editing apps for professional use." },
+                { title: "Media applications", content: "Look for streaming video, digital magazines, or e-book reading applications." }
+              ]
+            },
+            computer: {
+              title: "Computer Programs",
+              steps: [
+                { title: "Office software", content: "Find word processors, spreadsheets, and presentation software for business and personal use." },
+                { title: "Web browsers", content: "Identify different browsers like Chrome, Firefox, or Edge for internet access." },
+                { title: "Media software", content: "Look for photo viewers, music players, or video editing programs." },
+                { title: "System utilities", content: "Find file managers, antivirus software, or system maintenance programs." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What type of software would you use to write a letter?",
+            options: [
+              "A web browser",
+              "A word processor",
+              "A calculator",
+              "An antivirus program"
+            ],
+            answer: 1,
+            explanation: "A word processor like Microsoft Word or Google Docs is designed specifically for creating and editing text documents like letters."
+          },
+          {
+            question: "What's the difference between free and paid software?",
+            options: [
+              "Free software doesn't work as well",
+              "Paid software is always better",
+              "Free software may have limitations or ads",
+              "There's no difference"
+            ],
+            answer: 2,
+            explanation: "Free software may have limitations like fewer features, advertisements, or usage restrictions, while paid software typically offers full features and support."
+          }
+        ]
+      },
+
+      "utilities-tools": {
+        title: "Utilities & Tools",
+        description: "Learn about utility software and tools that help maintain and optimize your device's performance.",
+        objectives: [
+          "Identify common utility software",
+          "Understand the purpose of system tools",
+          "Learn about maintenance utilities",
+          "Know when to use different utilities"
+        ],
+        videoTitle: "Essential Utility Software",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔧 Let's Practice: Using Utility Software",
+          devices: {
+            phone: {
+              title: "Phone Utility Tools",
+              steps: [
+                { title: "Storage cleaner", content: "Find your phone's storage settings to see what's taking up space and clean unnecessary files." },
+                { title: "Battery optimizer", content: "Look for battery usage information to see which apps use the most power." },
+                { title: "Security tools", content: "Find your phone's security settings for screen locks, app permissions, and privacy controls." },
+                { title: "Network utilities", content: "Access Wi-Fi settings, mobile data controls, and connection troubleshooting tools." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Utility Applications",
+              steps: [
+                { title: "File management", content: "Use your tablet's file manager to organize documents, photos, and downloads." },
+                { title: "System information", content: "Check your tablet's settings to see storage usage, system version, and device information." },
+                { title: "Backup utilities", content: "Set up automatic backups to cloud storage to protect your important data." },
+                { title: "Performance tools", content: "Use built-in tools to monitor tablet performance and close unnecessary apps." }
+              ]
+            },
+            computer: {
+              title: "Computer Utility Programs",
+              steps: [
+                { title: "Disk cleanup", content: "Use Windows Disk Cleanup or similar tools to remove temporary files and free up space." },
+                { title: "System monitor", content: "Open Task Manager to see which programs are using your computer's resources." },
+                { title: "Antivirus software", content: "If you have antivirus software, learn how to run scans and check for updates." },
+                { title: "System backup", content: "Set up automatic backups to protect your important files and system settings." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the main purpose of utility software?",
+            options: [
+              "To entertain users",
+              "To maintain and optimize device performance",
+              "To browse the internet",
+              "To create documents"
+            ],
+            answer: 1,
+            explanation: "Utility software is designed to maintain, optimize, and troubleshoot your device to keep it running smoothly and efficiently."
+          },
+          {
+            question: "Which of these is a utility program?",
+            options: [
+              "Microsoft Word",
+              "Antivirus software", 
+              "Google Chrome",
+              "Facebook"
+            ],
+            answer: 1,
+            explanation: "Antivirus software is a utility program designed to protect your system from malware and maintain security."
+          }
+        ]
+      },
+
+      "installing-software": {
+        title: "Installing Software",
+        description: "Learn safe and proper methods for installing new software on your devices.",
+        objectives: [
+          "Understand different ways to install software",
+          "Learn about official app stores and trusted sources",
+          "Know the installation process for each device type",
+          "Understand software permissions and security"
+        ],
+        videoTitle: "Safe Software Installation",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "📥 Let's Practice: Installing Software Safely",
+          devices: {
+            phone: {
+              title: "Installing Phone Apps",
+              steps: [
+                { title: "Use official app stores", content: "Only download apps from Google Play Store (Android) or App Store (iPhone) for safety." },
+                { title: "Read app information", content: "Before installing, read the app description, reviews, and check the developer information." },
+                { title: "Check permissions", content: "Review what permissions the app requests - does it need access to information that makes sense for its function?" },
+                { title: "Install process", content: "Tap 'Install' or 'Get', then wait for the app to download and install automatically." },
+                { title: "Verify installation", content: "Find the new app icon on your home screen or in your app drawer to confirm it installed correctly." }
+              ]
+            },
+            tablet: {
+              title: "Installing Tablet Apps",
+              steps: [
+                { title: "Access app store", content: "Open your tablet's app store (Google Play, App Store, or Microsoft Store)." },
+                { title: "Search for apps", content: "Use the search function to find specific apps or browse categories for new discoveries." },
+                { title: "Evaluate apps", content: "Look at ratings, reviews, and screenshots to decide if an app is worth installing." },
+                { title: "Manage installations", content: "Monitor download progress and manage which apps update automatically." },
+                { title: "Organize new apps", content: "After installation, organize new apps into folders or move them to convenient locations." }
+              ]
+            },
+            computer: {
+              title: "Installing Computer Programs",
+              steps: [
+                { title: "Trusted sources", content: "Download software from official websites, Microsoft Store, or other reputable sources." },
+                { title: "Download files", content: "Save installer files to a known location like your Downloads folder." },
+                { title: "Run installers", content: "Double-click installer files and follow the setup wizard instructions." },
+                { title: "Choose options", content: "Select installation location, features to install, and whether to create shortcuts." },
+                { title: "Complete installation", content: "Wait for installation to finish and look for the new program in your Start menu." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the safest way to install apps on your phone?",
+            options: [
+              "Download from any website",
+              "Use official app stores only",
+              "Install from email attachments",
+              "Use random download links"
+            ],
+            answer: 1,
+            explanation: "Official app stores like Google Play Store and Apple App Store verify apps for safety and security before making them available."
+          },
+          {
+            question: "Before installing software, what should you always check?",
+            options: [
+              "The color of the app icon",
+              "The app's permissions and reviews",
+              "Your internet speed",
+              "The time of day"
+            ],
+            answer: 1,
+            explanation: "Always check what permissions an app requests and read user reviews to make sure the software is legitimate and safe."
+          }
+        ]
+      },
+
+      "updating-software": {
+        title: "Updating Software",
+        description: "Learn why software updates are important and how to keep your programs current and secure.",
+        objectives: [
+          "Understand why software updates are necessary",
+          "Learn how to check for and install updates",
+          "Know about automatic vs manual updates",
+          "Understand the risks of outdated software"
+        ],
+        videoTitle: "Keeping Software Updated",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔄 Let's Practice: Updating Your Software",
+          devices: {
+            phone: {
+              title: "Phone Software Updates",
+              steps: [
+                { title: "Check system updates", content: "Go to Settings > System Updates to check for operating system updates." },
+                { title: "Update apps", content: "Open your app store and check for app updates. Enable automatic updates if desired." },
+                { title: "Review update information", content: "Read what's new in updates - they often fix bugs, add features, or improve security." },
+                { title: "Schedule updates", content: "Set up automatic updates to happen during off-hours when you're not using your phone." },
+                { title: "Restart if needed", content: "Some updates require restarting your phone to complete the installation." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Software Updates",
+              steps: [
+                { title: "System update settings", content: "Find your tablet's system update settings to check for operating system updates." },
+                { title: "App update management", content: "Configure whether apps update automatically or require your permission." },
+                { title: "Update notifications", content: "Set up notifications so you know when important updates are available." },
+                { title: "Wi-Fi update preference", content: "Configure updates to download only when connected to Wi-Fi to save mobile data." },
+                { title: "Storage for updates", content: "Make sure you have enough storage space for updates to download and install." }
+              ]
+            },
+            computer: {
+              title: "Computer Software Updates",
+              steps: [
+                { title: "Windows Updates", content: "Use Windows Update to keep your operating system current with security patches and features." },
+                { title: "Program updates", content: "Check individual programs for updates - many have 'Check for Updates' in their Help menu." },
+                { title: "Automatic updates", content: "Enable automatic updates for critical security software like antivirus programs." },
+                { title: "Update scheduling", content: "Schedule system updates for times when you're not actively using your computer." },
+                { title: "Backup before major updates", content: "Create a backup before installing major system updates as a precaution." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Why are software updates important?",
+            options: [
+              "They make software look different",
+              "They fix security vulnerabilities and bugs",
+              "They make software more expensive",
+              "They're not important"
+            ],
+            answer: 1,
+            explanation: "Software updates are crucial because they fix security vulnerabilities, patch bugs, and often add new features or improvements."
+          },
+          {
+            question: "What should you do before installing a major system update?",
+            options: [
+              "Nothing special",
+              "Delete all your files",
+              "Create a backup of important data",
+              "Disconnect from the internet"
+            ],
+            answer: 2,
+            explanation: "It's always wise to backup important data before major system updates in case something goes wrong during the installation process."
+          }
+        ]
+      },
+
+      "uninstalling-software": {
+        title: "Uninstalling Software",
+        description: "Learn how to properly remove software you no longer need to free up space and maintain device performance.",
+        objectives: [
+          "Understand when and why to uninstall software",
+          "Learn proper uninstallation methods",
+          "Know how to clean up leftover files",
+          "Understand the difference between disabling and uninstalling"
+        ],
+        videoTitle: "Properly Removing Software",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🗑️ Let's Practice: Uninstalling Software",
+          devices: {
+            phone: {
+              title: "Removing Phone Apps",
+              steps: [
+                { title: "Long press method", content: "Press and hold an app icon until options appear, then select 'Uninstall' or drag to 'Remove'." },
+                { title: "Settings method", content: "Go to Settings > Apps to see all installed apps and uninstall from there." },
+                { title: "Disable vs uninstall", content: "Some built-in apps can only be disabled, not uninstalled - this prevents them from running." },
+                { title: "Free up storage", content: "Check your storage before and after uninstalling to see how much space you've freed up." },
+                { title: "App data removal", content: "Understand that uninstalling also removes the app's data and settings." }
+              ]
+            },
+            tablet: {
+              title: "Removing Tablet Apps",
+              steps: [
+                { title: "App drawer uninstall", content: "From your app drawer, long-press apps to access uninstall options." },
+                { title: "Settings management", content: "Use Settings > Apps & notifications to manage and uninstall applications." },
+                { title: "Bulk uninstall", content: "Some tablets allow you to select multiple apps for uninstalling at once." },
+                { title: "System app caution", content: "Be careful not to uninstall system apps that are necessary for your tablet to function." },
+                { title: "Alternative app stores", content: "If you installed apps from alternative stores, you may need to uninstall them differently." }
+              ]
+            },
+            computer: {
+              title: "Uninstalling Computer Programs",
+              steps: [
+                { title: "Control Panel method", content: "Use 'Programs and Features' in Control Panel to properly uninstall programs." },
+                { title: "Settings app method", content: "On Windows 10/11, use Settings > Apps to uninstall programs with a modern interface." },
+                { title: "Program's uninstaller", content: "Some programs have their own uninstaller in their program folder or Start menu." },
+                { title: "Clean up leftover files", content: "After uninstalling, check for leftover folders in Program Files and user directories." },
+                { title: "Registry considerations", content: "Professional uninstaller tools can clean up registry entries left behind by removed programs." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What happens to an app's data when you uninstall it?",
+            options: [
+              "The data stays on your device",
+              "The data is usually deleted too",
+              "The data moves to another app",
+              "Nothing happens to the data"
+            ],
+            answer: 1,
+            explanation: "When you uninstall an app, its data and settings are typically deleted as well, so make sure to backup any important information first."
+          },
+          {
+            question: "What's the difference between disabling and uninstalling an app?",
+            options: [
+              "There's no difference",
+              "Disabling stops the app from running; uninstalling removes it completely",
+              "Disabling is permanent; uninstalling is temporary",
+              "Disabling uses more storage"
+            ],
+            answer: 1,
+            explanation: "Disabling stops an app from running but keeps it on your device, while uninstalling removes the app completely from your device."
+          }
+        ]
+      },
+
+      "software-security": {
+        title: "Software Security",
+        description: "Learn essential practices for keeping your software secure and protecting your devices from threats.",
+        objectives: [
+          "Understand common software security threats",
+          "Learn safe software practices",
+          "Know how to identify suspicious software",
+          "Understand the importance of security updates"
+        ],
+        videoTitle: "Staying Safe with Software",
+        videoDuration: "9 minutes",
+        practice: {
+          title: "🔒 Let's Practice: Software Security Basics",
+          devices: {
+            phone: {
+              title: "Phone Security Practices",
+              steps: [
+                { title: "App permissions review", content: "Regularly review and adjust app permissions - remove access that apps don't need for their function." },
+                { title: "Official sources only", content: "Only install apps from official app stores to avoid malware and security risks." },
+                { title: "Security updates", content: "Keep your operating system and apps updated with the latest security patches." },
+                { title: "Unknown sources", content: "Keep 'Unknown Sources' disabled in settings to prevent installation of potentially harmful apps." },
+                { title: "Suspicious behavior", content: "Watch for apps that drain battery quickly, request excessive permissions, or behave strangely." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Security Measures",
+              steps: [
+                { title: "Screen lock security", content: "Use a strong PIN, password, or biometric lock to protect access to your tablet." },
+                { title: "App vetting process", content: "Research apps before installing - read reviews and check developer credibility." },
+                { title: "Network security", content: "Be cautious about installing apps or updates when connected to public Wi-Fi." },
+                { title: "Parental controls", content: "If others use your tablet, set up appropriate parental controls and user restrictions." },
+                { title: "Remote wipe capability", content: "Know how to remotely wipe your tablet if it's lost or stolen." }
+              ]
+            },
+            computer: {
+              title: "Computer Security Practices",
+              steps: [
+                { title: "Antivirus software", content: "Install and maintain reputable antivirus software to protect against malware." },
+                { title: "Firewall protection", content: "Keep your computer's firewall enabled to block unauthorized network access." },
+                { title: "Safe downloading", content: "Only download software from official websites and trusted sources." },
+                { title: "Email attachments", content: "Never open software attachments from unknown senders or suspicious emails." },
+                { title: "Administrator privileges", content: "Don't run programs with administrator privileges unless absolutely necessary." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the most important rule for downloading software safely?",
+            options: [
+              "Download the cheapest software",
+              "Only use official sources and trusted websites",
+              "Download as much software as possible",
+              "Always choose the newest software"
+            ],
+            answer: 1,
+            explanation: "Using official sources and trusted websites is the most important safety rule, as it greatly reduces the risk of downloading malware or malicious software."
+          },
+          {
+            question: "Why should you review app permissions regularly?",
+            options: [
+              "To make apps run faster",
+              "To prevent apps from accessing unnecessary personal information",
+              "To save battery life",
+              "To free up storage space"
+            ],
+            answer: 1,
+            explanation: "Reviewing app permissions helps protect your privacy by ensuring apps only access the information they actually need to function properly."
+          }
+        ]
+      },
+
+      "common-problems": {
+        title: "Common Software Problems",
+        description: "Learn to identify and solve common software issues that users encounter on their devices.",
+        objectives: [
+          "Recognize common software problems",
+          "Learn basic troubleshooting steps",
+          "Know when to seek professional help",
+          "Understand prevention strategies"
+        ],
+        videoTitle: "Troubleshooting Software Issues",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🔧 Let's Practice: Software Problem Solving",
+          devices: {
+            phone: {
+              title: "Phone Software Issues",
+              steps: [
+                { title: "App crashes", content: "If an app keeps crashing, try force-closing it and reopening. If that doesn't work, restart your phone." },
+                { title: "Slow performance", content: "Close unnecessary apps, clear cache, and consider uninstalling apps you don't use." },
+                { title: "Storage full", content: "Delete old photos, videos, and unused apps. Move important files to cloud storage." },
+                { title: "App won't open", content: "Check if the app needs an update, restart your phone, or try uninstalling and reinstalling the app." },
+                { title: "Battery drain", content: "Check which apps use the most battery and consider closing or uninstalling battery-hungry apps." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Software Problems",
+              steps: [
+                { title: "Frozen screen", content: "If your tablet screen freezes, try holding the power button for 10-15 seconds to force restart." },
+                { title: "App compatibility", content: "Some apps may not work properly on older tablets - check app requirements before installing." },
+                { title: "Update issues", content: "If updates fail, check your internet connection and available storage space." },
+                { title: "Touch responsiveness", content: "If touch isn't working properly, clean the screen and check for software updates." },
+                { title: "Connectivity problems", content: "For Wi-Fi or Bluetooth issues, try turning the connection off and on again." }
+              ]
+            },
+            computer: {
+              title: "Computer Software Issues",
+              steps: [
+                { title: "Program not responding", content: "Use Task Manager (Ctrl+Alt+Delete) to close frozen programs safely." },
+                { title: "Slow startup", content: "Check which programs start automatically and disable unnecessary ones." },
+                { title: "File associations", content: "If files won't open, make sure you have the right program installed to open that file type." },
+                { title: "Error messages", content: "Write down error messages exactly as they appear - this helps when searching for solutions." },
+                { title: "System restore", content: "If problems persist, consider using System Restore to return to a previous working state." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What should you try first when an app keeps crashing?",
+            options: [
+              "Uninstall the app immediately",
+              "Buy a new device",
+              "Force-close the app and reopen it",
+              "Call technical support"
+            ],
+            answer: 2,
+            explanation: "Force-closing and reopening the app is often the quickest fix for app crashes, as it clears temporary glitches from memory."
+          },
+          {
+            question: "When should you consider seeking professional help with software problems?",
+            options: [
+              "For any minor issue",
+              "When basic troubleshooting doesn't work and the problem affects important functions",
+              "Never - always try to fix it yourself",
+              "Only if the device is broken physically"
+            ],
+            answer: 1,
+            explanation: "Seek professional help when basic troubleshooting fails and the problem significantly impacts your ability to use your device for important tasks."
+          }
+        ]
+      },
+
+      "course-completion": {
+        title: "Course Completion & Next Steps",
+        description: "Celebrate your software knowledge and learn how to continue building your digital skills.",
+        objectives: [
+          "Review your software knowledge progress",
+          "Understand how to apply what you've learned",
+          "Plan your continued learning journey",
+          "Feel confident managing software independently"
+        ],
+        videoTitle: "Your Software Journey Continues",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🎉 Let's Practice: Software Mastery Review",
+          devices: {
+            phone: {
+              title: "Phone Software Mastery",
+              steps: [
+                { title: "Software audit", content: "Review all apps on your phone - can you identify what each one does and why you have it?" },
+                { title: "Security check", content: "Go through app permissions and remove any that seem unnecessary for each app's function." },
+                { title: "Update routine", content: "Set up a regular routine for checking and installing software updates." },
+                { title: "Organization practice", content: "Organize your apps in a way that makes sense to you - by category, frequency of use, or preference." },
+                { title: "Troubleshooting confidence", content: "Practice the troubleshooting steps you've learned with any minor issues you encounter." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Software Confidence",
+              steps: [
+                { title: "Software categories", content: "Categorize your tablet apps - productivity, entertainment, utilities, and education." },
+                { title: "Performance optimization", content: "Apply what you've learned about managing storage, updates, and app permissions." },
+                { title: "Safe installation", content: "Practice finding and installing new apps safely from official sources." },
+                { title: "Backup strategy", content: "Set up automatic backups for your important data and app settings." },
+                { title: "Future learning", content: "Identify software skills you'd like to develop further, such as specific productivity apps." }
+              ]
+            },
+            computer: {
+              title: "Computer Software Expertise",
+              steps: [
+                { title: "Software inventory", content: "Create a list of all installed programs and their purposes - remove any you don't need." },
+                { title: "Maintenance routine", content: "Establish a regular routine for updates, disk cleanup, and security scans." },
+                { title: "File management", content: "Practice organizing your files and understanding how different programs interact with different file types." },
+                { title: "Security practices", content: "Review and implement the security practices you've learned for safe software use." },
+                { title: "Troubleshooting toolkit", content: "Bookmark or note down the troubleshooting techniques that work best for your system." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the most important software skill you've learned in this course?",
+            options: [
+              "How to install as many apps as possible",
+              "How to evaluate, manage, and maintain software safely",
+              "How to avoid using software",
+              "How to buy the most expensive software"
+            ],
+            answer: 1,
+            explanation: "The most valuable skill is learning to evaluate, manage, and maintain software safely, which ensures your devices remain secure and functional."
+          },
+          {
+            question: "What should be your approach to learning new software in the future?",
+            options: [
+              "Avoid learning anything new",
+              "Start with official sources, read reviews, and take your time",
+              "Install everything immediately",
+              "Only use software others recommend"
+            ],
+            answer: 1,
+            explanation: "The best approach is to start with official sources, read reviews and documentation, and take your time to understand new software before fully committing to it."
+          }
+        ]
+      }
+    };
+
+    // ====== LESSON STATE MANAGEMENT ======
+    let currentLesson = 'what-is-software';
+    const courseKey = 'software-basics';
+    
+    // Function to get user-specific progress (supports both regular and guest users)
+    function getUserSpecificData() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser) {
+        return { completedLessons: [], courseProgress: {} };
+      }
+      
+      // For guest users, use their guest ID; for regular users, use email
+      const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const completedLessons = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+      const courseProgress = JSON.parse(localStorage.getItem(`courseProgress_${courseKey}_${userId}`) || '{}');
+      
+      return { completedLessons, courseProgress, userId };
+    }
+    
+    let { completedLessons, courseProgress } = getUserSpecificData();
+
+    // ====== RENDER LESSON CONTENT ======
+    function renderLesson(lessonId) {
+      const lesson = lessons[lessonId];
+      if (!lesson) return;
+
+      const mainContent = document.getElementById('lessonContent');
+
+      let html = `
+        <div class="lesson-header">
+          <h1 class="lesson-title">${lesson.title}</h1>
+          <p class="lesson-description">${lesson.description}</p>
+        </div>
+
+        <div class="lesson-objectives">
+          <h3 class="objectives-title">🎯 Learning Objectives</h3>
+          <ul class="objectives-list">
+            ${lesson.objectives.map(obj => `<li>${obj}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="video-section">
+          <div class="video-placeholder">
+            <h4 class="video-title">${lesson.videoTitle}</h4>
+            <p class="video-duration">${lesson.videoDuration}</p>
+          </div>
+          <p><strong>📺 Watch this video</strong> to see these concepts demonstrated step-by-step. You can pause and rewatch any part as many times as you need.</p>
+        </div>
+
+        <div class="practice-section">
+          <h3 class="practice-title">${lesson.practice.title}</h3>
+          <div class="device-tabs">
+            ${Object.keys(lesson.practice.devices).map(device => 
+              `<button class="device-tab ${device === 'phone' ? 'active' : ''}" data-device="${device}">
+                ${device === 'phone' ? '📱 Phone' : device === 'tablet' ? '📱 Tablet' : '💻 Computer'}
+              </button>`
+            ).join('')}
+          </div>
+          
+          ${Object.entries(lesson.practice.devices).map(([deviceType, deviceData]) => `
+            <div class="device-content ${deviceType === 'phone' ? 'active' : ''}" data-device="${deviceType}">
+              <h4>${deviceData.title}</h4>
+              <div class="step-by-step">
+                ${deviceData.steps.map(step => `
+                  <div class="step">
+                    <h4>${step.title}</h4>
+                    <p>${step.content}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="quiz-section">
+          <h3 class="quiz-title">🧠 Knowledge Check</h3>
+          ${lesson.quiz.map((question, idx) => `
+            <div class="question" data-question="${idx}">
+              <p class="question-text">${question.question}</p>
+              <ul class="options">
+                ${question.options.map((option, optionIdx) => `
+                  <li class="option">
+                    <label>
+                      <input type="radio" name="q${idx}" value="${optionIdx}">
+                      <span>${option}</span>
+                    </label>
+                  </li>
+                `).join('')}
+              </ul>
+              <div class="feedback" id="feedback-${idx}"></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="lesson-navigation">
+          <button class="nav-btn secondary" id="prevBtn" ${getPreviousLesson(lessonId) ? '' : 'disabled'}>
+            ← Previous Lesson
+          </button>
+          <button class="nav-btn" id="nextBtn" onclick="completeLesson('${lessonId}')">
+            ${getNextLesson(lessonId) ? 'Mark Complete & Continue →' : 'Complete Course 🎉'}
+          </button>
+        </div>
+      `;
+
+      mainContent.innerHTML = html;
+      setupLessonInteractions(lesson, lessonId);
+      updateProgress();
+    }
+
+    // ====== LESSON INTERACTIONS ======
+    function setupLessonInteractions(lesson, lessonId) {
+      // Device tab switching
+      document.querySelectorAll('.device-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const device = tab.dataset.device;
+          
+          // Update tab states
+          document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Update content visibility
+          document.querySelectorAll('.device-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          document.querySelector(`[data-device="${device}"]`).classList.add('active');
+        });
+      });
+
+      // Quiz interactions
+      document.querySelectorAll('.question').forEach((questionEl, questionIdx) => {
+        const question = lesson.quiz[questionIdx];
+        const options = questionEl.querySelectorAll('input[type="radio"]');
+        
+        options.forEach(option => {
+          option.addEventListener('change', () => {
+            const selectedAnswer = parseInt(option.value);
+            const feedback = document.getElementById(`feedback-${questionIdx}`);
+            
+            if (selectedAnswer === question.answer) {
+              feedback.innerHTML = `<strong>✅ Correct!</strong> ${question.explanation}`;
+              feedback.className = 'feedback correct';
+              feedback.style.display = 'block';
+            } else {
+              feedback.innerHTML = `<strong>❌ Not quite.</strong> ${question.explanation}`;
+              feedback.className = 'feedback incorrect';
+              feedback.style.display = 'block';
+            }
+          });
+        });
+      });
+
+      // Navigation
+      const prevBtn = document.getElementById('prevBtn');
+      const prevLesson = getPreviousLesson(lessonId);
+      if (prevBtn && prevLesson) {
+        prevBtn.addEventListener('click', () => loadLesson(prevLesson));
+      }
+    }
+
+    // ====== LESSON NAVIGATION ======
+    const lessonOrder = [
+      'what-is-software', 'software-vs-hardware', 'how-software-works', 'operating-systems',
+      'applications-programs', 'utilities-tools', 'installing-software', 'updating-software', 
+      'uninstalling-software', 'software-security', 'common-problems', 'course-completion'
+    ];
+
+    function getNextLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex < lessonOrder.length - 1 ? lessonOrder[currentIndex + 1] : null;
+    }
+
+    function getPreviousLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex > 0 ? lessonOrder[currentIndex - 1] : null;
+    }
+
+    function loadLesson(lessonId) {
+      currentLesson = lessonId;
+      
+      // Update last accessed time whenever a lesson is loaded
+      localStorage.setItem(`lastAccessed_${courseKey}`, new Date().toISOString());
+      
+      // Update sidebar
+      document.querySelectorAll('.lesson-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lesson === lessonId) {
+          btn.classList.add('active');
+        }
+      });
+      
+      renderLesson(lessonId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function completeLesson(lessonId) {
+      // Get current user data
+      const { completedLessons: currentCompleted, userId } = getUserSpecificData();
+      
+      // Only save progress if user is logged in
+      if (!userId) {
+        alert('Please log in to save your progress!');
+        return;
+      }
+      
+      if (!currentCompleted.includes(lessonId)) {
+        currentCompleted.push(lessonId);
+        localStorage.setItem(`completedLessons_${courseKey}_${userId}`, JSON.stringify(currentCompleted));
+        completedLessons = currentCompleted; // Update global variable
+      }
+      
+      // Update last accessed time (user-specific)
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, new Date().toISOString());
+      
+      // Update all lesson statuses (this will auto-complete previous lessons)
+      updateAllLessonStatus();
+      
+      const nextLesson = getNextLesson(lessonId);
+      if (nextLesson) {
+        setTimeout(() => loadLesson(nextLesson), 500);
+      } else {
+        // Course completed!
+        alert('🎉 Congratulations! You\'ve completed the Software Basics course!');
+      }
+      
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalLessons = lessonOrder.length;
+      const completedCount = completedLessons.length;
+      const progressPercent = Math.round((completedCount / totalLessons) * 100);
+      
+      document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+      document.getElementById('courseProgress').style.width = `${progressPercent}%`;
+    }
+
+    function updateAllLessonStatus() {
+      // Mark each lesson based on its completion status
+      lessonOrder.forEach((lessonId, index) => {
+        const lessonBtn = document.querySelector(`[data-lesson="${lessonId}"]`);
+        if (lessonBtn) {
+          const status = lessonBtn.querySelector('.lesson-status');
+          
+          if (completedLessons.includes(lessonId)) {
+            // Mark as completed
+            lessonBtn.classList.add('completed');
+            if (status) {
+              status.classList.add('completed');
+              status.textContent = '✓';
+            }
+          } else {
+            // Not completed yet
+            lessonBtn.classList.remove('completed');
+            if (status) {
+              status.classList.remove('completed');
+              status.textContent = index + 1;
+            }
+          }
+        }
+      });
+    }
+
+    // ====== SIDEBAR INTERACTIONS ======
+    document.querySelectorAll('.lesson-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lessonId = btn.dataset.lesson;
+        loadLesson(lessonId);
+      });
+    });
+
+    // ====== COURSE ACCESS TRACKING ======
+    function trackCourseAccess() {
+      // Only track if user is logged in
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser || !currentUser.email) {
+        return; // Don't track if not logged in
+      }
+      
+                  // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const courseKey = 'software-basics';
+      const timestamp = new Date().toISOString();
+      
+      // Store last accessed time for this specific user
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, timestamp);
+      
+      // Also track in user-specific recent courses list
+      let recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+      recentCourses = recentCourses.filter(course => course.courseKey !== courseKey);
+      recentCourses.unshift({
+        courseKey: courseKey,
+        courseUrl: window.location.pathname,
+        lastAccessed: timestamp
+      });
+      recentCourses = recentCourses.slice(0, 10);
+      localStorage.setItem(`recentCourses_${userId}`, JSON.stringify(recentCourses));
+    }
+
+    // Function to refresh user-specific data
+    function refreshUserData() {
+      const userData = getUserSpecificData();
+      completedLessons = userData.completedLessons;
+      courseProgress = userData.courseProgress;
+      
+      // Update UI to reflect current user's progress
+      updateAllLessonStatus();
+      updateProgress();
+    }
+
+    // ====== USER AUTHENTICATION ======
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track that user accessed this course
+      trackCourseAccess();
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const modalOverlay = document.getElementById('logout-modal-overlay');
+
+      // Hide login/signup buttons for all users on course pages
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (signupBtn) signupBtn.style.display = 'none';
+
+      if (modalOverlay) {
+        const cancelBtn = document.getElementById('cancel-logout');
+        const confirmBtn = document.getElementById('confirm-logout');
+
+        cancelBtn?.addEventListener('click', () => {
+          modalOverlay.classList.remove('active');
+        });
+
+        confirmBtn?.addEventListener('click', () => {
+          sessionStorage.removeItem('currentUser');
+          // Refresh data after logout (will clear progress display)
+          refreshUserData();
+          window.location.href = 'index.html';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+          }
+        });
+      }
+
+      // Load initial lesson
+      loadLesson('what-is-software');
+      
+      // Refresh user data to load their specific progress
+      refreshUserData();
+    });
+  </script>
+</body>
+</html> 

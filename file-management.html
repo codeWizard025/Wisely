@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Management Essentials - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+         /* Course Header */
+     .course-intro {
+       background: #9FEDD7;
+       color: #026670;
+       padding: 3rem 0;
+       text-align: center;
+       margin-bottom: 2rem;
+     }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+         .course-title {
+       font-size: clamp(2rem, 5vw, 3.5rem);
+       font-weight: 700;
+       margin-bottom: 1rem;
+       line-height: 1.2;
+       color: #000000;
+     }
+
+     .course-subtitle {
+       font-size: 1.3rem;
+       color: #333333;
+       margin-bottom: 2rem;
+       max-width: 600px;
+       margin-left: auto;
+       margin-right: auto;
+       line-height: 1.4;
+     }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+         .meta-item {
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+       font-size: 1rem;
+      color: #026670;
+       font-weight: 500;
+     }
+
+         .progress-overview {
+       background: rgba(255, 255, 255, 0.8);
+       border: 1px solid rgba(2, 102, 112, 0.2);
+       border-radius: 12px;
+       padding: 1.5rem;
+       max-width: 400px;
+       margin: 0 auto;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+     }
+
+     .progress-bar {
+       background: #d0d0d0;
+       border-radius: 10px;
+       height: 8px;
+       margin-bottom: 0.5rem;
+     }
+
+     .progress-fill {
+       background: var(--primary);
+       height: 100%;
+       border-radius: 10px;
+       width: 0%;
+       transition: width 0.5s ease;
+     }
+
+         .progress-text {
+       font-size: 0.9rem;
+       color: #026670;
+       font-weight: 600;
+     }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+         /* Sidebar */
+    .sidebar {
+       background: white;
+       border-radius: 12px;
+       padding: 1.5rem;
+       height: calc(100vh - 140px);
+      position: sticky;
+       top: 120px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+       overflow-x: hidden;
+     }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">File Management Essentials</h1>
+      <p class="course-subtitle">Learn to organize, find, and manage your digital files with confidence. Master the skills to keep your documents, photos, and important files organized and secure.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>📚</span>
+          <span>4 Units • 12 Lessons</span>
+        </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~2.5 hours total</span>
+        </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner Level</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: File Basics</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="understanding-files">
+              <div class="lesson-status active">1</div>
+              <span>Understanding Files & Folders</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="file-types">
+              <div class="lesson-status">2</div>
+              <span>Common File Types</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="file-explorer">
+              <div class="lesson-status">3</div>
+              <span>Using File Explorer</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Organization</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="creating-folders">
+              <div class="lesson-status">4</div>
+              <span>Creating Folders</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="naming-files">
+              <div class="lesson-status">5</div>
+              <span>Naming Files & Folders</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="organizing-system">
+              <div class="lesson-status">6</div>
+              <span>Creating an Organization System</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: File Operations</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="moving-copying">
+              <div class="lesson-status">7</div>
+              <span>Moving & Copying Files</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="searching-files">
+              <div class="lesson-status">8</div>
+              <span>Searching for Files</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="deleting-recovering">
+              <div class="lesson-status">9</div>
+              <span>Deleting & Recovering Files</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 4: Advanced & Safety</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="backup-basics">
+              <div class="lesson-status">10</div>
+              <span>Backup Basics</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="file-security">
+              <div class="lesson-status">11</div>
+              <span>File Security & Privacy</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="maintenance-tips">
+              <div class="lesson-status">12</div>
+              <span>Maintenance & Best Practices</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - File Management Structure ======
+    const lessons = {
+      "understanding-files": {
+        title: "Understanding Files & Folders",
+        description: "Learn what files and folders are, and how they help organize your digital information.",
+        objectives: [
+          "Understand what a file is and what it contains",
+          "Learn the concept of folders and file organization",
+          "Identify the difference between files and folders", 
+          "Recognize common file storage locations"
+        ],
+        videoTitle: "Introduction to Files and Folders",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🗂️ Let's Practice: Exploring Files & Folders",
+          devices: {
+            phone: {
+              title: "Files on Phone & Tablet",
+              steps: [
+                { title: "Find your Files app", content: "Look for an app called 'Files', 'My Files', or 'File Manager' on your home screen or app drawer." },
+                { title: "Open the Files app", content: "Tap to open it. You'll see different sections like 'Downloads', 'Photos', 'Documents'." },
+                { title: "Explore file types", content: "Tap on 'Photos' to see image files, or 'Downloads' to see files you've downloaded from the internet." },
+                { title: "Understand folder structure", content: "Notice how files are organized in folders. Each folder contains related files, like all your photos in one place." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Management",
+              steps: [
+                { title: "Access file manager", content: "Find and open your tablet's file management app. On iPad, this might be the 'Files' app." },
+                { title: "Navigate folder structure", content: "Use the larger screen to see more files at once. Tap folders to open them and see their contents." },
+                { title: "View file details", content: "Long-press on a file to see options like file size, creation date, and file type." },
+                { title: "Practice folder navigation", content: "Go into a folder, then use the back button to return to the previous folder level." }
+              ]
+            },
+            computer: {
+              title: "Computer File System",
+              steps: [
+                { title: "Open File Explorer", content: "Click the folder icon in your taskbar or press Windows key + E to open File Explorer." },
+                { title: "Explore main areas", content: "See the sidebar with 'Desktop', 'Documents', 'Downloads', and 'Pictures' - these are your main file storage areas." },
+                { title: "Navigate folders", content: "Double-click folders to open them. Notice the address bar at the top showing your current location." },
+                { title: "View file information", content: "Right-click any file to see its size, type, and when it was created or modified." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the main purpose of folders on your device?",
+            options: [
+              "To make your device run faster",
+              "To organize and group related files together",
+              "To protect files from viruses",
+              "To make files smaller"
+            ],
+            answer: 1,
+            explanation: "Folders help organize files by grouping related items together, making it easier to find what you're looking for."
+          },
+          {
+            question: "Which of these is typically a file rather than a folder?",
+            options: [
+              "Documents",
+              "Photos",
+              "vacation-photo.jpg",
+              "Downloads"
+            ],
+            answer: 2,
+            explanation: "'vacation-photo.jpg' is a specific photo file, while the others are typically folder names that contain multiple files."
+          }
+        ]
+      },
+
+      "file-types": {
+        title: "Common File Types",
+        description: "Learn to identify different types of files and understand what each type is used for.",
+        objectives: [
+          "Recognize common file extensions (.txt, .pdf, .jpg, etc.)",
+          "Understand what different file types contain",
+          "Know which programs open different file types",
+          "Learn file type safety basics"
+        ],
+        videoTitle: "Understanding File Types and Extensions",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "📄 Let's Practice: File Type Recognition",
+          devices: {
+            phone: {
+              title: "Mobile File Types",
+              steps: [
+                { title: "Look at photo files", content: "In your Photos app, notice files end in .jpg or .jpeg - these are image files." },
+                { title: "Check downloaded files", content: "Look in Downloads for files ending in .pdf (documents) or .mp3 (music files)." },
+                { title: "Identify app files", content: "When you download apps, they're .apk files on Android or come through the App Store on iOS." },
+                { title: "Practice file identification", content: "Try to identify 3 different file types on your device by looking at their extensions." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Recognition",
+              steps: [
+                { title: "Browse document files", content: "Look for .pdf, .doc, or .txt files in your Documents folder - these contain text and can be read." },
+                { title: "Identify media files", content: "Find .mp4 (videos), .mp3 (music), and .jpg (photos) in your media folders." },
+                { title: "Understand file icons", content: "Notice how different file types have different icons to help you identify them quickly." },
+                { title: "Check file properties", content: "Long-press files to see their type, size, and what app will open them." }
+              ]
+            },
+            computer: {
+              title: "Computer File Types",
+              steps: [
+                { title: "Enable file extensions", content: "In File Explorer, click View > File name extensions to see all file types clearly." },
+                { title: "Common document types", content: "Look for .txt (text), .pdf (Adobe documents), .docx (Word documents) in your Documents folder." },
+                { title: "Media file types", content: "Find .jpg/.png (images), .mp3/.wav (audio), .mp4/.avi (videos) in appropriate folders." },
+                { title: "Program files", content: "Notice .exe files are programs you can run, while .zip files are compressed folders." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does a .pdf file typically contain?",
+            options: [
+              "Music or audio",
+              "Photos and images", 
+              "Documents with text and formatting",
+              "Computer programs"
+            ],
+            answer: 2,
+            explanation: ".pdf files contain formatted documents that look the same on any device - like forms, manuals, or reports."
+          },
+          {
+            question: "Which file extension indicates a photo or image?",
+            options: [
+              ".txt",
+              ".mp3",
+              ".jpg",
+              ".pdf"
+            ],
+            answer: 2,
+            explanation: ".jpg (and .jpeg, .png, .gif) are image file extensions. .txt is text, .mp3 is audio, and .pdf is a document."
+          }
+        ]
+      },
+
+      "file-explorer": {
+        title: "Using File Explorer",
+        description: "Master the file explorer or file manager on your device to navigate and manage files effectively.",
+        objectives: [
+          "Navigate confidently through your device's file system",
+          "Use different view options (list, icons, details)",
+          "Understand the file explorer interface",
+          "Find files quickly using file explorer features"
+        ],
+        videoTitle: "Mastering Your File Explorer",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🗺️ Let's Practice: File Explorer Navigation",
+          devices: {
+            phone: {
+              title: "Mobile File Manager",
+              steps: [
+                { title: "Open file manager", content: "Find and open your phone's file manager app (may be called Files, My Files, or File Manager)." },
+                { title: "Explore main sections", content: "See sections like Internal Storage, Downloads, Images, Videos, Audio, and Documents." },
+                { title: "Navigate folders", content: "Tap folders to open them, use the back arrow to go back to the previous level." },
+                { title: "Try different views", content: "Look for view options - list view, grid view, or detail view to see files differently." },
+                { title: "Use the search feature", content: "Find the search icon (magnifying glass) to search for specific files by name." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Navigation",
+              steps: [
+                { title: "Open Files app", content: "Launch your tablet's file management app - Files on iPad, or a similar app on Android tablets." },
+                { title: "Use sidebar navigation", content: "Many tablets show a sidebar with quick access to Documents, Downloads, Photos, etc." },
+                { title: "Master touch gestures", content: "Learn to tap to select, long-press for options, and pinch to zoom in file views." },
+                { title: "Practice breadcrumb navigation", content: "Use the location bar at top to see where you are and jump to parent folders quickly." }
+              ]
+            },
+            computer: {
+              title: "Windows File Explorer / Mac Finder",
+              steps: [
+                { title: "Open File Explorer", content: "Press Windows key + E, or click the folder icon in your taskbar to open File Explorer." },
+                { title: "Use the navigation pane", content: "The left sidebar shows Quick access, This PC, and your main folders for easy navigation." },
+                { title: "Master the ribbon menu", content: "Click 'View' in the top menu to change how files are displayed - icons, list, details, etc." },
+                { title: "Use the address bar", content: "The address bar shows your current location and lets you type folder paths to navigate quickly." },
+                { title: "Practice keyboard shortcuts", content: "Try Backspace (go back), Alt+Up (go up one level), Ctrl+F (search)." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the quickest way to go back to the previous folder level?",
+            options: [
+              "Close the file explorer and reopen it",
+              "Click the back button or use the back arrow",
+              "Restart your device",
+              "Search for the folder name"
+            ],
+            answer: 1,
+            explanation: "The back button (←) or back arrow takes you to the previous folder level you were viewing."
+          },
+          {
+            question: "What does the address bar in file explorer show you?",
+            options: [
+              "Your internet connection status",
+              "The current date and time",
+              "Your current location in the file system",
+              "Available storage space"
+            ],
+            answer: 2,
+            explanation: "The address bar shows your current location in the file system, like 'Documents > Projects > Photos'."
+          }
+        ]
+      },
+
+      "naming-files": {
+        title: "Naming Files & Folders",
+        description: "Learn best practices for naming files and folders to make organization easier.",
+        objectives: [
+          "Use descriptive and meaningful names",
+          "Avoid problematic characters in file names",
+          "Create consistent naming conventions",
+          "Organize files with logical naming systems"
+        ],
+        videoTitle: "Smart File Naming Strategies",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "📝 Let's Practice: Effective File Naming",
+          devices: {
+            phone: {
+              title: "Mobile File Naming", 
+              steps: [
+                { title: "Review current files", content: "Look at files on your device - can you tell what they contain from their names?" },
+                { title: "Practice renaming", content: "Find a poorly named file and rename it with a clear, descriptive name." },
+                { title: "Use dates in names", content: "Try naming photos with dates like '2024-01-15_Family_Dinner.jpg'." },
+                { title: "Avoid special characters", content: "Don't use / \\ : * ? \" < > | in file names as they can cause problems." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Naming Best Practices",
+              steps: [
+                { title: "Create naming system", content: "Develop a consistent system like 'Type_Date_Description' for your files." },
+                { title: "Use categories", content: "Start file names with categories like 'Work_', 'Personal_', 'Photos_'." },
+                { title: "Keep names reasonable", content: "Aim for names that are descriptive but not too long (under 50 characters)." },
+                { title: "Test your system", content: "Create a few files using your naming system and see if it makes sense later." }
+              ]
+            },
+            computer: {
+              title: "Computer File Naming",
+              steps: [
+                { title: "Use descriptive names", content: "Name files so you'll know what they are in 6 months, like 'Budget_2024.xlsx'." },
+                { title: "Include version numbers", content: "For documents you update, use 'DocumentName_v1', 'DocumentName_v2', etc." },
+                { title: "Date format consistency", content: "Use YYYY-MM-DD format for dates so files sort chronologically." },
+                { title: "Avoid spaces", content: "Consider using underscores or hyphens instead of spaces for better compatibility." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Which file name follows best practices?",
+            options: [
+              "untitled.doc",
+              "stuff.pdf",
+              "2024-03-Budget-Report.pdf",
+              "document1.txt"
+            ],
+            answer: 2,
+            explanation: "This name includes a date, is descriptive, and uses standard characters that work on all systems."
+          },
+          {
+            question: "What should you avoid in file names?",
+            options: [
+              "Dates",
+              "Descriptive words",
+              "Special characters like * and ?",
+              "Numbers"
+            ],
+            answer: 2,
+            explanation: "Special characters can cause problems with different operating systems and should be avoided."
+          }
+        ]
+      },
+
+      "organizing-system": {
+        title: "Creating an Organization System",
+        description: "Develop a personal file organization system that makes sense for your needs.",
+        objectives: [
+          "Design a folder structure that works for you",
+          "Create logical categories for different file types",
+          "Set up main folders and subfolders",
+          "Maintain your organization system over time"
+        ],
+        videoTitle: "Building Your Personal File Organization System",
+        videoDuration: "9 minutes",
+        practice: {
+          title: "🗂️ Let's Practice: Building Your Organization System",
+          devices: {
+            phone: {
+              title: "Mobile Organization",
+              steps: [
+                { title: "Plan your main categories", content: "Think about the types of files you have: Photos, Documents, Music, etc." },
+                { title: "Create main folders", content: "Make folders for each main category in your file manager." },
+                { title: "Add subfolders", content: "Inside Photos, create subfolders like 'Family', 'Vacation', 'Work Events'." },
+                { title: "Test your system", content: "Try organizing a few files into your new system and see if it feels natural." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Organization",
+              steps: [
+                { title: "Design your structure", content: "Plan a hierarchy like Documents > Work > Projects > Current, Completed." },
+                { title: "Create the structure", content: "Build your folder system starting with broad categories, then getting more specific." },
+                { title: "Use consistent naming", content: "Apply the same naming conventions throughout your entire system." },
+                { title: "Document your system", content: "Write down your organization rules so you can stay consistent." }
+              ]
+            },
+            computer: {
+              title: "Computer Organization Mastery",
+              steps: [
+                { title: "Start with main folders", content: "Create folders like 'Personal', 'Work', 'Finance', 'Projects' in your Documents folder." },
+                { title: "Build subfolders", content: "Under each main folder, create subfolders that make sense for that category." },
+                { title: "Use folder templates", content: "For recurring needs like monthly reports, create template folder structures." },
+                { title: "Regular maintenance", content: "Schedule monthly reviews to keep your system organized and current." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the key to a good file organization system?",
+            options: [
+              "Having as many folders as possible",
+              "Using someone else's system exactly",
+              "Making it logical and consistent for your needs",
+              "Never changing it once it's set up"
+            ],
+            answer: 2,
+            explanation: "The best organization system is one that makes logical sense to you and stays consistent over time."
+          },
+          {
+            question: "How deep should your folder structure be?",
+            options: [
+              "No more than 2 levels deep",
+              "As deep as needed, but not so deep it's hard to navigate",
+              "Always exactly 5 levels deep",
+              "Only one level - no subfolders"
+            ],
+            answer: 1,
+            explanation: "Folder structure should be as deep as needed for organization, but not so deep that it becomes difficult to navigate."
+          }
+        ]
+      },
+
+      "searching-files": {
+        title: "Searching for Files",
+        description: "Master the art of finding files quickly using search functions and organization.",
+        objectives: [
+          "Use built-in search functions effectively",
+          "Search by file name, type, and date",
+          "Understand search filters and advanced options",
+          "Develop strategies for finding misplaced files"
+        ],
+        videoTitle: "Finding Files Fast: Search Strategies",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🔍 Let's Practice: File Search Mastery",
+          devices: {
+            phone: {
+              title: "Mobile File Search",
+              steps: [
+                { title: "Use the search function", content: "In your file manager, tap the search icon (magnifying glass) and type part of a file name." },
+                { title: "Search by file type", content: "Try searching for '.jpg' to find all your image files, or '.pdf' for documents." },
+                { title: "Use partial names", content: "If you only remember part of a file name, type that part - like 'family' to find family photos." },
+                { title: "Browse recent files", content: "Look for 'Recent' or 'Recently accessed' sections to find files you used lately." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Search Techniques",
+              steps: [
+                { title: "Advanced search options", content: "Look for filter options to search by date, size, or file type." },
+                { title: "Search in specific folders", content: "Navigate to a folder first, then search to limit results to that area." },
+                { title: "Use date ranges", content: "If you remember roughly when you created a file, use date filters to narrow results." },
+                { title: "Save search queries", content: "Some apps let you save frequent searches for quick access later." }
+              ]
+            },
+            computer: {
+              title: "Computer Search Mastery",
+              steps: [
+                { title: "Use Windows Search", content: "Press Windows key and type to search, or use the search box in File Explorer." },
+                { title: "Search operators", content: "Try 'kind:picture' for images, 'datemodified:today' for recent files." },
+                { title: "Search by content", content: "Search for words inside documents, not just file names." },
+                { title: "Use file properties", content: "Right-click a file and check Properties to see useful search information." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the most effective way to search for files?",
+            options: [
+              "Always search the entire computer",
+              "Use specific keywords and file types",
+              "Only search by exact file names",
+              "Never use search - browse manually"
+            ],
+            answer: 1,
+            explanation: "Using specific keywords and file types helps narrow down search results to find files more quickly."
+          },
+          {
+            question: "If you can't remember a file name, what's a good search strategy?",
+            options: [
+              "Give up and recreate the file",
+              "Search by file type and approximate date",
+              "Search random words",
+              "Look through every folder manually"
+            ],
+            answer: 1,
+            explanation: "Searching by file type (.pdf, .jpg, etc.) and approximate creation date can help find files when you don't remember the exact name."
+          }
+        ]
+      },
+
+      "deleting-recovering": {
+        title: "Deleting & Recovering Files",
+        description: "Learn safe file deletion practices and how to recover files when needed.",
+        objectives: [
+          "Understand different ways to delete files",
+          "Learn about the Recycle Bin or Trash",
+          "Practice safe deletion techniques",
+          "Know how to recover accidentally deleted files"
+        ],
+        videoTitle: "Safe File Deletion and Recovery",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🗑️ Let's Practice: Safe File Management",
+          devices: {
+            phone: {
+              title: "Mobile File Deletion",
+              steps: [
+                { title: "Delete files safely", content: "Long-press a file you don't need and select 'Delete' or tap the trash icon." },
+                { title: "Check Recently Deleted", content: "Look for 'Recently Deleted' or 'Trash' folder to see deleted files." },
+                { title: "Recover deleted files", content: "In Recently Deleted, tap a file and select 'Restore' to get it back." },
+                { title: "Permanent deletion", content: "Empty the Recently Deleted folder only when you're sure you don't need those files." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Recovery",
+              steps: [
+                { title: "Use trash/recycle bin", content: "Deleted files usually go to a trash folder first, not permanent deletion." },
+                { title: "Check cloud backups", content: "If you have cloud sync enabled, check online for copies of deleted files." },
+                { title: "Time limits", content: "Remember that most trash folders automatically empty after 30 days." },
+                { title: "Be selective", content: "Only delete files you're certain you don't need - storage is usually cheaper than losing important data." }
+              ]
+            },
+            computer: {
+              title: "Computer File Recovery",
+              steps: [
+                { title: "Use Recycle Bin", content: "Check the Recycle Bin on your desktop - most deleted files go there first." },
+                { title: "Restore from Recycle Bin", content: "Right-click a file in Recycle Bin and select 'Restore' to put it back." },
+                { title: "Shift+Delete warning", content: "Never use Shift+Delete unless you want to permanently delete immediately." },
+                { title: "File recovery software", content: "For permanently deleted files, software like Recuva can sometimes recover them." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What happens when you delete a file normally?",
+            options: [
+              "It's permanently destroyed immediately",
+              "It goes to the Recycle Bin/Trash first",
+              "It's automatically backed up",
+              "Nothing happens"
+            ],
+            answer: 1,
+            explanation: "Most systems move deleted files to a Recycle Bin or Trash folder first, giving you a chance to recover them."
+          },
+          {
+            question: "When should you empty the Recycle Bin?",
+            options: [
+              "Every day automatically",
+              "Only when you're sure you don't need those files",
+              "Never",
+              "Immediately after deleting anything"
+            ],
+            answer: 1,
+            explanation: "Only empty the Recycle Bin when you're confident you won't need any of those files again."
+          }
+        ]
+      },
+
+      "creating-folders": {
+        title: "Creating Folders",
+        description: "Learn how to create new folders to organize your files effectively.",
+        objectives: [
+          "Create new folders on different devices",
+          "Choose appropriate folder names",
+          "Understand folder hierarchies and structure",
+          "Practice creating organized folder systems"
+        ],
+        videoTitle: "How to Create and Organize Folders",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "📁 Let's Practice: Creating Your First Folders",
+          devices: {
+            phone: {
+              title: "Mobile Folder Creation",
+              steps: [
+                { title: "Open file manager", content: "Open your Files app and navigate to where you want to create a folder (like Internal Storage)." },
+                { title: "Create new folder", content: "Look for a '+' button, 'New Folder' option, or three-dot menu with 'Create folder' option." },
+                { title: "Name your folder", content: "Type a descriptive name like 'My Photos 2024' or 'Important Documents'." },
+                { title: "Verify creation", content: "Check that your new folder appears in the list and tap it to make sure it opens." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Folder Organization",
+              steps: [
+                { title: "Navigate to location", content: "Choose where to create your folder - Documents, Desktop, or a specific location." },
+                { title: "Create folder", content: "Use the '+' button or long-press in empty space to bring up context menu with 'New Folder'." },
+                { title: "Name strategically", content: "Use clear names that will make sense later, like 'Work Projects' or 'Family Photos'." },
+                { title: "Test the folder", content: "Open it to confirm it works, then practice navigating back out." }
+              ]
+            },
+            computer: {
+              title: "Computer Folder Management",
+              steps: [
+                { title: "Choose location", content: "Decide where to create the folder - Desktop, Documents, or inside another folder." },
+                { title: "Right-click method", content: "Right-click in empty space, select 'New' > 'Folder' from the context menu." },
+                { title: "Alternative method", content: "Use Ctrl+Shift+N keyboard shortcut to quickly create a new folder." },
+                { title: "Rename and organize", content: "Type a meaningful name, then consider creating subfolders if needed." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Where is the best place to create a folder for storing family photos?",
+            options: [
+              "In the Recycle Bin",
+              "In the Pictures or Photos folder",
+              "In the System folder",
+              "In the Program Files folder"
+            ],
+            answer: 1,
+            explanation: "The Pictures or Photos folder is specifically designed for storing image files and family photos."
+          },
+          {
+            question: "What makes a good folder name?",
+            options: [
+              "It should be as short as possible",
+              "It should be descriptive and meaningful",
+              "It should contain special characters",
+              "It should be in all capital letters"
+            ],
+            answer: 1,
+            explanation: "Good folder names are descriptive and meaningful so you can easily understand what's inside them later."
+          }
+        ]
+      },
+
+      "moving-copying": {
+        title: "Moving & Copying Files",
+        description: "Master the essential skills of moving and copying files between folders.",
+        objectives: [
+          "Understand the difference between moving and copying",
+          "Move files to new locations", 
+          "Copy files to create duplicates",
+          "Use cut, copy, and paste operations"
+        ],
+        videoTitle: "Moving and Copying Files Safely",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "📋 Let's Practice: File Operations",
+          devices: {
+            phone: {
+              title: "Mobile File Operations",
+              steps: [
+                { title: "Select a file", content: "Long-press on a file to select it. You'll see it highlighted and options appear." },
+                { title: "Try copying", content: "Look for 'Copy' option, tap it, then navigate to another folder and tap 'Paste'." },
+                { title: "Practice moving", content: "Select a file, choose 'Cut' or 'Move', navigate to destination folder, and 'Paste'." },
+                { title: "Understand the difference", content: "Copy creates a duplicate (original stays), Move relocates the file (original disappears)." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Management",
+              steps: [
+                { title: "Multi-select files", content: "Long-press one file, then tap others to select multiple files at once." },
+                { title: "Drag and drop", content: "On some tablets, you can drag selected files directly to another folder." },
+                { title: "Use copy/paste", content: "Select files, use Copy, navigate to destination, and Paste them." },
+                { title: "Organize efficiently", content: "Practice moving related files into appropriate folders for better organization." }
+              ]
+            },
+            computer: {
+              title: "Computer File Operations",
+              steps: [
+                { title: "Select files", content: "Click to select one file, or Ctrl+click to select multiple files." },
+                { title: "Copy with Ctrl+C", content: "Select files and press Ctrl+C to copy, or Ctrl+X to cut (move)." },
+                { title: "Navigate and paste", content: "Go to destination folder and press Ctrl+V to paste the files." },
+                { title: "Drag and drop", content: "Try dragging files directly from one folder to another - hold Ctrl while dragging to copy." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What happens when you 'cut' a file?",
+            options: [
+              "The file is deleted permanently",
+              "The file is copied to clipboard and removed from original location when pasted",
+              "The file is compressed",
+              "Nothing happens"
+            ],
+            answer: 1,
+            explanation: "'Cut' removes the file from its original location and places it in your new location when you paste - this is moving."
+          },
+          {
+            question: "If you want to have the same file in two different folders, you should:",
+            options: [
+              "Move the file back and forth",
+              "Copy the file to create a duplicate",
+              "Create a shortcut only",
+              "Rename the file"
+            ],
+            answer: 1,
+            explanation: "Copying creates a duplicate, so you'll have the same file in both locations independently."
+          }
+        ]
+      },
+
+      "backup-basics": {
+        title: "Backup Basics",
+        description: "Learn essential backup strategies to protect your important files from loss.",
+        objectives: [
+          "Understand why backups are important",
+          "Learn different backup methods",
+          "Set up basic backup routines",
+          "Know how to restore files from backups"
+        ],
+        videoTitle: "Protecting Your Files with Backups",
+        videoDuration: "9 minutes",
+        practice: {
+          title: "💾 Let's Practice: Creating Backups",
+          devices: {
+            phone: {
+              title: "Mobile Backup Setup",
+              steps: [
+                { title: "Enable cloud backup", content: "Go to Settings > Backup (Android) or Settings > Apple ID > iCloud (iOS) and turn on backup." },
+                { title: "Choose what to backup", content: "Select important items like photos, contacts, and app data for automatic backup." },
+                { title: "Manual backup to computer", content: "Connect your phone to computer with USB cable and copy important files manually." },
+                { title: "Test your backup", content: "Verify that your files are actually being backed up by checking your cloud storage." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Backup Strategies",
+              steps: [
+                { title: "Set up automatic backup", content: "Enable cloud backup in your tablet's settings for automatic file protection." },
+                { title: "External storage backup", content: "Use a USB drive or SD card to manually backup important documents and photos." },
+                { title: "Email important files", content: "For critical documents, email them to yourself as an additional backup." },
+                { title: "Regular backup schedule", content: "Set reminders to backup important files weekly or monthly." }
+              ]
+            },
+            computer: {
+              title: "Computer Backup Systems",
+              steps: [
+                { title: "Use built-in backup", content: "Windows: File History or Backup and Restore. Mac: Time Machine backup." },
+                { title: "External drive backup", content: "Connect external hard drive and copy important folders to it regularly." },
+                { title: "Cloud storage backup", content: "Use Google Drive, OneDrive, or Dropbox to backup important documents." },
+                { title: "Create backup routine", content: "Schedule regular backups - daily for work files, weekly for personal files." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "How often should you backup important files?",
+            options: [
+              "Once a year",
+              "Only when you remember",
+              "Regularly - weekly or monthly",
+              "Never, it's not necessary"
+            ],
+            answer: 2,
+            explanation: "Regular backups (weekly or monthly) ensure you don't lose much data if something goes wrong with your device."
+          },
+          {
+            question: "What's the best backup strategy?",
+            options: [
+              "Only backup to the cloud",
+              "Only backup to external drives",
+              "Use multiple backup methods (cloud + external)",
+              "Don't backup anything"
+            ],
+            answer: 2,
+            explanation: "Multiple backup methods provide the best protection - if one fails, you still have your files safe elsewhere."
+          }
+        ]
+      },
+
+      "file-security": {
+        title: "File Security & Privacy",
+        description: "Learn how to protect your files and personal information from unauthorized access.",
+        objectives: [
+          "Understand the importance of file security",
+          "Learn different file encryption methods",
+          "Set up password protection for files",
+          "Practice safe file sharing"
+        ],
+        videoTitle: "Protecting Your Files with Encryption",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🔒 Let's Practice: File Encryption",
+          devices: {
+            phone: {
+              title: "Mobile Encryption",
+              steps: [
+                { title: "Enable encryption", content: "Go to Settings > Security > Encryption and turn on encryption." },
+                { title: "Set up fingerprint or pattern lock", content: "Use your device's security features to lock your files." },
+                { title: "Practice encrypting files", content: "Try encrypting a file on your device and see how it's protected." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Encryption",
+              steps: [
+                { title: "Enable encryption", content: "Go to Settings > Security > Encryption and turn on encryption." },
+                { title: "Set up fingerprint or pattern lock", content: "Use your device's security features to lock your files." },
+                { title: "Practice encrypting files", content: "Try encrypting a file on your device and see how it's protected." }
+              ]
+            },
+            computer: {
+              title: "Computer Encryption",
+              steps: [
+                { title: "Enable encryption", content: "Go to Control Panel > System and Security > BitLocker or System Preferences > Security & Privacy > FileVault." },
+                { title: "Set up password protection", content: "Use a strong password to protect your files." },
+                { title: "Practice encrypting files", content: "Try encrypting a file on your computer and see how it's protected." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the primary purpose of file encryption?",
+            options: [
+              "To make files smaller",
+              "To protect files from viruses",
+              "To prevent unauthorized access",
+              "To make files larger"
+            ],
+            answer: 2,
+            explanation: "File encryption is primarily used to protect files from unauthorized access."
+          },
+          {
+            question: "Which of these is not a common file encryption method?",
+            options: [
+              "AES encryption",
+              "RSA encryption",
+              "MD5 encryption",
+              "SHA-256 encryption"
+            ],
+            answer: 2,
+            explanation: "MD5 encryption is not a common file encryption method."
+          }
+        ]
+      },
+
+      "maintenance-tips": {
+        title: "Maintenance & Best Practices",
+        description: "Learn how to maintain and optimize your file management skills over time.",
+        objectives: [
+          "Understand the importance of regular maintenance",
+          "Learn different maintenance techniques",
+          "Set up regular maintenance routines",
+          "Practice effective file management strategies"
+        ],
+        videoTitle: "Maintaining Your File Management Skills",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🔧 Let's Practice: File Maintenance",
+          devices: {
+            phone: {
+              title: "Mobile File Maintenance",
+              steps: [
+                { title: "Regularly clean up unused files", content: "Go to Settings > Storage > Internal Storage and delete files you no longer need." },
+                { title: "Use cloud storage", content: "Take advantage of cloud storage services to free up space on your device." },
+                { title: "Practice file organization", content: "Try organizing your files into categories and subcategories for better management." }
+              ]
+            },
+            tablet: {
+              title: "Tablet File Maintenance",
+              steps: [
+                { title: "Regularly clean up unused files", content: "Go to Settings > Storage > Internal Storage and delete files you no longer need." },
+                { title: "Use cloud storage", content: "Take advantage of cloud storage services to free up space on your device." },
+                { title: "Practice file organization", content: "Try organizing your files into categories and subcategories for better management." }
+              ]
+            },
+            computer: {
+              title: "Computer File Maintenance",
+              steps: [
+                { title: "Regularly clean up unused files", content: "Go to Control Panel > Storage > Disk Cleanup and delete files you no longer need." },
+                { title: "Use cloud storage", content: "Take advantage of cloud storage services to free up space on your device." },
+                { title: "Practice file organization", content: "Try organizing your files into categories and subcategories for better management." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the most effective way to maintain your file management skills?",
+            options: [
+              "Only practice when you have time",
+              "Regularly practice and learn new techniques",
+              "Practice only when you're in a hurry",
+              "Never practice"
+            ],
+            answer: 1,
+            explanation: "Regular practice and learning new techniques is the most effective way to maintain your file management skills."
+          },
+          {
+            question: "Which of these is not a good file management practice?",
+            options: [
+              "Regularly clean up unused files",
+              "Use cloud storage effectively",
+              "Store files in disorganized folders",
+              "Never delete files"
+            ],
+            answer: 3,
+            explanation: "Storing files in disorganized folders is not a good file management practice."
+          }
+        ]
+      }
+    };
+
+    // ====== LESSON STATE MANAGEMENT ======
+    let currentLesson = 'understanding-files';
+    const courseKey = 'file-management';
+    
+    // Function to get user-specific progress (supports both regular and guest users)
+    function getUserSpecificData() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser) {
+        return { completedLessons: [], courseProgress: {} };
+      }
+      
+      // For guest users, use their guest ID; for regular users, use email
+      const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const completedLessons = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+      const courseProgress = JSON.parse(localStorage.getItem(`courseProgress_${courseKey}_${userId}`) || '{}');
+      
+      return { completedLessons, courseProgress, userId };
+    }
+    
+    let { completedLessons, courseProgress } = getUserSpecificData();
+
+    // ====== LESSON NAVIGATION ======
+    const lessonOrder = [
+      'understanding-files', 'file-types', 'file-explorer', 'creating-folders',
+      'naming-files', 'organizing-system', 'moving-copying', 'searching-files',
+      'deleting-recovering', 'backup-basics', 'file-security', 'maintenance-tips'
+    ];
+
+    function getNextLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex < lessonOrder.length - 1 ? lessonOrder[currentIndex + 1] : null;
+    }
+
+    function getPreviousLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex > 0 ? lessonOrder[currentIndex - 1] : null;
+    }
+
+    // ====== RENDER LESSON CONTENT ======
+    function renderLesson(lessonId) {
+      const lesson = lessons[lessonId];
+      if (!lesson) return;
+
+      const mainContent = document.getElementById('lessonContent');
+
+      let html = `
+        <div class="lesson-header">
+          <h1 class="lesson-title">${lesson.title}</h1>
+          <p class="lesson-description">${lesson.description}</p>
+        </div>
+
+        <div class="lesson-objectives">
+          <h3 class="objectives-title">🎯 Learning Objectives</h3>
+          <ul class="objectives-list">
+            ${lesson.objectives.map(obj => `<li>${obj}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="video-section">
+          <div class="video-placeholder">
+            <h4 class="video-title">${lesson.videoTitle}</h4>
+            <p class="video-duration">${lesson.videoDuration}</p>
+          </div>
+          <p><strong>📺 Watch this video</strong> to see these concepts demonstrated step-by-step. You can pause and rewatch any part as many times as you need.</p>
+        </div>
+
+        <div class="practice-section">
+          <h3 class="practice-title">${lesson.practice.title}</h3>
+          <div class="device-tabs">
+            ${Object.keys(lesson.practice.devices).map(device => 
+              `<button class="device-tab ${device === 'phone' ? 'active' : ''}" data-device="${device}">
+                ${device === 'phone' ? '📱 Phone' : device === 'tablet' ? '📱 Tablet' : '💻 Computer'}
+              </button>`
+            ).join('')}
+          </div>
+          
+          ${Object.entries(lesson.practice.devices).map(([deviceType, deviceData]) => `
+            <div class="device-content ${deviceType === 'phone' ? 'active' : ''}" data-device="${deviceType}">
+              <h4>${deviceData.title}</h4>
+              <div class="step-by-step">
+                ${deviceData.steps.map(step => `
+                  <div class="step">
+                    <h4>${step.title}</h4>
+                    <p>${step.content}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="quiz-section">
+          <h3 class="quiz-title">🧠 Knowledge Check</h3>
+          ${lesson.quiz.map((question, idx) => `
+            <div class="question" data-question="${idx}">
+              <p class="question-text">${question.question}</p>
+              <ul class="options">
+                ${question.options.map((option, optionIdx) => `
+                  <li class="option">
+                    <label>
+                      <input type="radio" name="q${idx}" value="${optionIdx}">
+                      <span>${option}</span>
+                    </label>
+                  </li>
+                `).join('')}
+              </ul>
+              <div class="feedback" id="feedback-${idx}"></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="lesson-navigation">
+          <button class="nav-btn secondary" id="prevBtn" ${getPreviousLesson(lessonId) ? '' : 'disabled'}>
+            ← Previous Lesson
+          </button>
+          <button class="nav-btn" id="nextBtn" onclick="completeLesson('${lessonId}')">
+            ${getNextLesson(lessonId) ? 'Mark Complete & Continue →' : 'Complete Course 🎉'}
+          </button>
+        </div>
+      `;
+
+      mainContent.innerHTML = html;
+      setupLessonInteractions(lesson, lessonId);
+      updateProgress();
+    }
+
+    // ====== LESSON INTERACTIONS ======
+    function setupLessonInteractions(lesson, lessonId) {
+      // Device tab switching
+      document.querySelectorAll('.device-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const device = tab.dataset.device;
+          
+          // Update tab states
+          document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Update content visibility
+          document.querySelectorAll('.device-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          document.querySelector(`[data-device="${device}"]`).classList.add('active');
+        });
+      });
+
+      // Quiz interactions
+      document.querySelectorAll('.question').forEach((questionEl, questionIdx) => {
+        const question = lesson.quiz[questionIdx];
+        const options = questionEl.querySelectorAll('input[type="radio"]');
+        
+        options.forEach(option => {
+          option.addEventListener('change', () => {
+            const selectedAnswer = parseInt(option.value);
+            const feedback = document.getElementById(`feedback-${questionIdx}`);
+            
+            if (selectedAnswer === question.answer) {
+              feedback.innerHTML = `<strong>✅ Correct!</strong> ${question.explanation}`;
+              feedback.className = 'feedback correct';
+              feedback.style.display = 'block';
+            } else {
+              feedback.innerHTML = `<strong>❌ Not quite.</strong> ${question.explanation}`;
+              feedback.className = 'feedback incorrect';
+              feedback.style.display = 'block';
+            }
+          });
+        });
+      });
+
+      // Navigation
+      const prevBtn = document.getElementById('prevBtn');
+      const prevLesson = getPreviousLesson(lessonId);
+      if (prevBtn && prevLesson) {
+        prevBtn.addEventListener('click', () => loadLesson(prevLesson));
+      }
+    }
+
+    function loadLesson(lessonId) {
+      currentLesson = lessonId;
+      
+      // Update last accessed time
+      localStorage.setItem(`lastAccessed_${courseKey}`, new Date().toISOString());
+      
+      // Update sidebar
+      document.querySelectorAll('.lesson-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lesson === lessonId) {
+          btn.classList.add('active');
+        }
+      });
+      
+      renderLesson(lessonId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function completeLesson(lessonId) {
+      // Get current user data
+      const { completedLessons: currentCompleted, userId } = getUserSpecificData();
+      
+      // Only save progress if user is logged in
+      if (!userId) {
+        alert('Please log in to save your progress!');
+        return;
+      }
+      
+      if (!currentCompleted.includes(lessonId)) {
+        currentCompleted.push(lessonId);
+        localStorage.setItem(`completedLessons_${courseKey}_${userId}`, JSON.stringify(currentCompleted));
+        completedLessons = currentCompleted; // Update global variable
+      }
+      
+      // Update last accessed time (user-specific)
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, new Date().toISOString());
+      updateAllLessonStatus();
+      
+      const nextLesson = getNextLesson(lessonId);
+      if (nextLesson) {
+        setTimeout(() => loadLesson(nextLesson), 500);
+      } else {
+        alert('🎉 Congratulations! You\'ve completed the File Management course!');
+      }
+      
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalLessons = lessonOrder.length;
+      const completedCount = completedLessons.length;
+      const progressPercent = Math.round((completedCount / totalLessons) * 100);
+      
+      document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+      document.getElementById('courseProgress').style.width = `${progressPercent}%`;
+    }
+
+    function updateAllLessonStatus() {
+      lessonOrder.forEach((lessonId, index) => {
+        const lessonBtn = document.querySelector(`[data-lesson="${lessonId}"]`);
+        if (lessonBtn) {
+          const status = lessonBtn.querySelector('.lesson-status');
+          
+          if (completedLessons.includes(lessonId)) {
+            lessonBtn.classList.add('completed');
+            if (status) {
+              status.classList.add('completed');
+              status.textContent = '✓';
+            }
+          } else {
+            lessonBtn.classList.remove('completed');
+            if (status) {
+              status.classList.remove('completed');
+              status.textContent = index + 1;
+            }
+          }
+        }
+      });
+    }
+
+    // ====== SIDEBAR INTERACTIONS ======
+    document.querySelectorAll('.lesson-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lessonId = btn.dataset.lesson;
+        loadLesson(lessonId);
+      });
+    });
+
+    // ====== COURSE ACCESS TRACKING ======
+    function trackCourseAccess() {
+      // Only track if user is logged in
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser || !currentUser.email) {
+        return; // Don't track if not logged in
+      }
+      
+                  // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const courseKey = 'file-management';
+      const timestamp = new Date().toISOString();
+      
+      // Store last accessed time for this specific user
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, timestamp);
+      
+      // Also track in user-specific recent courses list
+      let recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+      recentCourses = recentCourses.filter(course => course.courseKey !== courseKey);
+      recentCourses.unshift({
+        courseKey: courseKey,
+        courseUrl: window.location.pathname,
+        lastAccessed: timestamp
+      });
+      recentCourses = recentCourses.slice(0, 10);
+      localStorage.setItem(`recentCourses_${userId}`, JSON.stringify(recentCourses));
+    }
+
+    // Function to refresh user-specific data
+    function refreshUserData() {
+      const userData = getUserSpecificData();
+      completedLessons = userData.completedLessons;
+      courseProgress = userData.courseProgress;
+      
+      // Update UI to reflect current user's progress
+      updateAllLessonStatus();
+      updateProgress();
+    }
+
+    // ====== USER AUTHENTICATION ======
+    document.addEventListener('DOMContentLoaded', () => {
+      trackCourseAccess();
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const modalOverlay = document.getElementById('logout-modal-overlay');
+
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (signupBtn) signupBtn.style.display = 'none';
+
+      if (modalOverlay) {
+        const cancelBtn = document.getElementById('cancel-logout');
+        const confirmBtn = document.getElementById('confirm-logout');
+
+        cancelBtn?.addEventListener('click', () => {
+          modalOverlay.classList.remove('active');
+        });
+
+        confirmBtn?.addEventListener('click', () => {
+          sessionStorage.removeItem('currentUser');
+          // Refresh data after logout (will clear progress display)
+          refreshUserData();
+          window.location.href = 'index.html';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+          }
+        });
+      }
+
+      loadLesson('understanding-files');
+      // Refresh user data to load their specific progress
+      refreshUserData();
+    });
+  </script>
+</body>
+</html> image.png

@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Management - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+         /* Course Header */
+     .course-intro {
+       background: #9FEDD7;
+       color: #026670;
+       padding: 3rem 0;
+       text-align: center;
+       margin-bottom: 2rem;
+     }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+         .course-title {
+       font-size: clamp(2rem, 5vw, 3.5rem);
+       font-weight: 700;
+       margin-bottom: 1rem;
+       line-height: 1.2;
+       color: #000000;
+     }
+
+     .course-subtitle {
+       font-size: 1.3rem;
+       color: #333333;
+       margin-bottom: 2rem;
+       max-width: 600px;
+       margin-left: auto;
+       margin-right: auto;
+       line-height: 1.4;
+     }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+         .meta-item {
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+       font-size: 1rem;
+      color: #026670;
+       font-weight: 500;
+     }
+
+         .progress-overview {
+       background: rgba(255, 255, 255, 0.8);
+       border: 1px solid rgba(2, 102, 112, 0.2);
+       border-radius: 12px;
+       padding: 1.5rem;
+       max-width: 400px;
+       margin: 0 auto;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+     }
+
+     .progress-bar {
+       background: #d0d0d0;
+       border-radius: 10px;
+       height: 8px;
+       margin-bottom: 0.5rem;
+     }
+
+     .progress-fill {
+       background: var(--primary);
+       height: 100%;
+       border-radius: 10px;
+       width: 0%;
+       transition: width 0.5s ease;
+     }
+
+         .progress-text {
+       font-size: 0.9rem;
+       color: #026670;
+       font-weight: 600;
+     }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+         /* Sidebar */
+    .sidebar {
+       background: white;
+       border-radius: 12px;
+       padding: 1.5rem;
+       height: calc(100vh - 140px);
+      position: sticky;
+       top: 120px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+       overflow-x: hidden;
+     }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">Photo Management Mastery</h1>
+      <p class="course-subtitle">Learn to organize, edit, and share your digital photos with ease. Turn your picture collection from chaos into a beautifully organized library of memories.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>📚</span>
+          <span>4 Units • 12 Lessons</span>
+    </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~2.5 hours total</span>
+  </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner to Intermediate</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: Photo Fundamentals</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="introduction">
+              <div class="lesson-status active">1</div>
+              <span>What Are Digital Photos?</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="gathering-photos">
+              <div class="lesson-status">2</div>
+              <span>Gathering Your Photos</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="photo-apps">
+              <div class="lesson-status">3</div>
+              <span>Choosing Your Photo App</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Organizing Your Library</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="creating-albums">
+              <div class="lesson-status">4</div>
+              <span>Creating Albums & Folders</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="tagging-keywording">
+              <div class="lesson-status">5</div>
+              <span>Tagging & Keywording</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="managing-duplicates">
+              <div class="lesson-status">6</div>
+              <span>Deleting & Managing Duplicates</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: Editing & Enhancing</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="basic-edits">
+              <div class="lesson-status">7</div>
+              <span>Basic Editing: Crop & Rotate</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="improving-lighting">
+              <div class="lesson-status">8</div>
+              <span>Improving Light & Color</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="applying-filters">
+              <div class="lesson-status">9</div>
+              <span>Applying Filters & Effects</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 4: Sharing & Safeguarding</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="sharing-photos">
+              <div class="lesson-status">10</div>
+              <span>Sharing Photos with Others</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="backing-up">
+              <div class="lesson-status">11</div>
+              <span>Backing Up Your Photos</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="course-completion">
+              <div class="lesson-status">12</div>
+              <span>Course Completion & Next Steps</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - Khan Academy Structure ======
+    const lessons = {
+      introduction: {
+        title: "What Are Digital Photos?",
+        description: "Understand the basics of digital photos and why organizing them is important.",
+        objectives: [
+          "Learn what a digital photo is (pixels, file types)",
+          "Understand the benefits of organizing your photos",
+          "Feel motivated to take control of your photo collection",
+          "Identify where your photos are currently stored"
+        ],
+        videoTitle: "Introduction to Digital Photography",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🎯 Let's Practice: Photo Scavenger Hunt",
+          devices: {
+            phone: {
+              title: "Finding Photos on Your Phone",
+              steps: [
+                { title: "Open your Photos app", content: "Locate and open the main photo viewing app on your phone (e.g., Photos, Gallery)." },
+                { title: "Explore different views", content: "Look for 'Library', 'Albums', and 'For You' sections. See how your phone automatically organizes some photos." },
+                { title: "Check your 'Recents'", content: "Find the 'Recents' or 'Camera Roll' album. This is where all your new photos usually go first." },
+                { title: "Search for a photo", content: "Use the search bar in your photos app. Try searching for 'cat,' 'beach,' or a specific month to see what comes up." }
+              ]
+            },
+            computer: {
+              title: "Finding Photos on Your Computer",
+              steps: [
+                { title: "Check the Pictures folder", content: "Open your File Explorer (Windows) or Finder (Mac) and navigate to the 'Pictures' folder. This is a common place for photos." },
+                { title: "Look on your Desktop", content: "Many people save photos directly to their desktop. See if you have any images there." },
+                { title: "Search for photo files", content: "Use your computer's search function to look for common photo file types like '.jpg' or '.png'." },
+                { title: "Explore cloud folders", content: "If you use a service like iCloud, Google Drive, or OneDrive, check for a 'Photos' folder there." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is a major benefit of organizing your digital photos?",
+            options: [
+              "It makes your computer run faster",
+              "It makes it easier to find and enjoy your memories", 
+              "It automatically improves the quality of your photos",
+              "It's the only way to share them"
+            ],
+            answer: 1,
+            explanation: "Organizing your photos helps you quickly find specific memories, create projects, and enjoy your collection without the stress of clutter."
+          },
+          {
+            question: "A digital photo is made up of tiny dots called:",
+            options: [
+              "Pixels",
+              "Megabytes",
+              "Grains",
+              "Frames"
+            ],
+            answer: 0,
+            explanation: "Digital photos are composed of thousands or millions of tiny squares called pixels. The more pixels, the higher the resolution and detail."
+          }
+        ]
+      },
+      
+      "gathering-photos": {
+        title: "Gathering Your Photos",
+        description: "Learn how to collect all your photos from different devices and sources into one central place.",
+        objectives: [
+          "Transfer photos from a camera to a computer",
+          "Move photos from your phone to a computer",
+          "Download photos from emails and text messages",
+          "Consolidate photos into a single main folder"
+        ],
+        videoTitle: "Bringing All Your Photos Together",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "📂 Let's Practice: Photo Consolidation",
+          devices: {
+            phone: {
+              title: "Phone to Computer Transfer",
+              steps: [
+                { title: "Connect your phone", content: "Use your phone's charging cable to connect it to a USB port on your computer." },
+                { title: "Authorize the connection", content: "On your phone, you may see a pop-up asking to 'Trust this computer' or 'Allow file access'. Tap 'Allow'." },
+                { title: "Import using Photos app", content: "Your computer's photo app (like Photos on Windows/Mac) should open and offer to import photos. Follow the prompts." },
+                { title: "Manual transfer (alternative)", content: "Alternatively, open File Explorer/Finder, find your phone under 'Devices', and navigate to the DCIM folder to copy photos manually." }
+              ]
+            },
+            computer: {
+              title: "Camera to Computer Transfer",
+              steps: [
+                { title: "Use the SD card", content: "Turn off your camera and remove the SD memory card." },
+                { title: "Insert SD card into computer", content: "Insert the SD card into your computer's SD card slot. If you don't have one, you'll need a USB card reader." },
+                { title: "Import photos", content: "Your computer should recognize the card and offer to import photos. It's best to copy them to your 'Pictures' folder." },
+                { title: "Safely eject the card", content: "Once copied, always 'Eject' the SD card before physically removing it to prevent data corruption." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the 'DCIM' folder on phones and cameras?",
+            options: [
+              "A folder for documents",
+              "The folder where photos and videos are stored by default",
+              "A folder for deleted items",
+              "A folder for system settings"
+            ],
+            answer: 1,
+            explanation: "DCIM stands for 'Digital Camera Images', and it's the standard folder where most digital cameras and smartphones store the photos you take."
+          },
+          {
+            question: "What is the safest way to remove an SD card from your computer?",
+            options: [
+              "Just pull it out when you're done",
+              "Use the 'Eject' function in your operating system first",
+              "Turn off the computer, then remove it",
+              "Delete the files from the card, then remove it"
+            ],
+            answer: 1,
+            explanation: "Using the 'Eject' function ensures the computer is finished reading or writing to the card, which prevents data corruption and keeps your photos safe."
+          }
+        ]
+      },
+
+      "photo-apps": {
+        title: "Choosing Your Photo App",
+        description: "Explore the best applications for managing your photo library on different devices.",
+        objectives: [
+          "Understand the features of built-in photo apps (Apple Photos, Google Photos, Microsoft Photos)",
+          "Learn the difference between local storage and cloud storage for photos",
+          "Decide which application best fits your needs",
+          "Set up your chosen application for first-time use"
+        ],
+        videoTitle: "The Best Photo Management Apps",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "📱 Let's Practice: App Exploration",
+          devices: {
+            phone: {
+              title: "Exploring Google Photos (Android/iOS)",
+              steps: [
+                { title: "Open Google Photos", content: "If you don't have it, download it from your app store. It's a powerful, free option." },
+                { title: "Explore the tabs", content: "Notice the 'Photos', 'Search', and 'Library' tabs at the bottom. 'Search' is incredibly powerful for finding things." },
+                { title: "Check backup settings", content: "Tap your profile icon in the top right, go to 'Photos settings' > 'Back up & sync' to see if your photos are being saved to the cloud." },
+                { title: "Use the 'Utilities'", content: "In the 'Library' tab, explore 'Utilities'. Google Photos suggests rotations, collages, and animations for you." }
+              ]
+            },
+            computer: {
+              title: "Exploring Apple Photos (Mac) / Microsoft Photos (Windows)",
+              steps: [
+                { title: "Open the default app", content: "Find and open 'Photos' on your Mac or Windows computer. This is your home base for local photo management." },
+                { title: "Import your photos", content: "Use the 'Import' or 'Add' button to bring your consolidated photos into the application." },
+                { title: "Explore organization features", content: "Look for 'Albums', 'People', 'Places', and 'Memories'. See how the app automatically categorizes your photos." },
+                { title: "Try a simple edit", content: "Open a photo and find the 'Edit' button. Try simple adjustments like cropping or enhancing the light." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is a key advantage of using a cloud-based photo service like Google Photos or iCloud Photos?",
+            options: [
+              "It keeps your photos on only one device",
+              "It uses up less internet data",
+              "It syncs your photos across all your devices and provides a backup",
+              "It's completely private and offline"
+            ],
+            answer: 2,
+            explanation: "Cloud services automatically back up your photos and make them accessible and synced across your phone, tablet, and computer."
+          },
+          {
+            question: "What is the primary function of a photo management application?",
+            options: [
+              "To make phone calls",
+              "To browse the internet",
+              "To help you import, organize, edit, and share your photos", 
+              "To create text documents"
+            ],
+            answer: 2,
+            explanation: "Photo management apps are specifically designed to be an all-in-one solution for handling your entire digital photo library."
+          }
+        ]
+      },
+
+      "creating-albums": {
+        title: "Creating Albums & Folders",
+        description: "Learn the art of sorting your photos into albums to easily find your favorite moments.",
+        objectives: [
+          "Understand the difference between albums and folders",
+          "Create new albums for events, people, or places",
+          "Add photos to albums",
+          "Develop a consistent naming strategy for your albums"
+        ],
+        videoTitle: "Organizing with Albums",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "📚 Let's Practice: Album Creation",
+          devices: {
+            phone: {
+              title: "Creating Albums on Your Phone",
+              steps: [
+                { title: "Find the 'Albums' section", content: "In your photo app, go to the 'Library' or 'Albums' tab." },
+                { title: "Create a new album", content: "Look for a '+' icon or a 'New Album' button. Tap it and give your album a name, like 'Family Vacation 2023'." },
+                { title: "Select photos to add", content: "The app will now let you browse your photo library. Tap to select all the photos that belong in this new album." },
+                { title: "Confirm and view", content: "Once you've selected your photos, tap 'Add' or 'Done'. Go back to your albums list to see your newly created album." }
+              ]
+            },
+            computer: {
+              title: "Managing Albums on Your Computer",
+              steps: [
+                { title: "Use the sidebar", content: "In your computer's photo app, look for a sidebar on the left. Find the 'Albums' section." },
+                { title: "Create a new album", content: "Right-click on 'Albums' or look for a '+' button to create a new album. Name it clearly (e.g., 'Hawaii Trip 2024')." },
+                { title: "Drag and drop photos", content: "From your main library view, you can drag photos directly onto the album name in the sidebar to add them." },
+                { title: "Create album folders", content: "For better organization, you can often create folders to hold multiple albums. For example, a 'Vacations' folder could hold albums for each trip." }
+              ]
+            }
+          }
+        },
+            quiz: [
+              {
+            question: "What is a good naming strategy for albums?",
+                options: [
+              "Using random numbers",
+              "Using a consistent format like 'Event Name YYYY'",
+              "Giving them all the same name",
+              "Not naming them at all"
+            ],
+            answer: 1,
+            explanation: "A consistent format like 'Event Name YYYY' (e.g., 'Summer Picnic 2023') makes your albums easy to read, sort, and find later."
+          },
+          {
+            question: "In most photo apps, does adding a photo to an album create a copy of the photo?",
+                options: [
+              "Yes, it doubles the storage space used",
+              "No, it just creates a shortcut or pointer to the original photo",
+              "Yes, but it's a lower quality copy",
+              "It depends on the app"
+            ],
+            answer: 1,
+            explanation: "Most modern apps use a pointer system. Adding a photo to an album doesn't duplicate the file; it just organizes a reference to the single, original image."
+          }
+        ]
+      },
+
+      "tagging-keywording": {
+        title: "Tagging & Keywording",
+        description: "Discover how to use tags, keywords, and other metadata to make your photos searchable.",
+        objectives: [
+          "Understand what metadata is (date, location, keywords)",
+          "Learn to add keywords or tags to your photos",
+          "Use facial recognition features to tag people",
+          "Leverage location data to find photos on a map"
+        ],
+        videoTitle: "Making Your Photos Searchable",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🏷️ Let's Practice: Smart Tagging",
+          devices: {
+            phone: {
+              title: "Using Smart Features on Your Phone",
+              steps: [
+                { title: "Explore the 'People' album", content: "In your photo app (like Google Photos or Apple Photos), find the 'People' or 'People & Pets' album. The app automatically groups faces." },
+                { title: "Name the faces", content: "Tap on a group of photos for one person and add their name. The app will learn and find more photos of them." },
+                { title: "Explore the 'Places' album", content: "Find the 'Places' album to see your photos organized on a world map, based on where they were taken." },
+                { title: "Use the search bar", content: "Search for things like 'mountains,' 'dogs,' or 'sunsets.' Modern apps automatically tag objects and scenes in your photos." }
+              ]
+            },
+            computer: {
+              title: "Adding Manual Keywords on Computer",
+              steps: [
+                { title: "Select a photo", content: "In your computer's photo app, click on a single photo to select it." },
+                { title: "Find the 'Info' panel", content: "Look for an 'Info' button (often an 'i' in a circle) or a 'Keywords' panel. Click it to open the metadata view." },
+                { title: "Add keywords", content: "In the keywords field, type descriptive words separated by commas. For a birthday photo, you could add 'birthday, cake, family, celebration'." },
+                { title: "Add keywords to multiple photos", content: "Select multiple photos at once, open the Info panel, and add keywords that apply to all of them (e.g., 'Beach Vacation')." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "If your phone's location services are on, what useful feature does it enable in your photo app?",
+            options: [
+              "It improves the photo quality",
+              "It automatically tags photos with the location they were taken",
+              "It increases your storage space",
+              "It backs up your photos faster"
+            ],
+            answer: 1,
+            explanation: "Location services allow your phone to 'geotag' photos, which lets your photo app organize them by location and display them on a map."
+          },
+          {
+            question: "Why is adding keywords like 'birthday' or 'vacation' to photos useful?",
+            options: [
+              "It's the only way to create an album",
+              "It makes those photos searchable, so you can easily find all 'vacation' photos later",
+              "It shares them with your contacts automatically",
+              "It changes the file names"
+            ],
+            answer: 1,
+            explanation: "Keywords add searchable data to your photos, allowing you to quickly find all images related to a specific theme or event, even if they are in different albums."
+          }
+        ]
+      },
+
+      "managing-duplicates": {
+        title: "Deleting & Managing Duplicates",
+        description: "Learn safe and effective ways to clean up your library by removing blurry, bad, or duplicate photos.",
+        objectives: [
+          "Identify photos that are safe to delete (blurry, duplicates, poor quality)",
+          "Learn how to delete photos permanently",
+          "Understand the 'Recently Deleted' or 'Trash' folder",
+          "Use tools to help find and manage duplicate photos"
+        ],
+        videoTitle: "Cleaning Up Your Photo Library",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🗑️ Let's Practice: Decluttering",
+          devices: {
+            phone: {
+              title: "Deleting Photos on Your Phone",
+              steps: [
+                { title: "Select photos to delete", content: "Open an album or your main library. Tap 'Select', then tap on all the photos you want to delete." },
+                { title: "Find the trash icon", content: "Look for a trash can icon and tap it. Confirm that you want to delete the selected items." },
+                { title: "Understand 'Recently Deleted'", content: "Deleted photos aren't gone forever right away. They go to a 'Recently Deleted' album for about 30 days." },
+                { title: "Empty the trash", content: "To free up space immediately, go to the 'Recently Deleted' album, select the photos, and choose 'Delete' to remove them permanently." }
+              ]
+            },
+            computer: {
+              title: "Finding Duplicates on Your Computer",
+              steps: [
+                { title: "Sort by file name", content: "In your Pictures folder, sort your files by name. Duplicates often have similar names like 'IMG_1234.jpg' and 'IMG_1234 (1).jpg'." },
+                { title: "Visually inspect burst shots", content: "When you take many photos of the same thing, view them side-by-side. Pick the best one and delete the rest." },
+                { title: "Use a duplicate finder tool", content: "For large libraries, consider a dedicated app (like Gemini 2 for Mac or dupeGuru for Windows) to scan for and help remove duplicates safely." },
+                { title: "Be careful with system libraries", content: "Never delete files directly from inside a photo app's library package. Always delete from within the app itself." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "When you delete a photo from your phone, where does it usually go first?",
+            options: [
+              "It is permanently deleted immediately",
+              "To a 'Recently Deleted' or 'Trash' folder",
+              "It gets uploaded to the cloud",
+              "It gets renamed"
+            ],
+            answer: 1,
+            explanation: "Most photo apps move deleted items to a temporary holding folder for about 30 days, giving you a chance to recover them if you made a mistake."
+          },
+          {
+            question: "What is the safest way to delete photos from a library managed by an app like Apple Photos?",
+            options: [
+              "Find the library file and delete images from inside it",
+              "Delete the photos from within the Photos app itself",
+              "Drag the photos from the app to your computer's trash",
+              "Use a special command line tool"
+            ],
+            answer: 1,
+            explanation: "Always manage your library from within the application. Deleting files directly from the library package can corrupt your entire photo database."
+          }
+        ]
+      },
+
+      "basic-edits": {
+        title: "Basic Editing: Crop & Rotate",
+        description: "Learn the most fundamental and powerful editing tools: cropping and rotating.",
+        objectives: [
+          "Understand how cropping can improve composition",
+          "Use the crop tool to remove distracting elements",
+          "Straighten crooked photos using the rotate tool",
+          "Learn about aspect ratios for different uses (e.g., printing)"
+        ],
+        videoTitle: "Mastering Crop and Rotate",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "✂️ Let's Practice: Simple Edits",
+          devices: {
+            phone: {
+              title: "Editing on Your Phone",
+              steps: [
+                { title: "Open a photo and find 'Edit'", content: "Choose a photo you want to improve and tap the 'Edit' button." },
+                { title: "Find the crop/rotate tool", content: "Look for an icon that looks like a square with rotating arrows. This is the crop and rotate tool." },
+                { title: "Straighten the horizon", content: "Find the straightening dial. Drag it left or right to level a crooked horizon in a landscape photo." },
+                { title: "Crop to improve focus", content: "Drag the corners of the crop box to zoom in on your subject and remove unnecessary background. Tap 'Done' or 'Save' when finished." }
+              ]
+            },
+            computer: {
+              title: "Editing on Your Computer",
+              steps: [
+                { title: "Open a photo in your editor", content: "Open a photo in your chosen photo app and enter its 'Edit' mode." },
+                { title: "Select the crop tool", content: "The crop tool is usually one of the main editing options. Select it to activate the crop handles." },
+                { title: "Use a fixed aspect ratio", content: "Look for an 'Aspect Ratio' option. Choose '4 x 6' if you plan to print a standard photo, or 'Square' for social media." },
+                { title: "Recompose the shot", content: "After setting the ratio, drag the box to recompose your photo. Try placing your subject off-center for a more dynamic look. Click 'Apply' or 'Save'." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does 'cropping' a photo do?",
+            options: [
+              "It changes the colors",
+              "It adds text to the photo",
+              "It trims the edges of the photo to change its composition",
+              "It makes the photo file smaller"
+            ],
+            answer: 2,
+            explanation: "Cropping allows you to remove unwanted outer areas of an image, which can help you focus attention on the main subject and improve the overall composition."
+          },
+          {
+            question: "If a photo of the ocean has a tilted horizon, which tool should you use to fix it?",
+            options: [
+              "The color correction tool",
+              "The filter tool",
+              "The straighten or rotate tool",
+              "The crop tool"
+            ],
+            answer: 2,
+            explanation: "The straighten tool is specifically designed to make minor rotational adjustments to level out horizons or straighten buildings."
+          }
+        ]
+      },
+
+      "improving-lighting": {
+        title: "Improving Light & Color",
+        description: "Learn to make your photos pop by adjusting brightness, contrast, and color.",
+        objectives: [
+          "Use auto-enhance tools for quick improvements",
+          "Adjust brightness/exposure to fix dark or bright photos",
+          "Increase contrast to make photos look less flat",
+          "Boost saturation or vibrance to enhance colors"
+        ],
+        videoTitle: "Bringing Your Photos to Life",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "💡 Let's Practice: Light and Color",
+          devices: {
+            phone: {
+              title: "Quick Enhancements on Phone",
+              steps: [
+                { title: "Find the 'magic wand'", content: "In your phone's editor, look for an 'auto-enhance' button, often shaped like a magic wand. Tap it to see an instant improvement." },
+                { title: "Adjust brightness", content: "Find the 'Light' or 'Exposure' controls. Select a photo that is too dark and slide the brightness control to the right." },
+                { title: "Boost the color", content: "Find the 'Color' or 'Saturation' controls. Gently slide it to the right to make the colors in your photo more vivid." },
+                { title: "Compare before and after", content: "Most editors let you tap and hold the photo to see the original version. This helps you see if you've improved it." }
+              ]
+            },
+            computer: {
+              title: "Precise Adjustments on Computer",
+              steps: [
+                { title: "Open the adjustment panel", content: "In your editor, find the detailed adjustment controls for Light and Color." },
+                { title: "Adjust exposure", content: "Use the exposure slider to set the overall brightness of the image. Make small adjustments." },
+                { title: "Modify highlights and shadows", content: "If a photo has bright skies and dark shadows, try decreasing 'Highlights' and increasing 'Shadows' to balance the light." },
+                { title: "Adjust color temperature", content: "Use the 'Warmth' or 'Temperature' slider to make a photo feel warmer (more yellow) or cooler (more blue)." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "If a photo looks dull and washed out, which adjustment would help make it 'pop'?",
+            options: [
+              "Decreasing brightness",
+              "Increasing contrast",
+              "Increasing warmth",
+              "Decreasing saturation"
+            ],
+            answer: 1,
+            explanation: "Contrast increases the difference between the light and dark areas of a photo, which makes it look less flat and more dynamic."
+          },
+          {
+            question: "What does the 'Saturation' slider do?",
+            options: [
+              "It controls the overall brightness",
+              "It controls the intensity of the colors in the photo",
+              "It controls the sharpness of the photo",
+              "It controls the rotation of the photo"
+            ],
+            answer: 1,
+            explanation: "Saturation controls how vibrant the colors are. Increasing it makes colors stronger, while decreasing it can make them muted or even black and white."
+          }
+        ]
+      },
+
+      "applying-filters": {
+        title: "Applying Filters & Effects",
+        description: "Learn how to use one-tap filters to quickly change the mood and style of your photos.",
+        objectives: [
+          "Understand what filters are and how they work",
+          "Apply different filters to see their effects",
+          "Adjust the intensity of a filter",
+          "Know when a filter can improve a photo (and when not to use one)"
+        ],
+        videoTitle: "The Art of Using Filters",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🎨 Let's Practice: Applying Filters",
+          devices: {
+            phone: {
+              title: "Using Filters on Your Phone",
+              steps: [
+                { title: "Find the filters section", content: "In your photo editor, look for a 'Filters' button (often represented by three overlapping circles)." },
+                { title: "Try different styles", content: "Tap through the various filters like 'Vivid,' 'Dramatic,' or 'Noir/B&W'. See how each one changes the mood of your photo." },
+                { title: "Adjust filter strength", content: "After selecting a filter, look for a slider that appears. Drag this slider to reduce the filter's intensity for a more subtle effect." },
+                { title: "Know when to use them", content: "Filters work great for adding style or consistency to a set of photos. A simple black and white filter can often save a photo with poor color." }
+              ]
+            },
+            computer: {
+              title: "Advanced Filter Effects",
+              steps: [
+                { title: "Locate the effects panel", content: "Computer photo editors often have a dedicated 'Effects' or 'Filters' panel." },
+                { title: "Experiment with categories", content: "Look for categories like 'Vintage,' 'Black & White,' or 'Artistic.' Try a few from each category." },
+                { title: "Stacking adjustments", content: "On a computer, you can often apply a filter and then make additional manual adjustments to light and color for a custom look." },
+                { title: "Create your own presets", content: "Some advanced apps let you save a combination of edits as a custom filter or 'preset' that you can apply to other photos with one click." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is a good reason to use a filter on a photo?",
+            options: [
+              "To permanently change the photo's resolution",
+              "To quickly apply a consistent style or mood",
+              "To make the file size larger",
+              "To add your name to the photo"
+            ],
+            answer: 1,
+            explanation: "Filters are excellent for quickly giving a photo (or a set of photos) a consistent look and feel, like a warm vintage vibe or a dramatic black and white effect."
+          },
+          {
+            question: "If a filter looks too strong on your photo, what should you do?",
+            options: [
+              "Delete the photo and start over",
+              "Choose a different filter",
+              "Look for a slider to reduce the filter's intensity",
+              "Increase the contrast to balance it"
+            ],
+            answer: 2,
+            explanation: "Most modern photo editors allow you to adjust the strength of a filter, giving you full control over how subtle or dramatic the effect is."
+          }
+        ]
+      },
+
+      "sharing-photos": {
+        title: "Sharing Photos with Others",
+        description: "Learn the best ways to share your edited photos with family and friends, both digitally and in print.",
+        objectives: [
+          "Share photos via email and messaging apps",
+          "Create shared albums that others can contribute to",
+          "Understand image size and resolution for sharing",
+          "Learn about services for printing photos and creating photo books"
+        ],
+        videoTitle: "Sharing Your Memories",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "✉️ Let's Practice: Sharing Your Work",
+          devices: {
+            phone: {
+              title: "Sharing from Your Phone",
+              steps: [
+                { title: "Use the 'Share' button", content: "Select one or more photos, then tap the 'Share' icon (a square with an arrow pointing up, or three connected dots)." },
+                { title: "Choose a sharing method", content: "From the share menu, select how you want to share: via Messages, Mail, or another app like WhatsApp or Facebook." },
+                { title: "Create a shared album", content: "In Google Photos or Apple Photos, you can create a 'Shared Album'. Invite family members via their email or phone number. They can view, comment, and even add their own photos." },
+                { title: "Be mindful of image size", content: "When sharing via email, you might be asked to choose an image size. 'Medium' or 'Large' is usually fine and sends faster than 'Actual Size'." }
+              ]
+            },
+            computer: {
+              title: "Printing and Gifting Photos",
+              steps: [
+                { title: "Export your edited photo", content: "Before printing, export a high-quality JPEG version of your edited photo from your photo app." },
+                { title: "Use an online print service", content: "Services like Shutterfly, Mpix, or even local drugstores allow you to upload photos and order prints, books, or calendars." },
+                { title: "Follow the upload instructions", content: "Navigate to the print service's website, create an account, and follow their instructions to upload your exported photos." },
+                { title: "Create a photo book", content: "Try using a service's book-making tool. You can drag and drop your photos into pre-made layouts to create a beautiful, professional-looking photo book." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is a major advantage of a 'Shared Album'?",
+            options: [
+              "It costs a lot of money",
+              "It allows multiple people to view and add photos to a single, collaborative album",
+              "It automatically deletes the photos after 24 hours",
+              "It can only be viewed on a computer"
+            ],
+            answer: 1,
+            explanation: "Shared albums are perfect for family events or trips, as everyone can add their photos to one central place for all to enjoy."
+          },
+          {
+            question: "When emailing a photo, why might you choose a smaller image size instead of 'Actual Size'?",
+            options: [
+              "To make the photo look better",
+              "To make the email send faster and take up less space for the recipient",
+              "To increase the photo's resolution",
+              "To add a filter automatically"
+            ],
+            answer: 1,
+            explanation: "Sending photos at their actual size can create very large emails that are slow to send and receive. Choosing a smaller size makes the process much more efficient."
+          }
+        ]
+      },
+
+      "backing-up": {
+        title: "Backing Up Your Photos",
+        description: "Protect your precious memories by learning how to create secure backups of your photo library.",
+        objectives: [
+          "Understand the importance of the 3-2-1 backup strategy",
+          "Set up an automatic cloud backup service (like iCloud or Google Photos)",
+          "Perform a manual backup to an external hard drive",
+          "Feel confident that your photos are safe from loss"
+        ],
+        videoTitle: "Protecting Your Photos",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "💾 Let's Practice: Secure Backups",
+          devices: {
+            phone: {
+              title: "Setting Up Cloud Backup",
+              steps: [
+                { title: "Open your photo app's settings", content: "Go to the settings within Google Photos or Apple Photos." },
+                { title: "Find the 'Backup' or 'Sync' option", content: "Locate the backup settings and ensure it is turned on." },
+                { title: "Choose your settings", content: "Select 'High Quality' (free unlimited on Google Photos) or 'Original Quality'. Also, choose whether to back up over cellular data or Wi-Fi only." },
+                { title: "Check the backup status", content: "Your app should show you the progress of your backup. Let it run while connected to Wi-Fi and power." }
+              ]
+            },
+            computer: {
+              title: "Backing Up to an External Drive",
+              steps: [
+                { title: "Connect your external hard drive", content: "Plug an external hard drive into your computer. It should appear as a new drive in File Explorer or Finder." },
+                { title: "Locate your main photo folder", content: "Navigate to the folder where all your photos are stored (e.g., the 'Pictures' folder)." },
+                { title: "Copy the folder", content: "Right-click on your main photo folder and select 'Copy'." },
+                { title: "Paste to the external drive", content: "Navigate to your external hard drive, right-click on an empty space, and select 'Paste'. Wait for the copy to complete." },
+                { title: "Schedule regular backups", content: "Set a calendar reminder to do this every month to keep your backup current." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "The '3-2-1' backup rule suggests you should have:",
+            options: [
+              "1 copy on 3 different devices",
+              "3 copies, on 2 different types of media, with 1 off-site",
+              "2 copies on 1 device",
+              "3 copies on 1 external drive"
+            ],
+            answer: 1,
+            explanation: "The 3-2-1 rule is a best practice: 3 total copies of your data, on 2 different types of storage (e.g., computer and external drive), with at least 1 copy located off-site (e.g., cloud backup)."
+          },
+          {
+            question: "What is the main benefit of an automatic cloud backup for your photos?",
+            options: [
+              "It organizes your albums for you",
+              "It edits your photos for you",
+              "It saves your photos off-site without you having to do anything",
+              "It only works if your computer is on"
+            ],
+            answer: 2,
+            explanation: "Automatic cloud backup is a 'set it and forget it' solution that protects your photos from local disasters like fire, theft, or hard drive failure."
+          }
+        ]
+      },
+
+      "course-completion": {
+        title: "Course Completion & Next Steps",
+        description: "Congratulations! Review what you've learned and discover how to continue your photo management journey.",
+        objectives: [
+          "Review the key skills learned in the course",
+          "Feel confident in your ability to manage your photos",
+          "Discover ideas for photo projects (books, slideshows)",
+          "Learn how to maintain your organized library over time"
+        ],
+        videoTitle: "You've Mastered Your Photos!",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🎉 Your Photo Journey Continues",
+          devices: {
+            computer: {
+              title: "Next Steps & Projects",
+              steps: [
+                { title: "Schedule maintenance time", content: "Set a recurring calendar event (e.g., first Sunday of the month) to spend 30 minutes organizing new photos." },
+                { title: "Create a 'Best Of' album", content: "Go through your library and create a new album with your absolute favorite photos from each year." },
+                { title: "Make a photo slideshow", content: "Most photo apps can create a slideshow with music. Create one for a recent vacation or family event to share." },
+                { title: "Start a printing project", content: "Choose 10 photos you love and order prints for your home or as gifts for family members." },
+                { title: "Keep learning", content: "Explore more advanced editing techniques or try a new photo app to continue building your skills." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the best way to keep your photo library organized long-term?",
+            options: [
+              "Organize everything once and then never touch it again",
+              "Schedule regular, short sessions to organize new photos",
+              "Delete all photos older than one year",
+              "Only use your phone for photos from now on"
+            ],
+            answer: 1,
+            explanation: "Spending a little bit of time each month to sort, tag, and back up your new photos is much easier than letting them pile up for a huge organizing project once a year."
+          },
+          {
+            question: "After completing this course, what is the most important takeaway?",
+            options: [
+              "You need to buy the most expensive camera",
+              "Photo management is a continuous, rewarding habit",
+              "You should never delete any photos",
+              "Editing photos is more important than organizing them"
+            ],
+            answer: 1,
+            explanation: "The goal of this course is to empower you to build a lasting habit of managing your photos, ensuring your memories are safe, accessible, and enjoyable for years to come."
+          }
+        ]
+      }
+    };
+
+    // ====== CORE COURSE LOGIC ======
+    const lessonButtons = document.querySelectorAll('.lesson-btn');
+
+    // ====== LESSON STATE MANAGEMENT ======
+    let currentLesson = 'introduction';
+    const courseKey = 'photo-management';
+    const lessonOrder = [
+      'introduction', 'gathering-photos', 'photo-apps', 'creating-albums',
+      'tagging-keywording', 'managing-duplicates', 'basic-edits', 'improving-lighting',
+      'applying-filters', 'sharing-photos', 'backing-up', 'course-completion'
+    ];
+    
+    // Function to get user-specific progress (supports both regular and guest users)
+    function getUserSpecificData() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser) {
+        return { completedLessons: new Set(), courseProgress: {} };
+      }
+      
+      // For guest users, use their guest ID; for regular users, use email
+      const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const savedLessons = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+      const userCompletedLessons = new Set(savedLessons);
+      const courseProgress = JSON.parse(localStorage.getItem(`courseProgress_${courseKey}_${userId}`) || '{}');
+      
+      return { completedLessons: userCompletedLessons, courseProgress, userId };
+    }
+    
+    let completedLessons, courseProgress;
+    
+    function initializeUserData() {
+        const userData = getUserSpecificData();
+        completedLessons = userData.completedLessons;
+        courseProgress = userData.courseProgress;
+    }
+    
+    initializeUserData();
+
+    // ====== RENDER LESSON CONTENT ======
+    function renderLesson(lessonId) {
+      const lesson = lessons[lessonId];
+      if (!lesson) return;
+
+    const mainContent = document.getElementById('lessonContent');
+
+      let html = `
+        <div class="lesson-header">
+          <h1 class="lesson-title">${lesson.title}</h1>
+          <p class="lesson-description">${lesson.description}</p>
+        </div>
+
+        <div class="lesson-objectives">
+          <h3 class="objectives-title">🎯 Learning Objectives</h3>
+          <ul class="objectives-list">
+            ${lesson.objectives.map(obj => `<li>${obj}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="video-section">
+          <div class="video-placeholder">
+            <h4 class="video-title">${lesson.videoTitle}</h4>
+            <p class="video-duration">${lesson.videoDuration}</p>
+          </div>
+          <p><strong>📺 Watch this video</strong> to see these concepts demonstrated step-by-step. You can pause and rewatch any part as many times as you need.</p>
+        </div>
+
+        <div class="practice-section">
+          <h3 class="practice-title">${lesson.practice.title}</h3>
+          <div class="device-tabs">
+            ${Object.keys(lesson.practice.devices).map(device => 
+              `<button class="device-tab ${device === 'phone' ? 'active' : ''}" data-device="${device}">
+                ${device === 'phone' ? '📱 Phone' : device === 'tablet' ? '📱 Tablet' : '💻 Computer'}
+              </button>`
+            ).join('')}
+          </div>
+          
+          ${Object.entries(lesson.practice.devices).map(([deviceType, deviceData]) => `
+            <div class="device-content ${deviceType === 'phone' ? 'active' : ''}" data-device="${deviceType}">
+              <h4>${deviceData.title}</h4>
+              <div class="step-by-step">
+                ${deviceData.steps.map(step => `
+                  <div class="step">
+                    <h4>${step.title}</h4>
+                    <p>${step.content}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="quiz-section">
+          <h3 class="quiz-title">🧠 Knowledge Check</h3>
+          ${lesson.quiz.map((question, idx) => `
+            <div class="question" data-question="${idx}">
+              <p class="question-text">${question.question}</p>
+              <ul class="options">
+                ${question.options.map((option, optionIdx) => `
+                  <li class="option">
+                    <label>
+                      <input type="radio" name="q${idx}" value="${optionIdx}">
+                      <span>${option}</span>
+                    </label>
+                  </li>
+                `).join('')}
+              </ul>
+              <div class="feedback" id="feedback-${idx}"></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="lesson-navigation">
+          <button class="nav-btn secondary" id="prevBtn" ${getPreviousLesson(lessonId) ? '' : 'disabled'}>
+            ← Previous Lesson
+          </button>
+          <button class="nav-btn" id="nextBtn" onclick="completeLesson('${lessonId}')">
+            ${getNextLesson(lessonId) ? 'Mark Complete & Continue →' : 'Complete Course 🎉'}
+          </button>
+        </div>
+      `;
+
+      mainContent.innerHTML = html;
+      setupLessonInteractions(lesson, lessonId);
+      updateProgress();
+    }
+
+    // ====== LESSON INTERACTIONS ======
+    function setupLessonInteractions(lesson, lessonId) {
+      // Device tab switching
+      document.querySelectorAll('.device-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const device = tab.dataset.device;
+          
+          // Update tab states
+          document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Update content visibility
+          document.querySelectorAll('.device-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          document.querySelector(`[data-device="${device}"]`).classList.add('active');
+        });
+      });
+
+      // Quiz interactions
+      document.querySelectorAll('.question').forEach((questionEl, questionIdx) => {
+        const question = lesson.quiz[questionIdx];
+        const options = questionEl.querySelectorAll('input[type="radio"]');
+        
+        options.forEach(option => {
+          option.addEventListener('change', () => {
+            const selectedAnswer = parseInt(option.value);
+            const feedback = document.getElementById(`feedback-${questionIdx}`);
+            
+            if (selectedAnswer === question.answer) {
+              feedback.innerHTML = `<strong>✅ Correct!</strong> ${question.explanation}`;
+              feedback.className = 'feedback correct';
+              feedback.style.display = 'block';
+            } else {
+              feedback.innerHTML = `<strong>❌ Not quite.</strong> ${question.explanation}`;
+              feedback.className = 'feedback incorrect';
+              feedback.style.display = 'block';
+            }
+          });
+        });
+      });
+
+      // Navigation
+      const prevBtn = document.getElementById('prevBtn');
+      const prevLesson = getPreviousLesson(lessonId);
+      if (prevBtn && prevLesson) {
+        prevBtn.addEventListener('click', () => loadLesson(prevLesson));
+      }
+    }
+
+    // ====== LESSON NAVIGATION ======
+    function getNextLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex < lessonOrder.length - 1 ? lessonOrder[currentIndex + 1] : null;
+    }
+
+    function getPreviousLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex > 0 ? lessonOrder[currentIndex - 1] : null;
+    }
+
+    function loadLesson(lessonId) {
+      currentLesson = lessonId;
+      
+      // Update last accessed time whenever a lesson is loaded
+      localStorage.setItem(`lastAccessed_${courseKey}`, new Date().toISOString());
+      
+      // Update sidebar
+      document.querySelectorAll('.lesson-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lesson === lessonId) {
+          btn.classList.add('active');
+        }
+      });
+      
+      renderLesson(lessonId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function completeLesson(lessonId) {
+      // Get current user data
+      const { completedLessons: currentCompleted, userId } = getUserSpecificData();
+      
+      // Only save progress if user is logged in
+      if (!userId) {
+        alert('Please log in to save your progress!');
+        return;
+      }
+      
+      const newCompleted = new Set(currentCompleted);
+      if (!newCompleted.has(lessonId)) {
+        newCompleted.add(lessonId);
+        localStorage.setItem(`completedLessons_${courseKey}_${userId}`, JSON.stringify(Array.from(newCompleted)));
+        completedLessons = newCompleted; // Update global variable
+      }
+      
+      // Update last accessed time (user-specific)
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, new Date().toISOString());
+      
+      // Update all lesson statuses (this will auto-complete previous lessons)
+      updateAllLessonStatus();
+      
+      const nextLesson = getNextLesson(lessonId);
+      if (nextLesson) {
+        setTimeout(() => loadLesson(nextLesson), 500);
+      } else {
+        // Course completed!
+        alert('🎉 Congratulations! You\'ve completed the course!');
+      }
+      
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalLessons = lessonOrder.length;
+      const completedCount = completedLessons.size;
+      const progressPercent = Math.round((completedCount / totalLessons) * 100);
+      
+      document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+      document.getElementById('courseProgress').style.width = `${progressPercent}%`;
+    }
+
+    function updateAllLessonStatus() {
+      // Mark each lesson based on its completion status
+      lessonOrder.forEach((lessonId, index) => {
+        const lessonBtn = document.querySelector(`[data-lesson="${lessonId}"]`);
+        if (lessonBtn) {
+          const status = lessonBtn.querySelector('.lesson-status');
+          
+          if (completedLessons.has(lessonId)) {
+            // Mark as completed
+            lessonBtn.classList.add('completed');
+            if (status) {
+              status.classList.add('completed');
+              status.textContent = '✓';
+            }
+          } else {
+            // Not completed yet
+            lessonBtn.classList.remove('completed');
+            if (status) {
+              status.classList.remove('completed');
+              status.textContent = index + 1;
+            }
+          }
+        }
+      });
+    }
+
+    // ====== SIDEBAR INTERACTIONS ======
+    document.querySelectorAll('.lesson-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lessonId = btn.dataset.lesson;
+        loadLesson(lessonId);
+      });
+    });
+
+    // ====== COURSE ACCESS TRACKING ======
+    function trackCourseAccess() {
+      // Only track if user is logged in
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser || !currentUser.email) {
+        return; // Don't track if not logged in
+      }
+      
+                  // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const courseKey = 'photo-management';
+      const timestamp = new Date().toISOString();
+      
+      // Store last accessed time for this specific user
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, timestamp);
+      
+      // Also track in user-specific recent courses list
+      let recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+      recentCourses = recentCourses.filter(course => course.courseKey !== courseKey);
+      recentCourses.unshift({
+        courseKey: courseKey,
+        courseUrl: window.location.pathname,
+        lastAccessed: timestamp
+      });
+      recentCourses = recentCourses.slice(0, 10);
+      localStorage.setItem(`recentCourses_${userId}`, JSON.stringify(recentCourses));
+    }
+
+    // Function to refresh user-specific data
+    function refreshUserData() {
+      const userData = getUserSpecificData();
+      completedLessons = userData.completedLessons;
+      courseProgress = userData.courseProgress;
+      
+      // Update UI to reflect current user's progress
+      updateAllLessonStatus();
+      updateProgress();
+    }
+
+    // ====== USER AUTHENTICATION ======
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track that user accessed this course
+      trackCourseAccess();
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const modalOverlay = document.getElementById('logout-modal-overlay');
+
+      // Hide login/signup buttons for all users on course pages
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (signupBtn) signupBtn.style.display = 'none';
+
+      if (modalOverlay) {
+        const cancelBtn = document.getElementById('cancel-logout');
+        const confirmBtn = document.getElementById('confirm-logout');
+
+        cancelBtn?.addEventListener('click', () => {
+          modalOverlay.classList.remove('active');
+        });
+
+        confirmBtn?.addEventListener('click', () => {
+          sessionStorage.removeItem('currentUser');
+          // Refresh data after logout (will clear progress display)
+          initializeUserData();
+          window.location.href = 'index.html';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+          }
+        });
+      }
+
+      // Load initial lesson
+      loadLesson('introduction');
+      
+      // Refresh user data to load their specific progress
+      refreshUserData();
+    });
+  </script>
+</body>
+</html> 

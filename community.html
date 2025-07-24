@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Wisely</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>Home</a></li>
+                    <li><a href="courses.html" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>Courses</a></li>
+                    <li><a href="progress.html" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>My&nbsp;Progress</a></li>
+                    <li><a href="about.html" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>About&nbsp;Us</a></li>
+                    <li><a href="community.html" class="nav-link active"><span class="nav-icon" aria-hidden="true"></span>Community</a></li>
+                    <li><a href="get-involved.html" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>Get&nbsp;Involved</a></li>
+                    <li><a href="contact.html" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>Contact&nbsp;Us</a></li>
+                    <li id="user-info" style="display: none;"><a href="#" id="user-name" class="nav-link"></a></li>
+                    <li id="login-signup-btn"><a href="auth.html" class="nav-link cta-nav"><span class="nav-icon" aria-hidden="true"></span>Login/Sign Up</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Community Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">Join Our Community</h2>
+                <p class="hero-tagline">Connect with fellow learners, ask questions, share your progress, and get support from our friendly community.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Features -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">Community Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Discussion Forums</h3>
+                    <p>Ask questions, share tips, and discuss technology topics with other learners in a safe, supportive environment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Expert Support</h3>
+                    <p>Get help from our team of technology experts and volunteers who are here to guide you through any challenges.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎉</div>
+                    <h3>Celebrate Together</h3>
+                    <p>Share your achievements and celebrate milestones with others who understand the journey of learning technology.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Study Groups</h3>
+                    <p>Join small study groups to learn together, practice skills, and build confidence with peers at similar levels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Discussions -->
+    <section class="curriculum">
+        <div class="container">
+            <h2 class="section-title">Recent Discussions</h2>
+            <div class="curriculum-grid">
+                <div class="curriculum-card">
+                    <div class="curriculum-icon">❓</div>
+                    <h3>Help with Video Calling</h3>
+                    <p>I'm trying to set up Zoom to call my grandchildren. Can someone help me with the first steps?</p>
+                    <div class="discussion-meta">
+                        <span>By: Margaret, 68</span>
+                        <span>5 replies</span>
+                        <span>2 hours ago</span>
+                    </div>
+                    <button class="cta-button">Join Discussion</button>
+                </div>
+                <div class="curriculum-card">
+                    <div class="curriculum-icon">💡</div>
+                    <h3>Great Tip for Smartphone Users</h3>
+                    <p>I discovered that you can make text larger on your phone! This has made such a difference for me.</p>
+                    <div class="discussion-meta">
+                        <span>By: Robert, 72</span>
+                        <span>12 replies</span>
+                        <span>1 day ago</span>
+                    </div>
+                    <button class="cta-button">Read More</button>
+                </div>
+                <div class="curriculum-card">
+                    <div class="curriculum-icon">🎉</div>
+                    <h3>I Completed My First Course!</h3>
+                    <p>Just finished the "Spotting Scams" course. Feeling much more confident about staying safe online!</p>
+                    <div class="discussion-meta">
+                        <span>By: Dorothy, 65</span>
+                        <span>8 replies</span>
+                        <span>3 days ago</span>
+                    </div>
+                    <button class="cta-button">Congratulations!</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Testimonials -->
+    <section class="community">
+        <div class="container">
+            <h2 class="section-title">What Our Community Says</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The community here is so supportive. When I was struggling with my smartphone, everyone was so patient and helpful!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <strong>Margaret, 68</strong>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"I love being able to ask questions without feeling silly. Everyone here understands what it's like to learn technology later in life."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <strong>Robert, 72</strong>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The study groups are fantastic! Learning together makes it so much more enjoyable and less intimidating."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <strong>Dorothy, 65</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="volunteer-section">
+                <h3>Become a Community Volunteer</h3>
+                <p>Help us make technology accessible to more adults 50+. Whether you're tech-savvy or just passionate about helping others, we'd love to have you on our team.</p>
+                <button class="secondary-button">Become a Volunteer</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Wisely</h3>
+                    <p>Making technology accessible for adults 50+</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com/thewiseprojectinitiative" target="_blank" aria-label="Instagram">📱 Instagram</a>
+                        <a href="mailto:infothewiseproject@gmail.com" aria-label="Email">📧 Email</a>
+                        <a href="https://thewiseproject.org" target="_blank" aria-label="Website">🌐 Website</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wisely. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="help-button" class="help-button" aria-label="Need help?" onclick="openModal('contact-modal-overlay')">Help ❓</button>
+
+    <div id="logout-modal-overlay" class="logout-modal-overlay">
+        <div class="logout-modal">
+            <h2>Log Out</h2>
+            <p>Are you sure you want to log out?</p>
+            <div class="logout-modal-buttons">
+                <button id="cancel-logout" class="cancel-logout">Cancel</button>
+                <button id="confirm-logout" class="confirm-logout">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

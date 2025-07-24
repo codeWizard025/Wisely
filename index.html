@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisely - Digital Learning Platform for Adults 50+</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .completion-badge-small {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .completed-course {
+            border: 2px solid var(--primary) !important;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        }
+
+        /* Recent Course Card Styles */
+        .recent-course-card {
+            background: linear-gradient(135deg, #9FEDD7 0%, #FCE38A 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(2, 102, 112, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .recent-course-card .course-icon {
+            font-size: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-course-card .course-info {
+            flex: 1;
+        }
+
+        .recent-course-card .course-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #026670;
+            margin: 0 0 0.25rem 0;
+        }
+
+        .recent-course-card .course-subtitle {
+            font-size: 1rem;
+            color: #026670;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .course-progress-section {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .recent-course-card .progress-bar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .recent-course-card .progress-fill {
+            background: var(--primary);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-percentage {
+            font-weight: 600;
+            color: #026670;
+            font-size: 0.9rem;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .lesson-info {
+            font-size: 0.875rem;
+            color: #026670;
+            opacity: 0.9;
+        }
+
+        .continue-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .continue-button:hover {
+            background: #014e54;
+        }
+
+        /* Responsive design for recent course card */
+        @media (max-width: 768px) {
+            .recent-course-card {
+                padding: 1.5rem;
+            }
+
+            .course-header {
+                margin-bottom: 1rem;
+            }
+
+            .recent-course-card .course-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+            }
+
+            .recent-course-card .course-title {
+                font-size: 1.25rem;
+            }
+
+            .progress-bar-container {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: stretch;
+            }
+
+            .progress-percentage {
+                text-align: center;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <!-- Explore Dropdown and Search - Left -->
+            <div class="left-section">
+                <div class="explore-dropdown">
+                    <button class="explore-btn" aria-label="Browse courses">
+                        Explore ▼
+                    </button>
+                    <div class="explore-menu">
+                        <div class="explore-categories">
+                            <div class="explore-category">
+                                <h3>AVAILABLE COURSES</h3>
+                                <ul>
+                                    <li><a href="getting-started.html">Getting Started with Devices</a></li>
+                                    <li><a href="keyboard-mouse-skills.html">Keyboard & Mouse Skills</a></li>
+                                    <li><a href="navigating-the-internet.html">Basic Internet Navigation</a></li>
+                                    <li><a href="file-management.html">File Management</a></li>
+                                    <li><a href="software-basics.html">Software Basics</a></li>
+                                    <li><a href="email-mastery.html">Email Mastery</a></li>
+                                    <li><a href="photo-management.html">Photo Management</a></li>
+                                    <li><a href="safe-online-shopping.html">Safe Online Shopping</a></li>
+                                </ul>
+                            </div>
+                            <div class="explore-category coming-soon">
+                                <h3>SAFETY & SECURITY</h3>
+                                <ul>
+                                    <li><span class="disabled-link">Scam Detection & Protection</span></li>
+                                    <li><span class="disabled-link">Password Security</span></li>
+                                    <li><span class="disabled-link">Safe Browsing Habits</span></li>
+                                    <li><span class="disabled-link">Privacy Settings</span></li>
+                                </ul>
+                            </div>
+                            <div class="explore-category coming-soon">
+                                <h3>COMMUNICATION</h3>
+                                <ul>
+                                    <li><span class="disabled-link">Video Calling</span></li>
+                                    <li><span class="disabled-link">Social Media Basics</span></li>
+                                    <li><span class="disabled-link">Messaging Apps</span></li>
+                                    <li><span class="disabled-link">Digital Etiquette</span></li>
+                                </ul>
+                            </div>
+                            <div class="explore-category coming-soon">
+                                <h3>WORK & JOBS</h3>
+                                <ul>
+                                    <li><span class="disabled-link">Online Job Search</span></li>
+                                    <li><span class="disabled-link">Remote Work Basics</span></li>
+                                    <li><span class="disabled-link">Digital Resume Building</span></li>
+                                    <li><span class="disabled-link">Introduction to Freelancing</span></li>
+                                </ul>
+                            </div>
+                            <div class="explore-category coming-soon">
+                                <h3>HEALTH & SERVICES</h3>
+                                <ul>
+                                    <li><span class="disabled-link">Telehealth Appointments</span></li>
+                                    <li><span class="disabled-link">Online Banking</span></li>
+                                    <li><span class="disabled-link">Government Services Online</span></li>
+                                    <li><span class="disabled-link">Health & Wellness Apps</span></li>
+                                </ul>
+                            </div>
+                            <div class="explore-category coming-soon">
+                                <h3>PERSONAL INTERESTS</h3>
+                                <ul>
+                                    <li><span class="disabled-link">Digital Entertainment</span></li>
+                                    <li><span class="disabled-link">Exploring Hobbies Online</span></li>
+                                    <li><span class="disabled-link">Genealogy & Family History</span></li>
+                                    <li><span class="disabled-link">Travel Planning Online</span></li>
+                                </ul>
+                            </div>
+                            <div class="explore-category coming-soon">
+                                <h3>ENTERTAINMENT & MEDIA</h3>
+                                <ul>
+                                    <li><span class="disabled-link">Streaming Services (Netflix, YouTube)</span></li>
+                                    <li><span class="disabled-link">Digital Music & Podcasts</span></li>
+                                    <li><span class="disabled-link">Reading News Online</span></li>
+                                    <li><span class="disabled-link">E-books & Audiobooks</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search courses..." aria-label="Search courses">
+                    <button type="button" class="search-btn" aria-label="Search">🔍</button>
+                </div>
+            </div>
+            
+            <!-- Logo - Center -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+                </a>
+            </div>
+            
+            <!-- Navigation - Right -->
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li id="user-info" style="display: none !important;" class="explore-dropdown">
+                        <button id="user-name" class="explore-btn"></button>
+                        <div id="completed-courses-dropdown" class="explore-menu">
+                            <!-- Completed courses will be injected here -->
+                        </div>
+                    </li>
+                    <li id="login-btn"><a href="auth.html#login" class="nav-link"><span class="nav-icon" aria-hidden="true"></span>Log In</a></li>
+                    <li id="signup-btn"><a href="auth.html#signup" class="nav-link cta-nav"><span class="nav-icon" aria-hidden="true"></span>Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Search Results (Hidden by default) -->
+    <div id="search-results" class="search-results" style="display: none;">
+        <div class="container">
+            <h3>Search Results</h3>
+            <div id="search-results-list"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <br>
+    <br>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Learn with Wisely!</h1>
+                <p class="hero-tagline">Learn alongside a growing community of adults 50+ by exploring guided videos, practicing real-world skills, and getting personalized support.</p>
+                <div class="my-progress-section" id="progressSection">
+                    <!-- Progress cards will be dynamically loaded here -->
+                </div>
+                <p class="district-info">Are you a community organization? Learn more of our offerings on <a href="https://thewiseproject.org" target="_blank">our organization page</a>.</p>
+            </div>
+            
+            <div class="hero-image">
+                <div class="slideshow-container">
+                    <!-- Slides -->
+                    <div class="slide fade">
+                        <img src="hero2.png" alt="Wisely hero illustration 2">
+                    </div>
+
+                    <!-- Next/prev buttons -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Categories Section -->
+    <section id="curriculum" class="curriculum">
+        <div class="container">
+            <h1 class="hero-title" style="text-align: center; margin-bottom: 3rem;">Courses</h1>
+            <div class="curriculum-grid">
+                <div class="curriculum-card curriculum-card-expanded">
+                    <div class="curriculum-icon">💻</div>
+                    <h3>Digital Basics: Beginner to Confident</h3>
+                    <div class="curriculum-subcategories">
+                        <div class="curriculum-subcategory">
+                            <ul class="curriculum-topics">
+                                <li><a href="getting-started.html">Getting Started with Devices</a></li>
+                                <li><a href="keyboard-mouse-skills.html">Keyboard & Mouse Skills</a></li>
+                                <li><a href="navigating-the-internet.html">Basic Internet Navigation</a></li>
+                                <li><a href="file-management.html">File Management</a></li>
+                                <li><a href="software-basics.html">Software Basics</a></li>
+                            </ul>
+                        </div>
+                        <div class="curriculum-subcategory">
+                            <ul class="curriculum-topics">
+                                <li><a href="email-mastery.html">Email Mastery</a></li>
+                                <li><a href="photo-management.html">Photo Management</a></li>
+                                <li><a href="safe-online-shopping.html">Safe Online Shopping</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Section -->
+                <div class="coming-soon-header">
+                    <h2 class="coming-soon-title">Coming Soon</h2>
+                </div>
+
+                <div class="curriculum-card coming-soon">
+                    <div class="curriculum-icon">🛡️</div>
+                    <h3>Safety & Security</h3>
+                    <ul class="curriculum-topics">
+                        <li><span class="disabled-link">Scam Detection & Protection</span></li>
+                        <li><span class="disabled-link">Password Security</span></li>
+                        <li><span class="disabled-link">Safe Browsing Habits</span></li>
+                        <li><span class="disabled-link">Privacy Settings</span></li>
+                    </ul>
+                </div>
+
+                <div class="curriculum-card coming-soon">
+                    <div class="curriculum-icon">💬</div>
+                    <h3>Communication</h3>
+                    <ul class="curriculum-topics">
+                        <li><span class="disabled-link">Video Calling</span></li>
+                        <li><span class="disabled-link">Social Media Basics</span></li>
+                        <li><span class="disabled-link">Messaging Apps</span></li>
+                        <li><span class="disabled-link">Digital Etiquette</span></li>
+                    </ul>
+                </div>
+
+                <div class="curriculum-card coming-soon">
+                    <div class="curriculum-icon">💼</div>
+                    <h3>Work & Opportunities</h3>
+                    <ul class="curriculum-topics">
+                        <li><span class="disabled-link">Online Job Search</span></li>
+                        <li><span class="disabled-link">Remote Work Basics</span></li>
+                        <li><span class="disabled-link">Digital Resume Building</span></li>
+                        <li><span class="disabled-link">Introduction to Freelancing</span></li>
+                    </ul>
+                </div>
+
+                <div class="curriculum-card coming-soon">
+                    <div class="curriculum-icon">🏥</div>
+                    <h3>Health & Services</h3>
+                    <ul class="curriculum-topics">
+                        <li><span class="disabled-link">Telehealth Appointments</span></li>
+                        <li><span class="disabled-link">Online Banking</span></li>
+                        <li><span class="disabled-link">Government Services Online</span></li>
+                        <li><span class="disabled-link">Health & Wellness Apps</span></li>
+                    </ul>
+                </div>
+
+                <div class="curriculum-card coming-soon">
+                    <div class="curriculum-icon">🎯</div>
+                    <h3>Personal Interests</h3>
+                    <ul class="curriculum-topics">
+                        <li><span class="disabled-link">Digital Entertainment</span></li>
+                        <li><span class="disabled-link">Exploring Hobbies Online</span></li>
+                        <li><span class="disabled-link">Genealogy & Family History</span></li>
+                        <li><span class="disabled-link">Travel Planning Online</span></li>
+                    </ul>
+                </div>
+
+                <div class="curriculum-card coming-soon">
+                    <div class="curriculum-icon">📺</div>
+                    <h3>Entertainment & Media</h3>
+                    <ul class="curriculum-topics">
+                        <li><span class="disabled-link">Streaming Services (Netflix, YouTube)</span></li>
+                        <li><span class="disabled-link">Digital Music & Podcasts</span></li>
+                        <li><span class="disabled-link">Reading News Online</span></li>
+                        <li><span class="disabled-link">E-books & Audiobooks</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Wisely Works Section -->
+    <section id="why-wisely-works" class="why-wisely-works">
+        <div class="container">
+            <h2 class="section-title">Why Wisely works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Age-appropriate learning</h3>
+                    <p>Adults 50+ learn at their own pace, first building confidence with familiar concepts and then progressing to more advanced digital skills.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h3>Trusted guidance</h3>
+                    <p>Created by experts, Wisely's library of patient, clear instruction covers essential digital skills from email basics through online safety. It's all free for learners and families.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💝</div>
+                    <h3>Support for families</h3>
+                    <p>With Wisely, family members can identify gaps in their loved ones' digital understanding, provide gentle guidance, and help them stay connected and confident online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="impact">
+        <div class="container">
+            <div class="impact-content">
+                <div class="impact-text">
+                    <h2 class="section-title">Wisely boosts digital confidence</h2>
+                    <p>In our community programs, adults were over three times more likely to feel confident using technology after completing Wisely courses. Organizations across the country are partnering with us to ensure all their community members can thrive in the digital world.</p>
+                    <a href="#" onclick="openModal('get-involved-modal-overlay')" class="cta-button">Organizations, start here</a>
+                </div>
+                <div class="impact-visual">
+                    <div class="confidence-chart-v2">
+                        <div class="main-stat">
+                            <span class="main-stat-number" data-target="3.2">0</span><span class="main-stat-suffix">x</span>
+                            <p class="main-stat-label">Increase in Digital Confidence</p>
+                        </div>
+                        <div class="comparison-grid">
+                            <div class="comparison-card before-card">
+                                <img src="img1.png" alt="A senior looking concerned before Wisely" class="card-image">
+                                <div class="card-content">
+                                    <div class="comparison-header">
+                                        <h3>Before Wisely</h3>
+                                    </div>
+                                    <p class="comparison-percentage" data-target="23">0%</p>
+                                    <p class="comparison-label">Felt Confident</p>
+                                    <p class="testimonial-quote">"I was always worried I'd break something."</p>
+                                </div>
+                            </div>
+                            <div class="arrow-container">
+                                <svg class="arrow-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,50 L100,50" stroke-width="4" stroke="var(--primary)" stroke-dasharray="10,10"></path></svg>
+                            </div>
+                            <div class="comparison-card after-card">
+                                <img src="img2.png" alt="A senior smiling after completing Wisely courses" class="card-image">
+                                <div class="card-content">
+                                    <div class="comparison-header">
+                                        <h3>After Wisely</h3>
+                                    </div>
+                                    <p class="comparison-percentage" data-target="74">0%</p>
+                                    <p class="comparison-label">Felt Confident</p>
+                                    <p class="testimonial-quote">"Now I can video call my grandkids all by myself!"</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="chart-note">Based on surveys of 500+ adults ages 50+ who completed Wisely courses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Philosophy Section -->
+    <section id="learning-philosophy" class="learning-philosophy">
+        <div class="container">
+            <div class="philosophy-content">
+                <div class="philosophy-text">
+                    <h2 class="section-title">You can learn anything.</h2>
+                    <p>Build a deep, confident understanding of technology, digital communication, online safety, and so much more.</p>
+                    <a href="auth.html#signup" class="cta-button">Learners, start here</a>
+                </div>
+                <div class="philosophy-image">
+                    <img src="hero.png" alt="Learning illustration" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testimonial" class="testimonial-hero">
+        <div class="container">
+            <div class="testimonial-content">
+                <blockquote>
+                    "I was afraid of technology for years. At 68, I thought it was too late to learn. But the patient instructors at Wisely showed me I could do it. Now I video chat with my grandchildren every week and feel so much more connected to my family."
+                </blockquote>
+                <div class="testimonial-author">
+                    <div class="author-info">
+                        <strong>MARGARET</strong>
+                        <span>WISCONSIN</span>
+                    </div>
+                    <div class="author-image">
+                        <div class="author-avatar">M</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="mission">
+        <div class="container">
+            <div class="mission-content">
+                <div class="mission-image">
+                    <img src="hero2.png" alt="Digital inclusion illustration" />
+                </div>
+                <div class="mission-text">
+                    <p class="mission-tagline">TOGETHER WE CAN MAKE A DIFFERENCE</p>
+                    <h2 class="section-title">Every adult deserves the chance to thrive digitally.</h2>
+                    <p>Across the globe, millions of adults 50+ are being left behind as the world becomes increasingly digital. We're a nonprofit delivering the patient, age-appropriate education they need, and we need your help. You can change the course of someone's digital journey.</p>
+                    <a href="#" onclick="openModal('get-involved-modal-overlay')" class="cta-button">Give them the chance</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Wisely Section -->
+    <section id="join-wisely" class="join-wisely">
+        <div class="container">
+            <h2 class="section-title">Join Wisely today</h2>
+            <div class="join-options">
+                <a href="auth.html#signup" class="join-button join-learners">Learners</a>
+                <a href="#" onclick="openModal('get-involved-modal-overlay')" class="join-button join-teachers">Volunteer Teachers</a>
+                <a href="#" onclick="openModal('contact-modal-overlay')" class="join-button join-organizations">Organizations</a>
+                <a href="#" onclick="openModal('get-involved-modal-overlay')" class="join-button join-family">Family Members</a>
+                <a href="https://thewiseproject.org" class="join-button join-donate" target="_blank">Support Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Wisely</h3>
+                    <p>Making technology easy for adults 50+</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#curriculum">Courses</a></li>
+                        <li><a href="#why-wisely-works">Why Wisely</a></li>
+                        <li><a href="#" onclick="openModal('get-involved-modal-overlay')">Get Involved</a></li>
+                        <li><a href="#" onclick="openModal('contact-modal-overlay')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com/thewiseprojectinitiative" target="_blank" aria-label="Instagram">📱 Instagram</a>
+                        <a href="mailto:infothewiseproject@gmail.com" aria-label="Email">📧 Email</a>
+                        <a href="https://thewiseproject.org" target="_blank" aria-label="Website" class="no-focus-outline">🌐 Website</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Wisely. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <button id="help-button" class="help-button" aria-label="Need help?" onclick="openModal('contact-modal-overlay')">Help ❓</button>
+
+    <div id="logout-modal-overlay" class="logout-modal-overlay">
+        <div class="logout-modal">
+            <h2>Log Out</h2>
+            <p>Are you sure you want to log out?</p>
+            <div class="logout-modal-buttons">
+                <button id="cancel-logout" class="cancel-logout">Cancel</button>
+                <button id="confirm-logout" class="confirm-logout">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Get Involved Modal -->
+    <div id="get-involved-modal-overlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Get Involved</h2>
+                <button class="modal-close" onclick="closeModal('get-involved-modal-overlay')">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="involvement-options-grid">
+                    <div class="involvement-card">
+                        <h3>Share Your Knowledge</h3>
+                        <p>Volunteer as a technology instructor or mentor. Help create a supportive learning environment for adults 50+ who are just beginning their tech journey.</p>
+                        <a href="#" onclick="openModal('contact-modal-overlay')" class="cta-button">Become an Instructor</a>
+                    </div>
+                    <div class="involvement-card">
+                        <h3>Create Content</h3>
+                        <p>Help us develop educational videos, tutorials, and written materials that are easy to understand and age-appropriate for our community.</p>
+                        <a href="#" onclick="openModal('contact-modal-overlay')" class="cta-button">Join Content Team</a>
+                    </div>
+                    <div class="involvement-card">
+                        <h3>Tech Support</h3>
+                        <p>Provide technical support and help maintain our platform. Perfect for those with IT or web development skills who want to give back.</p>
+                        <a href="#" onclick="openModal('contact-modal-overlay')" class="cta-button">Help with Tech</a>
+                    </div>
+                    <div class="involvement-card">
+                        <h3>Spread the Word</h3>
+                        <p>Help us reach more adults 50+ by sharing our mission with your networks, community centers, and local organizations.</p>
+                        <a href="#" onclick="openModal('contact-modal-overlay')" class="cta-button">Become an Ambassador</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal-overlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Contact Us</h2>
+                <button class="modal-close" onclick="closeModal('contact-modal-overlay')">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p>Our team is here to help! Contact us through any of these methods and we'll get back to you as soon as possible.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <a href="mailto:infothewiseproject@gmail.com">infothewiseproject@gmail.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🌐</span>
+                                <a href="https://thewiseproject.org" target="_blank">thewiseproject.org</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <a href="https://instagram.com/thewiseprojectinitiative" target="_blank">@thewiseprojectinitiative</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="modal-name">Name</label>
+                                <input type="text" id="modal-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal-email">Email</label>
+                                <input type="email" id="modal-email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modal-message">How can we help?</label>
+                                <textarea id="modal-message" name="message" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="cta-button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="user.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Course data for search functionality
+        const courses = [
+            {
+                title: "Getting Started with Devices",
+                description: "How to use phones, tablets, and computers with confidence.",
+                url: "getting-started.html",
+                category: "Digital Basics",
+                icon: "💻",
+                totalLessons: 12
+            },
+            {
+                title: "Keyboard & Mouse Skills", 
+                description: "Typing, clicking, shortcuts, and digital comfort-building.",
+                url: "keyboard-mouse-skills.html",
+                category: "Digital Basics",
+                icon: "⌨️",
+                totalLessons: 12
+            },
+            {
+                title: "Navigating the Internet",
+                description: "Safe and smart browsing, search engines, and trusted sites.",
+                url: "navigating-the-internet.html", 
+                category: "Digital Basics",
+                icon: "🌐",
+                totalLessons: 12
+            },
+            {
+                title: "File Management",
+                description: "Organize, store, and manage your digital files effectively.",
+                url: "file-management.html",
+                category: "Digital Basics",
+                icon: "📁",
+                totalLessons: 12
+            },
+            {
+                title: "Software Basics",
+                description: "Understanding software, apps, and programs that make your devices useful.",
+                url: "software-basics.html",
+                category: "Digital Basics",
+                icon: "💻",
+                totalLessons: 12
+            },
+            {
+                title: "Email Mastery",
+                description: "Learn to send, receive, and manage emails like a pro.",
+                url: "email-mastery.html",
+                category: "Digital Basics",
+                icon: "📧",
+                totalLessons: 9
+            },
+            {
+                title: "Photo Management",
+                description: "Organize, edit, and share your digital photos with ease.",
+                url: "photo-management.html",
+                category: "Digital Basics",
+                icon: "🖼️",
+                totalLessons: 12
+            },
+            {
+                title: "Safe Online Shopping",
+                description: "Learn to shop online securely and with confidence.",
+                url: "safe-online-shopping.html",
+                category: "Safety & Security",
+                icon: "🛒",
+                totalLessons: 9
+            },
+            {
+                title: "Video Calling",
+                description: "Connect with family through video calls and messaging.",
+                url: "#video-calling",
+                category: "Communication",
+                icon: "📹",
+                totalLessons: 5
+            },
+            {
+                title: "Scam Detection",
+                description: "Identify and avoid online scams and fraud.",
+                url: "#scam-protection",
+                category: "Safety & Security",
+                icon: "🛡️",
+                totalLessons: 7
+            }
+        ];
+
+        // ====== PROGRESS MANAGEMENT ======
+        function loadUserProgress() {
+            const progressSection = document.getElementById('progressSection');
+            if (!progressSection) return;
+
+            // Check if user is logged in
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser || !currentUser.name) {
+                // User is logged out - show "Start Your Learning Journey" card
+                renderBrowseCoursesCard();
+                return;
+            }
+
+            // User is logged in - check for course progress
+            const userCourses = getUserCoursesProgress();
+            
+            if (userCourses.length === 0) {
+                // Logged in but no course progress - show welcome back card
+                renderWelcomeBackCard(currentUser.name);
+            } else {
+                // Show most recent course progress
+                renderRecentCourseProgress(userCourses);
+            }
+        }
+
+        function getUserCoursesProgress() {
+            const userCoursesMap = new Map();
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (!currentUser) return [];
+
+            // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+
+            // 1. Get courses with actual progress
+            courses.forEach(course => {
+                const courseKey = getCourseKey(course.url);
+                const completedLessons = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+
+                if (completedLessons.length > 0) {
+                    const progress = Math.round((completedLessons.length / course.totalLessons) * 100);
+                    const lastAccessed = localStorage.getItem(`lastAccessed_${courseKey}_${userId}`) || new Date(0).toISOString();
+                    
+                    userCoursesMap.set(courseKey, {
+                        ...course,
+                        courseKey: courseKey,
+                        completedLessons: completedLessons.length,
+                        progress: progress,
+                        lastAccessed: lastAccessed
+                    });
+                }
+            });
+
+            // 2. Get recently accessed courses, which may have 0 progress
+            const recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+
+            recentCourses.forEach(recent => {
+                // If this recently accessed course is not already in our map, it means it has 0 progress. Add it.
+                if (!userCoursesMap.has(recent.courseKey)) {
+                    const courseDetails = courses.find(c => getCourseKey(c.url) === recent.courseKey);
+                    if (courseDetails) {
+                        userCoursesMap.set(recent.courseKey, {
+                            ...courseDetails,
+                            courseKey: recent.courseKey,
+                            completedLessons: 0,
+                            progress: 0,
+                            lastAccessed: recent.lastAccessed
+                        });
+                    }
+                } else {
+                    // If it is in the map, ensure its lastAccessed time is the most recent one.
+                    const existingCourse = userCoursesMap.get(recent.courseKey);
+                    if (new Date(recent.lastAccessed) > new Date(existingCourse.lastAccessed)) {
+                        existingCourse.lastAccessed = recent.lastAccessed;
+                        userCoursesMap.set(recent.courseKey, existingCourse);
+                    }
+                }
+            });
+            
+            // Convert map to array and sort by last accessed
+            const userCourses = Array.from(userCoursesMap.values());
+            return userCourses.sort((a, b) => new Date(b.lastAccessed) - new Date(a.lastAccessed));
+        }
+
+        function getCourseKey(url) {
+            // Extract course key from URL for localStorage
+            if (url.includes('getting-started')) return 'getting-started';
+            if (url.includes('keyboard-mouse-skills')) return 'keyboard-mouse-skills';
+            if (url.includes('navigating-the-internet') || url.includes('navigating-internet')) return 'navigating-internet';
+            if (url.includes('file-management')) return 'file-management';
+            if (url.includes('software-basics')) return 'software-basics';
+            if (url.includes('email-mastery')) return 'email-mastery';
+            if (url.includes('photo-management')) return 'photo-management';
+            if (url.includes('safe-online-shopping')) return 'safe-online-shopping';
+            return url.replace('#', '').replace('/', '-');
+        }
+
+        // Track course access when user visits a course page
+        function trackCourseAccess(courseUrl) {
+            // Only track if user is logged in
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (!currentUser) {
+                return; // Don't track if not logged in
+            }
+            
+            // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+            const courseKey = getCourseKey(courseUrl);
+            const timestamp = new Date().toISOString();
+            
+            // Store last accessed time for this specific user
+            localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, timestamp);
+            
+            // Also track in user-specific "recent courses" list
+            let recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+            
+            // Remove if already exists to avoid duplicates
+            recentCourses = recentCourses.filter(course => course.courseKey !== courseKey);
+            
+            // Add to front of list
+            recentCourses.unshift({
+                courseKey: courseKey,
+                courseUrl: courseUrl,
+                lastAccessed: timestamp
+            });
+            
+            // Keep only last 10 courses
+            recentCourses = recentCourses.slice(0, 10);
+            
+            localStorage.setItem(`recentCourses_${userId}`, JSON.stringify(recentCourses));
+        }
+
+        function renderBrowseCoursesCard() {
+            const progressSection = document.getElementById('progressSection');
+            progressSection.innerHTML = `
+                <div class="browse-courses-card" onclick="scrollToCourses()">
+                    <div class="browse-icon">🎓</div>
+                    <h3 class="browse-title">Start Your Learning Journey</h3>
+                    <p class="browse-subtitle">Explore our courses designed specifically for adults 50+</p>
+                </div>
+            `;
+        }
+
+        function renderWelcomeBackCard(userName) {
+            const progressSection = document.getElementById('progressSection');
+            progressSection.innerHTML = `
+                <div class="browse-courses-card" onclick="scrollToCourses()">
+                    <div class="browse-icon">👋</div>
+                    <h3 class="browse-title">Welcome back, ${userName}!</h3>
+                    <p class="browse-subtitle">Ready to start learning? Explore our courses below</p>
+                </div>
+            `;
+        }
+
+        function renderRecentCourseProgress(userCourses) {
+            const progressSection = document.getElementById('progressSection');
+            
+            if (userCourses.length === 0) {
+                renderWelcomeBackCard(JSON.parse(sessionStorage.getItem('currentUser'))?.name || 'there');
+                return;
+            }
+            
+            // Get the most recently accessed course
+            const mostRecentCourse = userCourses[0]; // Already sorted by lastAccessed
+            
+            // Calculate time since last access for display
+            const lastAccessTime = new Date(mostRecentCourse.lastAccessed);
+            const now = new Date();
+            const timeDiff = now - lastAccessTime;
+            const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            
+            let timeText = 'Recently accessed';
+            if (daysDiff === 0) {
+                timeText = 'Last accessed today';
+            } else if (daysDiff === 1) {
+                timeText = 'Last accessed yesterday';
+            } else if (daysDiff > 1) {
+                timeText = `Last accessed ${daysDiff} days ago`;
+            }
+            
+            const html = `
+                <div class="recent-course-card" onclick="continueLesson('${mostRecentCourse.url}')">
+                    <div class="course-header">
+                        <div class="course-icon">${mostRecentCourse.icon}</div>
+                        <div class="course-info">
+                            <h3 class="course-title">${mostRecentCourse.title}</h3>
+                            <p class="course-subtitle">Continue where you left off • ${timeText}</p>
+                        </div>
+                    </div>
+                    <div class="course-progress-section">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${mostRecentCourse.progress}%"></div>
+                            </div>
+                            <span class="progress-percentage">${mostRecentCourse.progress}% Complete</span>
+                        </div>
+                        <div class="lesson-info">
+                            <span>${mostRecentCourse.completedLessons} of ${mostRecentCourse.totalLessons} lessons completed</span>
+                        </div>
+                    </div>
+                    <div class="continue-button">
+                        <span>Continue Learning →</span>
+                    </div>
+                </div>
+            `;
+
+            progressSection.innerHTML = html;
+        }
+
+        function renderProgressSection(userCourses) {
+            const progressSection = document.getElementById('progressSection');
+            
+            // Filter out completed courses (100% progress)
+            const inProgressCourses = userCourses.filter(course => course.progress < 100);
+            
+            // If no courses in progress, show browse courses card
+            if (inProgressCourses.length === 0) {
+                renderBrowseCoursesCard();
+                return;
+            }
+            
+            // Show only the most recently accessed course that's not completed
+            const mostRecentCourse = inProgressCourses[0]; // Already sorted by lastAccessed
+            
+            let html = `
+                <div class="progress-header">
+                    <h3>Continue Learning</h3>
+                    <p>Pick up where you left off</p>
+                </div>
+            `;
+
+                html += `
+                <div class="progress-card" onclick="continueLesson('${mostRecentCourse.url}')" style="position: relative;">
+                    <div class="course-icon">${mostRecentCourse.icon}</div>
+                        <div class="course-info">
+                        <h4 class="course-title">${mostRecentCourse.title}</h4>
+                            <div class="course-progress">
+                                <div class="course-progress-bar">
+                                <div class="course-progress-fill" style="width: ${mostRecentCourse.progress}%"></div>
+                                </div>
+                            <span class="progress-text">${mostRecentCourse.progress}%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            // If there are other courses in progress, show "View All Progress" option
+            if (inProgressCourses.length > 1) {
+                html += `
+                    <div class="progress-card" onclick="window.location.href='progress.html'" style="border: 2px dashed #e0e0e0; background: #f8f9fa;">
+                        <div class="course-icon">📊</div>
+                        <div class="course-info">
+                            <h4 class="course-title">View All Progress</h4>
+                            <p style="margin: 0; font-size: 14px; color: #666;">See all ${inProgressCourses.length} courses in progress</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            progressSection.innerHTML = html;
+        }
+
+        function continueLesson(courseUrl) {
+            // Track course access
+            trackCourseAccess(courseUrl);
+            
+            // Navigate to course
+            window.location.href = courseUrl;
+        }
+
+        function scrollToCourses() {
+            // Scroll to the course categories section
+            const curriculumSection = document.getElementById('curriculum');
+            if (curriculumSection) {
+                curriculumSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Load progress when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserProgress();
+            
+            // Update navigation based on user login status
+            updateNavigation();
+            
+            // Add click tracking to all course links
+            addCourseTrackingToLinks();
+
+            // New Counter Animation
+            const counters = document.querySelectorAll('.main-stat-number, .comparison-percentage');
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        const isPercentage = counter.classList.contains('comparison-percentage');
+                        const isFloat = counter.classList.contains('main-stat-number');
+
+                        let start = 0;
+                        const duration = 2000; // 2 seconds
+                        const stepTime = 20;
+                        const steps = duration / stepTime;
+                        const increment = target / steps;
+                        
+                        const updateCount = () => {
+                            start += increment;
+                            if (start < target) {
+                                if (isFloat) {
+                                    counter.innerText = start.toFixed(1);
+                                } else {
+                                    counter.innerText = Math.ceil(start) + (isPercentage ? '%' : '');
+                                }
+                                setTimeout(updateCount, stepTime);
+                            } else {
+                                if(isFloat) {
+                                    counter.innerText = target.toFixed(1);
+                                } else {
+                                    counter.innerText = target + (isPercentage ? '%' : '');
+                                }
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter); // Animate only once
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+
+        // Add click tracking to course links
+        function addCourseTrackingToLinks() {
+            // Track clicks on course links
+            const courseLinks = document.querySelectorAll('a[href*="getting-started"], a[href*="keyboard-mouse"], a[href*="navigating-the-internet"], a[href*="file-management"], a[href*="software-basics"], a[href*="email-mastery"], a[href*="photo-management"], a[href*="safe-online-shopping"]');
+            
+            courseLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.includes('.html')) {
+                        trackCourseAccess(href);
+                    }
+                });
+            });
+        }
+
+        // Listen for sessionStorage changes (for login/logout)
+        const originalSetItem = sessionStorage.setItem;
+        sessionStorage.setItem = function(key, value) {
+            originalSetItem.apply(this, arguments);
+            if (key === 'currentUser') {
+                setTimeout(() => {
+                    updateNavigation();
+                    loadUserProgress();
+                }, 100);
+            }
+        };
+
+        const originalRemoveItem = sessionStorage.removeItem;
+        sessionStorage.removeItem = function(key) {
+            originalRemoveItem.apply(this, arguments);
+            if (key === 'currentUser') {
+                setTimeout(() => {
+                    updateNavigation();
+                    loadUserProgress();
+                }, 100);
+            }
+        };
+        
+        // Function to update the navigation based on user login status
+        function updateNavigation() {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (currentUser && currentUser.name) {
+                // Hide both login and signup buttons
+                const loginBtn = document.getElementById('login-btn');
+                const signupBtn = document.getElementById('signup-btn');
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (signupBtn) signupBtn.style.display = 'none';
+                
+                // Show user info with name and setup dropdown
+                const userInfo = document.getElementById('user-info');
+                const userNameBtn = document.getElementById('user-name');
+                const dropdown = document.getElementById('completed-courses-dropdown');
+
+                if (userInfo && userNameBtn && dropdown) {
+                    userNameBtn.textContent = currentUser.name + ' ▼';
+                    userInfo.style.setProperty('display', 'block', 'important');
+                    userInfo.classList.add('visible');
+
+                    // Dropdown toggle
+                    userNameBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    });
+                    
+                    // Populate dropdown
+                    populateCompletedCourses(dropdown);
+                }
+            } else {
+                // Show login and signup buttons
+                const loginBtn = document.getElementById('login-btn');
+                const signupBtn = document.getElementById('signup-btn');
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (signupBtn) signupBtn.style.display = 'block';
+                
+                // Hide user info
+                const userInfo = document.getElementById('user-info');
+                if (userInfo) {
+                    userInfo.style.setProperty('display', 'none', 'important');
+                    userInfo.classList.remove('visible');
+                }
+            }
+        }
+        
+        // Update navigation when user logs in/out in other tabs
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'currentUser') {
+                updateNavigation();
+                loadUserProgress(); // Reload progress when login status changes
+            }
+        });
+
+        // Update navigation and progress when sessionStorage changes
+        window.addEventListener('storage', (e) => {
+            if (e.key && e.key.includes('completedLessons_')) {
+                loadUserProgress(); // Reload progress when course progress changes
+            }
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const searchResultsList = document.getElementById('search-results-list');
+
+        // Change placeholder text and expand search bar on focus/blur
+        const searchContainer = document.querySelector('.search-container');
+        
+        searchInput.addEventListener('focus', function() {
+            this.placeholder = '🔎 Search for a topic (e.g., email, photos, safety)...';
+            searchContainer.classList.add('expanded');
+        });
+
+        searchInput.addEventListener('blur', function() {
+            this.placeholder = 'Search courses...';
+            searchContainer.classList.remove('expanded');
+        });
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            // Only search through available courses (Digital Basics section)
+            // Available courses have actual HTML file URLs, not starting with "#"
+            const availableCourses = courses.filter(course => 
+                !course.url.startsWith('#') && course.url.includes('.html')
+            );
+
+            const filteredCourses = availableCourses.filter(course => 
+                course.title.toLowerCase().includes(query) ||
+                course.description.toLowerCase().includes(query) ||
+                course.category.toLowerCase().includes(query)
+            );
+
+            if (filteredCourses.length > 0) {
+                searchResultsList.innerHTML = filteredCourses.map(course => `
+                    <div class="search-result-item">
+                        <h4><a href="${course.url}">${course.title}</a></h4>
+                        <p>${course.description}</p>
+                        <span class="course-category">${course.category}</span>
+                    </div>
+                `).join('');
+                searchResults.style.display = 'block';
+            } else {
+                searchResultsList.innerHTML = '<p>No courses found matching your search.</p>';
+                searchResults.style.display = 'block';
+            }
+        });
+
+        // Hide search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+
+
+        // Explore dropdown functionality
+        const exploreBtn = document.querySelector('.explore-btn');
+        const exploreMenu = document.querySelector('.explore-menu');
+
+        exploreBtn.addEventListener('click', function() {
+            exploreMenu.style.display = exploreMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!exploreBtn.contains(e.target) && !exploreMenu.contains(e.target)) {
+                exploreMenu.style.display = 'none';
+            }
+        });
+
+        // Show/hide sections based on navigation (replaced by modal functionality)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation is now handled by modals
+        });
+
+        function populateCompletedCourses(dropdown) {
+            const userCourses = getUserCoursesProgress();
+            const completedCourses = userCourses.filter(course => course.progress === 100);
+
+            let html = '<h3>Completed</h3>';
+
+            if (completedCourses.length === 0) {
+                html += '<p style="padding: 0.3rem; text-align: center; color: #666; font-style: italic; font-size: 0.7rem; line-height: 1.2; margin: 0; word-wrap: break-word;">None yet!</p>';
+            } else {
+                completedCourses.forEach(course => {
+                    html += `
+                        <a href="${course.url}" class="completed-course-item">
+                            <div class="course-icon">${course.icon}</div>
+                            <div class="course-info">
+                                <div class="course-title">${course.title}</div>
+                                <div class="course-completion">Course Completed</div>
+                            </div>
+                        </a>
+                    `;
+                });
+            }
+
+            html += `
+                <div class="dropdown-logout-section">
+                    <button id="logout-btn-dropdown" class="cta-button">Log Out</button>
+                </div>
+            `;
+
+            dropdown.innerHTML = html;
+
+            const logoutBtn = document.getElementById('logout-btn-dropdown');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const logoutModal = document.getElementById('logout-modal-overlay');
+                    if (logoutModal) {
+                        logoutModal.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            const exploreMenu = document.querySelector('.explore-menu');
+            const completedMenu = document.getElementById('completed-courses-dropdown');
+            
+            if (exploreMenu && !e.target.closest('.explore-dropdown')) {
+                exploreMenu.style.display = 'none';
+            }
+            if (completedMenu && !e.target.closest('#user-info')) {
+                completedMenu.style.display = 'none';
+            }
+        });
+    </script>
+
+    <script>
+        // Modal functionality - Global functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+
+        // Close modal when clicking outside of it
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeModal(e.target.id);
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModals = document.querySelectorAll('.modal-overlay.active');
+                activeModals.forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard & Mouse Skills - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+         /* Course Header */
+     .course-intro {
+       background: #9FEDD7;
+       color: #026670;
+       padding: 3rem 0;
+       text-align: center;
+       margin-bottom: 2rem;
+     }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+         .course-title {
+       font-size: clamp(2rem, 5vw, 3.5rem);
+       font-weight: 700;
+       margin-bottom: 1rem;
+       line-height: 1.2;
+       color: #000000;
+     }
+
+     .course-subtitle {
+       font-size: 1.3rem;
+       color: #333333;
+       margin-bottom: 2rem;
+       max-width: 600px;
+       margin-left: auto;
+       margin-right: auto;
+       line-height: 1.4;
+     }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+         .meta-item {
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+       font-size: 1rem;
+      color: #026670;
+       font-weight: 500;
+     }
+
+         .progress-overview {
+       background: rgba(255, 255, 255, 0.8);
+       border: 1px solid rgba(2, 102, 112, 0.2);
+       border-radius: 12px;
+       padding: 1.5rem;
+       max-width: 400px;
+       margin: 0 auto;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+     }
+
+     .progress-bar {
+       background: #d0d0d0;
+       border-radius: 10px;
+       height: 8px;
+       margin-bottom: 0.5rem;
+     }
+
+     .progress-fill {
+       background: var(--primary);
+       height: 100%;
+       border-radius: 10px;
+       width: 0%;
+       transition: width 0.5s ease;
+     }
+
+         .progress-text {
+       font-size: 0.9rem;
+       color: #026670;
+       font-weight: 600;
+     }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+         /* Sidebar */
+    .sidebar {
+       background: white;
+       border-radius: 12px;
+       padding: 1.5rem;
+       height: calc(100vh - 140px);
+      position: sticky;
+       top: 120px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+       overflow-x: hidden;
+     }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">Keyboard & Mouse Skills</h1>
+      <p class="course-subtitle">Master typing, clicking, and navigation techniques for computers and laptops. Build confidence with keyboard shortcuts and precise mouse control.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>📚</span>
+          <span>4 Units • 12 Lessons</span>
+    </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~2.5 hours total</span>
+  </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner to Intermediate</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: Keyboard Fundamentals</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="introduction">
+              <div class="lesson-status active">1</div>
+              <span>Keyboard Layout & Key Functions</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="power-button">
+              <div class="lesson-status">2</div>
+              <span>Proper Typing Posture</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="basic-navigation">
+              <div class="lesson-status">3</div>
+              <span>Basic Typing Techniques</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Mouse Mastery</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="touchscreen-basics">
+              <div class="lesson-status">4</div>
+              <span>Mouse Movement & Control</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="mouse-basics">
+              <div class="lesson-status">5</div>
+              <span>Clicking Techniques</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="clicking-practice">
+              <div class="lesson-status">6</div>
+              <span>Scrolling & Navigation</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: Keyboard Shortcuts</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="home-screen">
+              <div class="lesson-status">7</div>
+              <span>Essential Keyboard Shortcuts</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="opening-apps">
+              <div class="lesson-status">8</div>
+              <span>Text Editing Shortcuts</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="switching-apps">
+              <div class="lesson-status">9</div>
+              <span>Navigation Shortcuts</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 4: Advanced Skills</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="guided-practice">
+              <div class="lesson-status">10</div>
+              <span>Typing Practice & Games</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="troubleshooting">
+              <div class="lesson-status">11</div>
+              <span>Keyboard & Mouse Troubleshooting</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="course-completion">
+              <div class="lesson-status">12</div>
+              <span>Mastery Assessment</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - Khan Academy Structure ======
+    const lessons = {
+      introduction: {
+        title: "Keyboard Layout & Key Functions",
+        description: "Discover the layout of a standard keyboard and learn the purpose of different keys and key groups.",
+        objectives: [
+          "Identify letter keys, number keys, and function keys",
+          "Understand the purpose of special keys (Shift, Ctrl, Alt, Space)",
+          "Learn about the numeric keypad and arrow keys",
+          "Feel comfortable locating any key on the keyboard"
+        ],
+        videoTitle: "Understanding Your Keyboard",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "⌨️ Let's Practice: Keyboard Exploration",
+          devices: {
+            computer: {
+              title: "Desktop Keyboard Layout",
+              steps: [
+                { title: "Find the letter keys", content: "The main section has 26 letter keys arranged in QWERTY layout. These are used for typing text." },
+                { title: "Locate number keys", content: "Above the letters are number keys 1-0. These also have symbols when you hold Shift." },
+                { title: "Identify the spacebar", content: "The long key at the bottom is the spacebar - it creates spaces between words." },
+                { title: "Find special keys", content: "Locate Shift (makes capital letters), Ctrl and Alt (used for shortcuts), and Enter (confirms actions)." },
+                { title: "Explore function keys", content: "At the top, F1-F12 keys have special functions like adjusting volume or brightness." }
+              ]
+            },
+            tablet: {
+              title: "Laptop Keyboard Features",
+              steps: [
+                { title: "Compare to desktop", content: "Laptop keyboards are more compact but have the same basic layout as desktop keyboards." },
+                { title: "Find the Fn key", content: "Laptops have a special Fn key that activates secondary functions on F-keys." },
+                { title: "Locate arrow keys", content: "Arrow keys (↑↓←→) help navigate through text and menus without using a mouse." },
+                { title: "Check for numeric keypad", content: "Some laptops have a separate number pad on the right, others integrate numbers with letters." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the purpose of the Shift key on a keyboard?",
+            options: [
+              "To delete text",
+              "To create capital letters and access symbols",
+              "To move the cursor",
+              "To save your work"
+            ],
+            answer: 1,
+            explanation: "The Shift key is used to type capital letters when held with letter keys, and to access the symbols shown on the top of number keys."
+          },
+          {
+            question: "Which keys are used for keyboard shortcuts along with other keys?",
+            options: [
+              "Letter keys only",
+              "Number keys only",
+              "Ctrl, Alt, and sometimes Shift keys",
+              "Function keys only"
+            ],
+            answer: 2,
+            explanation: "Ctrl, Alt, and Shift keys are commonly used in combination with other keys to create shortcuts that perform specific actions quickly."
+          }
+        ]
+      },
+      
+      "power-button": {
+        title: "Proper Typing Posture",
+        description: "Learn the correct way to sit and position your hands for comfortable and efficient typing.",
+        objectives: [
+          "Set up an ergonomic workspace for typing",
+          "Position your hands and fingers correctly on the keyboard",
+          "Maintain good posture while typing",
+          "Prevent strain and fatigue during extended typing sessions"
+        ],
+        videoTitle: "Ergonomic Typing Setup",
+        videoDuration: "4 minutes",
+        practice: {
+          title: "🪑 Let's Practice: Setting Up Your Workspace",
+          devices: {
+            computer: {
+              title: "Desktop Computer Setup",
+              steps: [
+                { title: "Adjust your chair", content: "Sit with your feet flat on the floor and your back straight. Your thighs should be parallel to the floor." },
+                { title: "Position the keyboard", content: "Place the keyboard so your elbows are at about 90 degrees. Your wrists should be straight, not bent up or down." },
+                { title: "Find the home row", content: "Place your left fingers on A-S-D-F and right fingers on J-K-L-; (semicolon). This is the 'home row' position." },
+                { title: "Relax your hands", content: "Keep your hands relaxed and curved naturally. Don't tense up or press keys too hard." },
+                { title: "Check your posture", content: "Sit up straight with your shoulders relaxed. Don't lean forward or hunch over the keyboard." }
+              ]
+            },
+            tablet: {
+              title: "Laptop Typing Setup",
+              steps: [
+                { title: "Open laptop properly", content: "Open your laptop screen to about 90-110 degrees. The screen should be at eye level or slightly below." },
+                { title: "External keyboard option", content: "For extended typing, consider using an external keyboard and mouse with your laptop." },
+                { title: "Laptop on desk", content: "Don't type with the laptop on your lap for long periods. Use a desk or table when possible." },
+                { title: "Take breaks", content: "Every 30 minutes, take a short break to stretch your hands, wrists, and neck." }
+              ]
+            }
+          }
+        },
+            quiz: [
+              {
+            question: "What is the correct angle for your elbows while typing?",
+                options: [
+              "45 degrees",
+              "About 90 degrees",
+              "180 degrees (straight)",
+              "It doesn't matter"
+            ],
+            answer: 1,
+            explanation: "Your elbows should be at about 90 degrees to maintain proper posture and prevent strain while typing."
+          },
+          {
+            question: "Where should your fingers rest when not actively typing?",
+                options: [
+              "Anywhere on the keyboard",
+              "On the space bar",
+              "On the home row (ASDF and JKL;)",
+              "Off the keyboard completely"
+            ],
+            answer: 2,
+            explanation: "The home row position (ASDF for left hand, JKL; for right hand) is the starting position that allows you to reach all keys efficiently."
+          }
+        ]
+      },
+
+      "basic-navigation": {
+        title: "Basic Screen Navigation",
+        description: "Master the fundamental skills of moving around on your device's screen.",
+        objectives: [
+          "Understand different types of screens (touchscreen vs. cursor)",
+          "Learn basic gestures for touchscreens", 
+          "Practice scrolling up and down",
+          "Navigate between different areas of the screen confidently"
+        ],
+        videoTitle: "Screen Navigation Fundamentals",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "📱 Let's Practice: Screen Navigation",
+          devices: {
+            phone: {
+              title: "Touchscreen Navigation",
+              steps: [
+                { title: "Practice tapping", content: "Gently tap icons on your home screen with your fingertip. Don't press hard - a light touch works best." },
+                { title: "Learn to scroll", content: "Put your finger on the screen and slide it up or down to scroll through content. Try this in your contacts or messages." },
+                { title: "Practice swiping", content: "Swipe left or right by placing your finger on screen and quickly sliding sideways." },
+                { title: "Try pinch to zoom", content: "Put two fingers on the screen and pinch together to zoom out, or spread apart to zoom in." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Screen Control",
+              steps: [
+                { title: "Use your full hand", content: "Tablets are bigger, so you can use different fingers. Try using your thumb for bottom buttons and index finger for top items." },
+                { title: "Two-handed scrolling", content: "For long articles, hold the tablet with both hands and use your thumbs to scroll." },
+                { title: "Practice drag and drop", content: "Touch an item, hold it, and drag it to a new location (like moving app icons)." },
+                { title: "Multi-finger gestures", content: "Some tablets respond to multiple finger gestures - try three fingers to switch between apps." }
+              ]
+            },
+            computer: {
+              title: "Mouse & Trackpad Navigation",
+              steps: [
+                { title: "Find your cursor", content: "Look for the small arrow on your screen. Move your mouse or finger on the trackpad to control it." },
+                { title: "Practice clicking", content: "Click on icons and buttons by positioning the cursor over them and pressing the left mouse button once." },
+                { title: "Learn to scroll", content: "Use the scroll wheel on your mouse or slide two fingers on your trackpad to scroll up and down." },
+                { title: "Try right-clicking", content: "Right-click (or two-finger click on trackpad) to see additional options and menus." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "On a touchscreen, how do you scroll down to see more content?",
+            options: [
+              "Tap the bottom of the screen",
+              "Place finger on screen and slide upward",
+              "Shake the device",
+              "Press the power button"
+            ],
+            answer: 1,
+            explanation: "To scroll down and see content below, you swipe upward. Think of it as pushing the content up to reveal what's underneath."
+          },
+          {
+            question: "What happens when you pinch two fingers together on a touchscreen?",
+            options: [
+              "It opens a new app",
+              "It zooms out (makes things smaller)",
+              "It zooms in (makes things bigger)", 
+              "It closes the current app"
+            ],
+            answer: 1,
+            explanation: "Pinching fingers together zooms out, making content smaller so you can see more of it. Spreading fingers apart zooms in."
+          }
+        ]
+      },
+
+      "touchscreen-basics": {
+        title: "Touchscreen Fundamentals",
+        description: "Develop confidence with touchscreen gestures and interactions.",
+        objectives: [
+          "Master the basic touch gestures (tap, swipe, pinch)",
+          "Understand pressure sensitivity and touch responsiveness",
+          "Practice common touchscreen actions safely",
+          "Learn troubleshooting for unresponsive screens"
+        ],
+        videoTitle: "Mastering Touchscreen Interactions",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "✋ Let's Practice: Touchscreen Mastery",
+          devices: {
+            phone: {
+              title: "Phone Touchscreen Skills",
+              steps: [
+                { title: "Perfect your tap", content: "Use the pad of your fingertip, not the nail. Practice tapping app icons - they should open immediately." },
+                { title: "Master the long press", content: "Press and hold an app icon for 2-3 seconds to see additional options (like moving or deleting apps)." },
+                { title: "Practice precise tapping", content: "Try tapping small buttons in apps. If you miss, slow down and aim more carefully." },
+                { title: "Learn swipe patterns", content: "Practice swiping to unlock your phone, swipe between photos, or swipe to delete messages." },
+                { title: "Use pinch zoom effectively", content: "Open a photo and practice pinching to zoom in and out. This helps when text is too small to read." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Touch Techniques",
+              steps: [
+                { title: "Two-handed operation", content: "Hold your tablet with both hands and use your thumbs for most tapping - it's more stable and comfortable." },
+                { title: "Edge swiping", content: "Practice swiping from the very edge of the screen inward - this often brings up special menus." },
+                { title: "Multi-touch gestures", content: "Try using three or four fingers at once for advanced gestures (like switching between apps)." },
+                { title: "Rotation responsiveness", content: "Turn your tablet sideways and back - notice how the screen rotates to match your viewing angle." }
+              ]
+            }
+          }
+        },
+            quiz: [
+              {
+            question: "What should you use to tap on a touchscreen?",
+                options: [
+              "Your fingernail for precision",
+              "The soft pad of your fingertip",
+              "A pen or pencil",
+              "Press as hard as possible"
+            ],
+            answer: 1,
+            explanation: "The soft pad of your fingertip works best with touchscreens. Fingernails and hard objects don't register touches properly."
+          },
+          {
+            question: "If a touchscreen isn't responding to your touch, what should you try first?",
+                options: [
+              "Press harder",
+              "Clean the screen gently with a soft cloth",
+              "Restart the device immediately",
+              "Tap faster"
+            ],
+            answer: 1,
+            explanation: "Often, a dirty or smudged screen doesn't respond well to touch. Gently cleaning it with a soft cloth usually fixes the problem."
+          }
+        ]
+      },
+
+      "mouse-basics": {
+        title: "Mouse & Trackpad Basics",
+        description: "Learn to confidently use a computer mouse and laptop trackpad for precise control.",
+        objectives: [
+          "Understand the difference between mouse and trackpad",
+          "Practice left-click, right-click, and scroll wheel actions",
+          "Learn proper hand positioning and movement",
+          "Master cursor control and accuracy"
+        ],
+        videoTitle: "Mouse and Trackpad Mastery",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🖱️ Let's Practice: Mouse & Trackpad Control",
+          devices: {
+            computer: {
+              title: "Desktop Mouse Skills",
+              steps: [
+                { title: "Find your cursor", content: "Look for the arrow on your screen. Move your mouse gently and watch the cursor follow your movement." },
+                { title: "Practice left-clicking", content: "Point to an icon and press the left mouse button once. This is how you select and open things." },
+                { title: "Try right-clicking", content: "Right-click on your desktop background to see a menu appear. This gives you more options." },
+                { title: "Use the scroll wheel", content: "Roll the wheel in the middle of your mouse up and down to scroll through web pages or documents." },
+                { title: "Practice drag and drop", content: "Click and hold an icon, then move the mouse to drag it to a new location before releasing." }
+              ]
+            },
+            tablet: {
+              title: "Laptop Trackpad Techniques",
+              steps: [
+                { title: "Two-finger scrolling", content: "Place two fingers on the trackpad and slide them up or down together to scroll through content." },
+                { title: "Tap to click", content: "Gently tap the trackpad with one finger instead of pressing the physical button - it's often easier." },
+                { title: "Two-finger right-click", content: "Tap with two fingers on the trackpad to right-click and see additional options." },
+                { title: "Pinch to zoom", content: "Use two fingers to pinch together or spread apart to zoom in and out of documents or web pages." },
+                { title: "Palm rejection", content: "Rest your palms naturally while typing - modern trackpads ignore palm touches while you type." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does right-clicking typically do?",
+            options: [
+              "Opens the item immediately",
+              "Deletes the item",
+              "Shows a menu with more options",
+              "Moves the item to a new location"
+            ],
+            answer: 2,
+            explanation: "Right-clicking brings up a context menu with additional options for whatever you clicked on, giving you more ways to interact with that item."
+          },
+          {
+            question: "On a laptop trackpad, how do you scroll down a webpage?",
+            options: [
+              "Use one finger to slide up",
+              "Use two fingers to slide down",
+              "Press the trackpad button repeatedly",
+              "Tap the bottom of the trackpad"
+            ],
+            answer: 1,
+            explanation: "Use two fingers sliding down on the trackpad to scroll down a webpage. Two-finger scrolling is the standard way to navigate content."
+          }
+        ]
+      },
+
+      "clicking-practice": {
+        title: "Clicking & Tapping Practice",
+        description: "Build confidence and accuracy with clicking and tapping across all your devices.",
+        objectives: [
+          "Improve clicking accuracy and speed",
+          "Practice different types of clicks and taps",
+          "Learn when to use single-click vs double-click",
+          "Build muscle memory for common actions"
+        ],
+        videoTitle: "Precision Clicking Techniques",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🎯 Let's Practice: Precision Clicking",
+          devices: {
+            phone: {
+              title: "Phone Tapping Accuracy",
+              steps: [
+                { title: "Practice app launching", content: "Open your home screen and practice tapping different app icons. Aim for the center of each icon." },
+                { title: "Menu navigation", content: "Open an app and practice tapping menu items. Take your time to be accurate rather than fast." },
+                { title: "Back button mastery", content: "Practice using the back button or back gesture to return to previous screens confidently." },
+                { title: "Keyboard tapping", content: "Open a text app and practice typing slowly and accurately. Focus on hitting the right letters." },
+                { title: "Long press practice", content: "Practice long-pressing different items to see what additional options appear." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Touch Precision",
+              steps: [
+                { title: "Two-thumb typing", content: "Hold your tablet and practice typing with both thumbs. This is often faster than using one finger." },
+                { title: "Toolbar navigation", content: "Practice tapping buttons in app toolbars and menus. These are often smaller and need more precision." },
+                { title: "Split-screen practice", content: "If your tablet supports it, practice opening two apps side by side." },
+                { title: "Gesture shortcuts", content: "Learn your tablet's gesture shortcuts for quick actions like going home or switching apps." }
+              ]
+            },
+            computer: {
+              title: "Computer Clicking Mastery",
+              steps: [
+                { title: "Single vs double-click", content: "Practice single-clicking to select files and double-clicking to open them. Wait between clicks when double-clicking." },
+                { title: "Menu navigation", content: "Practice clicking through computer menus like File, Edit, and View. Take your time with each click." },
+                { title: "Button clicking", content: "Practice clicking OK, Cancel, and other buttons in dialog boxes. Make sure you're clicking the right one." },
+                { title: "Link clicking", content: "In a web browser, practice clicking links. Notice how your cursor changes to a hand when over clickable items." },
+                { title: "Precision clicking", content: "Practice clicking small buttons and checkboxes. Zoom in if things seem too small to click comfortably." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "When should you double-click instead of single-click?",
+            options: [
+              "To select a file or folder",
+              "To open a file or program",
+              "To see a context menu",
+              "To delete something"
+            ],
+            answer: 1,
+            explanation: "Double-clicking opens files and programs. Single-clicking selects them, and right-clicking shows menus."
+          },
+          {
+            question: "If you're having trouble clicking small buttons, what should you do?",
+            options: [
+              "Click faster",
+              "Press harder",
+              "Zoom in to make everything bigger",
+              "Use a different device"
+            ],
+            answer: 2,
+            explanation: "Zooming in makes buttons and text larger, making them easier to see and click accurately. Most devices have zoom features built in."
+          }
+        ]
+      },
+
+      "home-screen": {
+        title: "Understanding the Home Screen",
+        description: "Learn to navigate and customize your device's home screen with confidence.",
+        objectives: [
+          "Identify all elements of your home screen",
+          "Learn to organize apps and shortcuts",
+          "Understand widgets and how to use them",
+          "Customize your home screen for easier use"
+        ],
+        videoTitle: "Home Screen Navigation Guide",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🏠 Let's Practice: Home Screen Mastery",
+          devices: {
+            phone: {
+              title: "Phone Home Screen",
+              steps: [
+                { title: "Explore your home screen", content: "Look at your phone's main screen. Notice the apps, time, battery indicator, and signal strength at the top." },
+                { title: "Find the dock", content: "At the bottom, you'll see 4-5 apps that stay there when you swipe between screens. This is called the 'dock.'" },
+                { title: "Swipe between screens", content: "Swipe left and right to see if you have multiple home screens with different apps." },
+                { title: "Practice app organization", content: "Try moving an app by pressing and holding it, then dragging it to a new location." },
+                { title: "Access quick settings", content: "Swipe down from the top to see notifications and quick settings like Wi-Fi, brightness, and airplane mode." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Home Screen",
+              steps: [
+                { title: "Understand the layout", content: "Tablets have more space, so you'll see more apps and widgets on one screen than on a phone." },
+                { title: "Find the app drawer", content: "Look for an icon (usually dots or lines) that shows all your apps in one place." },
+                { title: "Explore widgets", content: "Widgets are like mini-apps that show information (weather, calendar) right on your home screen." },
+                { title: "Customize your layout", content: "Try adding a widget by long-pressing empty space on your home screen." },
+                { title: "Create folders", content: "Drag one app on top of another to create a folder for organizing similar apps together." }
+              ]
+            },
+            computer: {
+              title: "Computer Desktop",
+              steps: [
+                { title: "Identify the desktop", content: "The desktop is your computer's main screen. It's like the top of a physical desk where you place things." },
+                { title: "Find the taskbar", content: "At the bottom (usually) is the taskbar with your Start button, open programs, and system notifications." },
+                { title: "Explore desktop icons", content: "Icons on your desktop are shortcuts to programs and files. Double-click them to open." },
+                { title: "Practice right-clicking", content: "Right-click on empty desktop space to see options for personalizing your desktop." },
+                { title: "Use the Start menu", content: "Click the Start button to see all your programs and settings in one organized menu." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the 'dock' on a phone or tablet?",
+            options: [
+              "Where you charge your device",
+              "The row of apps at the bottom that stays visible",
+              "The top of the screen with time and battery",
+              "A folder containing all your apps"
+            ],
+            answer: 1,
+            explanation: "The dock is the bottom row of apps that remains visible on all home screens, giving you quick access to your most important apps."
+          },
+          {
+            question: "How do you create a folder to organize apps?",
+            options: [
+              "Use the settings menu",
+              "Download a special app",
+              "Drag one app on top of another app",
+              "Right-click on an empty space"
+            ],
+            answer: 2,
+            explanation: "Dragging one app icon on top of another automatically creates a folder containing both apps, helping you organize similar apps together."
+          }
+        ]
+      },
+
+      "opening-apps": {
+        title: "Opening Apps & Programs",
+        description: "Master the different ways to find and open applications on your devices.",
+        objectives: [
+          "Learn multiple ways to open apps and programs",
+          "Understand the difference between apps and programs",
+          "Practice using app menus and launchers",
+          "Know how to find recently used apps quickly"
+        ],
+        videoTitle: "App Opening Techniques",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "📱 Let's Practice: Opening Apps Like a Pro",
+          devices: {
+            phone: {
+              title: "Phone App Management",
+              steps: [
+                { title: "Tap to open", content: "Simply tap any app icon on your home screen to open it. Wait a moment for it to load." },
+                { title: "Use the app drawer", content: "Swipe up from the bottom or tap the app drawer icon to see all your installed apps in one place." },
+                { title: "Search for apps", content: "If you can't find an app, swipe down on your home screen and type the app name to search for it." },
+                { title: "Open recent apps", content: "Learn your phone's method for seeing recently used apps (often swiping up and holding, or a recent apps button)." },
+                { title: "Use voice commands", content: "Try saying 'Hey Google' or 'Hey Siri' followed by 'Open [app name]' to open apps with your voice." }
+              ]
+            },
+            tablet: {
+              title: "Tablet App Access",
+              steps: [
+                { title: "Home screen tapping", content: "Tap apps on your home screen just like on a phone, but you might need to use both hands for stability." },
+                { title: "App organization", content: "Look for app folders or categories if your apps are organized by type (games, productivity, etc.)." },
+                { title: "Quick access bar", content: "Many tablets have a quick access bar at the bottom for frequently used apps." },
+                { title: "Split-screen apps", content: "Learn to open two apps side by side if your tablet supports this feature." },
+                { title: "Desktop mode", content: "Some tablets have a desktop mode that makes apps work more like computer programs." }
+              ]
+            },
+            computer: {
+              title: "Computer Program Launch",
+              steps: [
+                { title: "Start menu method", content: "Click the Start button and either scroll through programs or type the program name to search." },
+                { title: "Desktop shortcuts", content: "Double-click program icons on your desktop to open them directly." },
+                { title: "Taskbar pinning", content: "Look for programs 'pinned' to your taskbar at the bottom - single-click these to open." },
+                { title: "File association", content: "Double-click a document file to automatically open it in the appropriate program." },
+                { title: "Run recent programs", content: "Recently used programs often appear at the top of your Start menu for quick access." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the fastest way to find an app if you know its name but can't see it?",
+            options: [
+              "Look through every home screen page",
+              "Restart your device",
+              "Use the search function",
+              "Ask someone else to find it"
+            ],
+            answer: 2,
+            explanation: "Using the search function (swipe down on phones/tablets, or Start menu search on computers) is the fastest way to find any app by name."
+          },
+          {
+            question: "On a computer, what happens when you double-click a document file?",
+            options: [
+              "It gets deleted",
+              "It opens in the appropriate program",
+              "It gets copied",
+              "Nothing happens"
+            ],
+            answer: 1,
+            explanation: "Double-clicking a document automatically opens it in the program designed to handle that type of file (like Word for documents or Chrome for web pages)."
+          }
+        ]
+      },
+
+      "switching-apps": {
+        title: "Switching Between Apps",
+        description: "Learn efficient ways to move between different apps and programs without losing your work.",
+        objectives: [
+          "Master app switching techniques for each device type",
+          "Understand multitasking and when to use it",
+          "Learn to manage multiple open programs efficiently",
+          "Know how to close apps when needed"
+        ],
+        videoTitle: "Multitasking Made Simple",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔄 Let's Practice: App Switching Mastery",
+          devices: {
+            phone: {
+              title: "Phone Multitasking",
+              steps: [
+                { title: "Recent apps overview", content: "Swipe up from the bottom and hold (or use your phone's recent apps button) to see all open apps as cards." },
+                { title: "Swipe between apps", content: "Swipe left or right on these app cards to browse through your recently used apps." },
+                { title: "Quick app switching", content: "On some phones, you can swipe along the bottom edge to quickly switch between your last two apps." },
+                { title: "Close unnecessary apps", content: "Swipe up on an app card to close it if it's frozen or you're done using it." },
+                { title: "Return to home", content: "Tap outside the app cards or swipe up further to return to your home screen." }
+              ]
+            },
+            tablet: {
+              title: "Tablet App Management",
+              steps: [
+                { title: "Split-screen setup", content: "Open one app, then drag another from the dock or recent apps to use two apps side by side." },
+                { title: "App switching gestures", content: "Use multiple finger gestures (like three-finger swipes) to switch between apps quickly." },
+                { title: "Picture-in-picture", content: "Some apps (like video players) can shrink to a small window while you use other apps." },
+                { title: "App pairs", content: "Some tablets let you save combinations of two apps to open together frequently." },
+                { title: "Dock management", content: "Keep your most-used apps in the dock for easy access while using other apps." }
+              ]
+            },
+            computer: {
+              title: "Computer Window Management",
+              steps: [
+                { title: "Taskbar switching", content: "Click on any program icon in the taskbar at the bottom to switch to that program window." },
+                { title: "Alt+Tab method", content: "Hold the Alt key and press Tab repeatedly to cycle through all your open programs." },
+                { title: "Window arrangement", content: "Drag windows by their title bar to arrange them on screen, or resize them by dragging corners." },
+                { title: "Minimize and restore", content: "Click the minimize button (-) to hide a window, then click its taskbar icon to bring it back." },
+                { title: "Snap windows", content: "Drag a window to the edge of your screen to automatically resize it to fill half the screen." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the purpose of the recent apps view on phones and tablets?",
+            options: [
+              "To delete apps you don't want",
+              "To see and switch between currently running apps",
+              "To download new apps",
+              "To change app settings"
+            ],
+            answer: 1,
+            explanation: "The recent apps view shows you all currently running apps as cards, making it easy to switch between them or close ones you're finished with."
+          },
+          {
+            question: "On a computer, what keyboard shortcut helps you switch between open programs?",
+            options: [
+              "Ctrl + C",
+              "Alt + Tab",
+              "Ctrl + Alt + Delete",
+              "Windows + R"
+            ],
+            answer: 1,
+            explanation: "Alt + Tab is the universal Windows shortcut to cycle through all your open programs, making it easy to switch without using the mouse."
+          }
+        ]
+      },
+
+      "guided-practice": {
+        title: "Guided Practice Session",
+        description: "Put all your skills together in a comprehensive practice session that builds real confidence.",
+        objectives: [
+          "Complete real-world tasks using your new skills",
+          "Practice common device operations independently",
+          "Build confidence through hands-on experience",
+          "Identify areas where you need more practice"
+        ],
+        videoTitle: "Putting It All Together",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🎓 Let's Practice: Real-World Skills Test",
+          devices: {
+            phone: {
+              title: "Phone Confidence Builder",
+              steps: [
+                { title: "Complete startup routine", content: "Turn on your phone, unlock it, and navigate to your home screen. Take your time and remember the power button techniques." },
+                { title: "Find and open 3 different apps", content: "Choose three apps (like camera, messages, or weather) and practice opening each one using different methods." },
+                { title: "Switch between your open apps", content: "Practice the recent apps view and switch between your three open apps smoothly." },
+                { title: "Organize your home screen", content: "Move one app to a different location and create a folder by dragging one app onto another." },
+                { title: "Close apps and return home", content: "Close the apps you opened and return to your home screen, then put your phone to sleep." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Proficiency Challenge",
+              steps: [
+                { title: "Full device navigation", content: "Power on your tablet, navigate through multiple home screens, and find the app drawer or all apps view." },
+                { title: "Multi-app workflow", content: "Open a web browser and a note-taking app, then practice switching between them or using split-screen mode." },
+                { title: "Settings exploration", content: "Find and open your tablet's Settings app, then navigate to Display settings to adjust brightness." },
+                { title: "File management basics", content: "Open a file manager app and practice navigating through folders (like Photos or Downloads)." },
+                { title: "Customization practice", content: "Change your wallpaper or add a widget to your home screen to personalize your device." }
+              ]
+            },
+            computer: {
+              title: "Computer Skills Integration",
+              steps: [
+                { title: "Complete boot and login", content: "Start your computer, log in if needed, and navigate to the desktop. Practice using both mouse and keyboard." },
+                { title: "File and program management", content: "Open File Explorer, navigate to your Documents folder, then open a text program like Notepad or Word." },
+                { title: "Web browsing practice", content: "Open a web browser, type a website address, and practice scrolling, clicking links, and opening new tabs." },
+                { title: "Window management skills", content: "Have multiple programs open and practice switching between them, resizing windows, and arranging them on screen." },
+                { title: "Proper shutdown procedure", content: "Save any work, close all programs properly, and shut down your computer using the Start menu." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "When practicing new digital skills, what's the most important thing to remember?",
+            options: [
+              "Speed is more important than accuracy",
+              "Take your time and be patient with yourself",
+              "You should master everything in one session",
+              "Avoid making mistakes at all costs"
+            ],
+            answer: 1,
+            explanation: "Taking your time and being patient with yourself is key to building confidence. Accuracy and understanding are more important than speed when learning."
+          },
+          {
+            question: "If you encounter a problem during practice, what should you do first?",
+            options: [
+              "Give up and ask for help immediately",
+              "Keep trying the same thing repeatedly",
+              "Take a deep breath and try a different approach",
+              "Restart your device"
+            ],
+            answer: 2,
+            explanation: "Taking a deep breath and trying a different approach helps you think clearly and often leads to discovering the solution on your own."
+          }
+        ]
+      },
+
+      "troubleshooting": {
+        title: "Basic Troubleshooting",
+        description: "Learn simple solutions for common device problems and build confidence in problem-solving.",
+        objectives: [
+          "Identify common device problems and their simple solutions",
+          "Learn when to restart vs. when to seek help",
+          "Understand basic maintenance to prevent problems",
+          "Build confidence in solving minor issues independently"
+        ],
+        videoTitle: "Problem-Solving for Beginners",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🔧 Let's Practice: Simple Solutions",
+          devices: {
+            phone: {
+              title: "Phone Problem Solving",
+              steps: [
+                { title: "Device running slowly", content: "First, try closing unused apps using the recent apps view. Then restart your phone by holding the power button." },
+                { title: "App won't open or crashes", content: "Close the problematic app completely, then try opening it again. If it still doesn't work, restart your phone." },
+                { title: "Can't connect to Wi-Fi", content: "Go to Settings > Wi-Fi, turn Wi-Fi off and back on. If that doesn't work, 'forget' the network and reconnect." },
+                { title: "Screen seems unresponsive", content: "Clean your screen with a soft cloth. Make sure your hands are clean and dry when touching the screen." },
+                { title: "Battery draining quickly", content: "Check which apps are using the most battery in Settings. Close apps you're not using and reduce screen brightness." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Troubleshooting",
+              steps: [
+                { title: "Tablet won't turn on", content: "Make sure it's charged by plugging it in for at least 30 minutes. Try holding the power button for 10-15 seconds." },
+                { title: "Apps keep closing unexpectedly", content: "Check if your tablet has enough storage space in Settings > Storage. Delete unused apps or photos if needed." },
+                { title: "Touch screen not working properly", content: "Remove any screen protector temporarily to test. Clean the screen and make sure no liquids have gotten inside." },
+                { title: "Can't download or update apps", content: "Check your internet connection and available storage. Sign out and back into your app store account if needed." },
+                { title: "Tablet is overheating", content: "Close unnecessary apps and remove from direct sunlight. Let it cool down for 10-15 minutes before using again." }
+              ]
+            },
+            computer: {
+              title: "Computer Problem Resolution",
+              steps: [
+                { title: "Computer running very slowly", content: "Close unused programs and restart your computer. Check if Windows Update needs to install updates." },
+                { title: "Program won't respond", content: "Press Ctrl+Alt+Delete, open Task Manager, find the frozen program, and click 'End Task' to close it." },
+                { title: "Can't connect to internet", content: "Check that all cables are plugged in securely. Try unplugging your router for 30 seconds, then plug it back in." },
+                { title: "Strange pop-ups appearing", content: "Don't click on suspicious pop-ups. Close your browser completely and run a virus scan if you have antivirus software." },
+                { title: "Computer won't start", content: "Check that power cables are secure. Try holding the power button for 15 seconds, then try starting normally." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What should you try first when your device is running slowly?",
+            options: [
+              "Buy a new device",
+              "Delete all your files",
+              "Restart the device",
+              "Call technical support"
+            ],
+            answer: 2,
+            explanation: "Restarting your device is often the simplest and most effective first step for solving performance issues. It clears temporary files and resets running programs."
+          },
+          {
+            question: "If an app keeps crashing, what's a good troubleshooting step?",
+            options: [
+              "Uninstall the app permanently",
+              "Close the app completely and reopen it",
+              "Never use that app again",
+              "Factory reset your device"
+            ],
+            answer: 1,
+            explanation: "Closing the app completely and reopening it often fixes temporary glitches. This is much simpler than more drastic measures like uninstalling or resetting."
+          }
+        ]
+      },
+
+      "course-completion": {
+        title: "Course Completion & Next Steps",
+        description: "Celebrate your progress and learn about continuing your digital literacy journey.",
+        objectives: [
+          "Review everything you've learned in this course",
+          "Identify your strongest new skills",
+          "Plan your next steps in digital learning",
+          "Feel confident about using your devices independently"
+        ],
+        videoTitle: "Your Digital Journey Continues",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🎉 Let's Practice: Skills Review & Next Steps",
+          devices: {
+            phone: {
+              title: "Phone Mastery Review",
+              steps: [
+                { title: "Demonstrate core skills", content: "Show yourself you can turn on your phone, navigate the home screen, open apps, and switch between them confidently." },
+                { title: "Explore new features", content: "Try one feature you haven't used yet - maybe voice commands, camera modes, or a new app from your app store." },
+                { title: "Personalize your experience", content: "Organize your apps in a way that makes sense to you, change your wallpaper, or adjust settings to your preference." },
+                { title: "Plan regular practice", content: "Decide which apps you want to use regularly and practice opening them daily to build confidence." },
+                { title: "Set learning goals", content: "Choose one new phone skill you'd like to learn next, like video calling, mobile banking, or using maps for directions." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Confidence Assessment",
+              steps: [
+                { title: "Navigation mastery check", content: "Navigate through your tablet confidently, using both touch gestures and any physical buttons with ease." },
+                { title: "Multi-tasking practice", content: "Open multiple apps and switch between them smoothly, using split-screen mode if your tablet supports it." },
+                { title: "Creative exploration", content: "Try using your tablet for something creative - digital art, photo editing, or reading e-books." },
+                { title: "Productivity planning", content: "Think about how you can use your tablet for daily tasks like email, calendar management, or note-taking." },
+                { title: "Continuous learning", content: "Identify tablet features you'd like to explore next, such as cloud storage, video streaming, or online shopping." }
+              ]
+            },
+            computer: {
+              title: "Computer Skills Celebration",
+              steps: [
+                { title: "Full workflow demonstration", content: "Complete a full computer session: startup, opening multiple programs, file management, and proper shutdown." },
+                { title: "Internet confidence", content: "Practice web browsing, searching for information, and maybe even watching online videos or reading articles." },
+                { title: "File organization", content: "Create a simple folder structure for organizing your documents, photos, or other files in a logical way." },
+                { title: "Safety and maintenance", content: "Review how to keep your computer secure and running well - regular restarts, software updates, and safe browsing." },
+                { title: "Future learning paths", content: "Consider what computer skills would be most valuable to you next - email, video calls, online banking, or creative software." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the most important outcome of completing this course?",
+            options: [
+              "Knowing every feature of your device",
+              "Feeling confident to explore and learn independently",
+              "Never needing help with technology again",
+              "Becoming an expert immediately"
+            ],
+            answer: 1,
+            explanation: "The most important outcome is feeling confident to explore and learn independently. You now have the foundation skills to discover new features safely."
+          },
+          {
+            question: "What's the best way to continue improving your digital skills?",
+            options: [
+              "Use your devices only for basic tasks",
+              "Practice regularly and try one new thing each week",
+              "Wait until you need to learn something new",
+              "Only use features you learned in this course"
+            ],
+            answer: 1,
+            explanation: "Regular practice and gradually trying new features will build your confidence and skills over time. Technology becomes easier the more you use it."
+          }
+        ]
+      }
+    };
+
+    // ====== LESSON STATE MANAGEMENT ======
+    let currentLesson = 'introduction';
+    const courseKey = 'keyboard-mouse-skills';
+    
+    // Function to get user-specific progress (supports both regular and guest users)
+    function getUserSpecificData() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser) {
+        return { completedLessons: [], courseProgress: {} };
+      }
+      
+      // For guest users, use their guest ID; for regular users, use email
+      const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const completedLessons = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+      const courseProgress = JSON.parse(localStorage.getItem(`courseProgress_${courseKey}_${userId}`) || '{}');
+      
+      return { completedLessons, courseProgress, userId };
+    }
+    
+    let { completedLessons, courseProgress } = getUserSpecificData();
+
+    // ====== RENDER LESSON CONTENT ======
+    function renderLesson(lessonId) {
+      const lesson = lessons[lessonId];
+      if (!lesson) return;
+
+    const mainContent = document.getElementById('lessonContent');
+
+      let html = `
+        <div class="lesson-header">
+          <h1 class="lesson-title">${lesson.title}</h1>
+          <p class="lesson-description">${lesson.description}</p>
+        </div>
+
+        <div class="lesson-objectives">
+          <h3 class="objectives-title">🎯 Learning Objectives</h3>
+          <ul class="objectives-list">
+            ${lesson.objectives.map(obj => `<li>${obj}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="video-section">
+          <div class="video-placeholder">
+            <h4 class="video-title">${lesson.videoTitle}</h4>
+            <p class="video-duration">${lesson.videoDuration}</p>
+          </div>
+          <p><strong>📺 Watch this video</strong> to see these concepts demonstrated step-by-step. You can pause and rewatch any part as many times as you need.</p>
+        </div>
+
+        <div class="practice-section">
+          <h3 class="practice-title">${lesson.practice.title}</h3>
+          <div class="device-tabs">
+            ${Object.keys(lesson.practice.devices).map(device => 
+              `<button class="device-tab ${device === 'phone' ? 'active' : ''}" data-device="${device}">
+                ${device === 'phone' ? '📱 Phone' : device === 'tablet' ? '📱 Tablet' : '💻 Computer'}
+              </button>`
+            ).join('')}
+          </div>
+          
+          ${Object.entries(lesson.practice.devices).map(([deviceType, deviceData]) => `
+            <div class="device-content ${deviceType === 'phone' ? 'active' : ''}" data-device="${deviceType}">
+              <h4>${deviceData.title}</h4>
+              <div class="step-by-step">
+                ${deviceData.steps.map(step => `
+                  <div class="step">
+                    <h4>${step.title}</h4>
+                    <p>${step.content}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="quiz-section">
+          <h3 class="quiz-title">🧠 Knowledge Check</h3>
+          ${lesson.quiz.map((question, idx) => `
+            <div class="question" data-question="${idx}">
+              <p class="question-text">${question.question}</p>
+              <ul class="options">
+                ${question.options.map((option, optionIdx) => `
+                  <li class="option">
+                    <label>
+                      <input type="radio" name="q${idx}" value="${optionIdx}">
+                      <span>${option}</span>
+                    </label>
+                  </li>
+                `).join('')}
+              </ul>
+              <div class="feedback" id="feedback-${idx}"></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="lesson-navigation">
+          <button class="nav-btn secondary" id="prevBtn" ${getPreviousLesson(lessonId) ? '' : 'disabled'}>
+            ← Previous Lesson
+          </button>
+          <button class="nav-btn" id="nextBtn" onclick="completeLesson('${lessonId}')">
+            ${getNextLesson(lessonId) ? 'Mark Complete & Continue →' : 'Complete Course 🎉'}
+          </button>
+        </div>
+      `;
+
+      mainContent.innerHTML = html;
+      setupLessonInteractions(lesson, lessonId);
+      updateProgress();
+    }
+
+    // ====== LESSON INTERACTIONS ======
+    function setupLessonInteractions(lesson, lessonId) {
+      // Device tab switching
+      document.querySelectorAll('.device-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const device = tab.dataset.device;
+          
+          // Update tab states
+          document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Update content visibility
+          document.querySelectorAll('.device-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          document.querySelector(`[data-device="${device}"]`).classList.add('active');
+        });
+      });
+
+      // Quiz interactions
+      document.querySelectorAll('.question').forEach((questionEl, questionIdx) => {
+        const question = lesson.quiz[questionIdx];
+        const options = questionEl.querySelectorAll('input[type="radio"]');
+        
+        options.forEach(option => {
+          option.addEventListener('change', () => {
+            const selectedAnswer = parseInt(option.value);
+            const feedback = document.getElementById(`feedback-${questionIdx}`);
+            
+            if (selectedAnswer === question.answer) {
+              feedback.innerHTML = `<strong>✅ Correct!</strong> ${question.explanation}`;
+              feedback.className = 'feedback correct';
+              feedback.style.display = 'block';
+            } else {
+              feedback.innerHTML = `<strong>❌ Not quite.</strong> ${question.explanation}`;
+              feedback.className = 'feedback incorrect';
+              feedback.style.display = 'block';
+            }
+          });
+        });
+      });
+
+      // Navigation
+      const prevBtn = document.getElementById('prevBtn');
+      const prevLesson = getPreviousLesson(lessonId);
+      if (prevBtn && prevLesson) {
+        prevBtn.addEventListener('click', () => loadLesson(prevLesson));
+      }
+    }
+
+    // ====== LESSON NAVIGATION ======
+    const lessonOrder = [
+      'introduction', 'power-button', 'basic-navigation', 'touchscreen-basics',
+      'mouse-basics', 'clicking-practice', 'home-screen', 'opening-apps',
+      'switching-apps', 'guided-practice', 'troubleshooting', 'course-completion'
+    ];
+
+    function getNextLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex < lessonOrder.length - 1 ? lessonOrder[currentIndex + 1] : null;
+    }
+
+    function getPreviousLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex > 0 ? lessonOrder[currentIndex - 1] : null;
+    }
+
+    function loadLesson(lessonId) {
+      currentLesson = lessonId;
+      
+      // Update last accessed time whenever a lesson is loaded
+      localStorage.setItem(`lastAccessed_${courseKey}`, new Date().toISOString());
+      
+      // Update sidebar
+      document.querySelectorAll('.lesson-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lesson === lessonId) {
+          btn.classList.add('active');
+        }
+      });
+      
+      renderLesson(lessonId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function completeLesson(lessonId) {
+      // Get current user data
+      const { completedLessons: currentCompleted, userId } = getUserSpecificData();
+      
+      // Only save progress if user is logged in
+      if (!userId) {
+        alert('Please log in to save your progress!');
+        return;
+      }
+      
+      if (!currentCompleted.includes(lessonId)) {
+        currentCompleted.push(lessonId);
+        localStorage.setItem(`completedLessons_${courseKey}_${userId}`, JSON.stringify(currentCompleted));
+        completedLessons = currentCompleted; // Update global variable
+      }
+      
+      // Update last accessed time (user-specific)
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, new Date().toISOString());
+      
+      // Update all lesson statuses (this will auto-complete previous lessons)
+      updateAllLessonStatus();
+      
+      const nextLesson = getNextLesson(lessonId);
+      if (nextLesson) {
+        setTimeout(() => loadLesson(nextLesson), 500);
+      } else {
+        // Course completed!
+        alert('🎉 Congratulations! You\'ve completed the course!');
+      }
+      
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalLessons = lessonOrder.length;
+      const completedCount = completedLessons.length;
+      const progressPercent = Math.round((completedCount / totalLessons) * 100);
+      
+      document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+      document.getElementById('courseProgress').style.width = `${progressPercent}%`;
+    }
+
+    function updateAllLessonStatus() {
+      // Mark each lesson based on its completion status
+      lessonOrder.forEach((lessonId, index) => {
+        const lessonBtn = document.querySelector(`[data-lesson="${lessonId}"]`);
+        if (lessonBtn) {
+          const status = lessonBtn.querySelector('.lesson-status');
+          
+          if (completedLessons.includes(lessonId)) {
+            // Mark as completed
+            lessonBtn.classList.add('completed');
+            if (status) {
+              status.classList.add('completed');
+              status.textContent = '✓';
+            }
+          } else {
+            // Not completed yet
+            lessonBtn.classList.remove('completed');
+            if (status) {
+              status.classList.remove('completed');
+              status.textContent = index + 1;
+            }
+          }
+        }
+      });
+    }
+
+    // ====== SIDEBAR INTERACTIONS ======
+    document.querySelectorAll('.lesson-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lessonId = btn.dataset.lesson;
+        loadLesson(lessonId);
+      });
+    });
+
+    // ====== COURSE ACCESS TRACKING ======
+    function trackCourseAccess() {
+      // Only track if user is logged in
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser || !currentUser.email) {
+        return; // Don't track if not logged in
+      }
+      
+                  // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const courseKey = 'keyboard-mouse-skills';
+      const timestamp = new Date().toISOString();
+      
+      // Store last accessed time for this specific user
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, timestamp);
+      
+      // Also track in user-specific recent courses list
+      let recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+      recentCourses = recentCourses.filter(course => course.courseKey !== courseKey);
+      recentCourses.unshift({
+        courseKey: courseKey,
+        courseUrl: window.location.pathname,
+        lastAccessed: timestamp
+      });
+      recentCourses = recentCourses.slice(0, 10);
+      localStorage.setItem(`recentCourses_${userId}`, JSON.stringify(recentCourses));
+    }
+
+    // Function to refresh user-specific data
+    function refreshUserData() {
+      const userData = getUserSpecificData();
+      completedLessons = userData.completedLessons;
+      courseProgress = userData.courseProgress;
+      
+      // Update UI to reflect current user's progress
+      updateAllLessonStatus();
+      updateProgress();
+    }
+
+    // ====== USER AUTHENTICATION ======
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track that user accessed this course
+      trackCourseAccess();
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const modalOverlay = document.getElementById('logout-modal-overlay');
+
+      // Hide login/signup buttons for all users on course pages
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (signupBtn) signupBtn.style.display = 'none';
+
+      if (modalOverlay) {
+        const cancelBtn = document.getElementById('cancel-logout');
+        const confirmBtn = document.getElementById('confirm-logout');
+
+        cancelBtn?.addEventListener('click', () => {
+          modalOverlay.classList.remove('active');
+        });
+
+        confirmBtn?.addEventListener('click', () => {
+          sessionStorage.removeItem('currentUser');
+          // Refresh data after logout (will clear progress display)
+          refreshUserData();
+          window.location.href = 'index.html';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+          }
+        });
+      }
+
+      // Load initial lesson
+      loadLesson('introduction');
+      
+      // Refresh user data to load their specific progress
+      refreshUserData();
+    });
+  </script>
+</body>
+</html> 

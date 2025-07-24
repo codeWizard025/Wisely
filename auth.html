@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Wisely</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #026670;
+            --accent-teal: #9FEDD7;
+            --background: #EDEAE5;
+            --white: #ffffff;
+            --text: #000000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Avenir', sans-serif;
+            background-color: var(--background);
+        }
+
+        .auth-page-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .auth-left-panel {
+            width: 40%;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        .auth-left-panel img {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 2rem;
+            position: relative;
+            right: 1px; /* Nudge to the left for visual balance */
+        }
+
+        .auth-left-panel .cta-button.secondary-cta,
+        .auth-left-panel .cta-button.secondary-cta:hover,
+        .auth-left-panel .cta-button.secondary-cta:focus,
+        .auth-left-panel .cta-button.secondary-cta:active {
+            color: var(--white) !important;
+            border: 2px solid var(--white) !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .auth-left-panel .cta-button.secondary-cta {
+            margin-top: 1rem;
+            border-radius: 50px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .auth-left-panel .cta-button.secondary-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .auth-left-panel .cta-button.secondary-cta:focus,
+        .auth-left-panel .cta-button.secondary-cta:active {
+            color: var(--white) !important;
+            border: 2px solid var(--white) !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .auth-right-panel {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 550px;
+        }
+
+        #signup-view {
+            display: none;
+        }
+
+        .auth-form-container h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1.25rem;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-teal);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(159, 237, 215, 0.5);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1.25rem;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #015a63; 
+        }
+
+        .cta-button.guest-button {
+            background-color: #6c757d;
+        }
+
+        .cta-button.guest-button:hover {
+            background-color: #5a6268;
+        }
+        
+        .switch-form-text {
+            text-align: left;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .switch-form-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .switch-form-text a:hover {
+            text-decoration: underline;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 4.5rem; /* Space for the toggle button */
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0;
+        }
+
+        .toggle-password:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .forgot-password-link {
+            display: block;
+            text-align: right;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-password-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page-container">
+        <div class="auth-left-panel">
+            <img src="wisely2.png" alt="Wisely decorative image">
+            <a href="index.html" class="cta-button secondary-cta" style="text-decoration: none;">Back to home</a>
+        </div>
+
+        <div class="auth-right-panel">
+            <div class="auth-form-container">
+                <div id="login-view">
+                    <h2>Log In</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="loginPassword" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
+                            <a href="#" id="forgotPasswordLink" class="forgot-password-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="cta-button">Log In</button>
+                    </form>
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                        <span style="color: #999; font-size: 0.9rem;">or</span>
+                    </div>
+                    <button type="button" id="continueAsGuest" class="cta-button" style="background-color: #6c757d; margin-bottom: 1rem;">Continue as Guest</button>
+                    <p class="switch-form-text">Don't have an account? <a href="#" id="switchToSignup">Create an account</a></p>
+                </div>
+
+                <div id="forgot-password-view" style="display: none;">
+                    <h2>Reset your password</h2>
+                    <p style="margin-bottom: 1.5rem; color: var(--primary);">Enter your email and a new password to reset your login.</p>
+                    <form id="forgotPasswordForm">
+                        <div class="form-group">
+                            <label for="forgotEmail">Email</label>
+                            <input type="email" id="forgotEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="newPassword" minlength="10" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirmNewPassword" minlength="10" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="cta-button">Reset Password</button>
+                    </form>
+                    <p class="switch-form-text"><a href="#" id="backToLogin">Back to Log In</a></p>
+                </div>
+
+                <div id="signup-view">
+                    <h2>Create your account</h2>
+                    <form id="signupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="signupFirstName">First Name</label>
+                                <input type="text" id="signupFirstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupLastName">Last Name</label>
+                                <input type="text" id="signupLastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="signupPassword" minlength="10" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="cta-button">Continue</button>
+                    </form>
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                        <span style="color: #999; font-size: 0.9rem;">or</span>
+                    </div>
+                    <button type="button" id="continueAsGuestSignup" class="cta-button" style="background-color: #6c757d; margin-bottom: 1rem;">Continue as Guest</button>
+                    <p class="switch-form-text">Already have an account? <a href="#" id="switchToLogin">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html> 

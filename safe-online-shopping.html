@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe Online Shopping - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+         /* Course Header */
+     .course-intro {
+       background: #9FEDD7;
+       color: #026670;
+       padding: 3rem 0;
+       text-align: center;
+       margin-bottom: 2rem;
+     }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+         .course-title {
+       font-size: clamp(2rem, 5vw, 3.5rem);
+       font-weight: 700;
+       margin-bottom: 1rem;
+       line-height: 1.2;
+       color: #000000;
+     }
+
+     .course-subtitle {
+       font-size: 1.3rem;
+       color: #333333;
+       margin-bottom: 2rem;
+       max-width: 600px;
+       margin-left: auto;
+       margin-right: auto;
+       line-height: 1.4;
+     }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+         .meta-item {
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+       font-size: 1rem;
+      color: #026670;
+       font-weight: 500;
+     }
+
+         .progress-overview {
+       background: rgba(255, 255, 255, 0.8);
+       border: 1px solid rgba(2, 102, 112, 0.2);
+       border-radius: 12px;
+       padding: 1.5rem;
+       max-width: 400px;
+       margin: 0 auto;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+     }
+
+     .progress-bar {
+       background: #d0d0d0;
+       border-radius: 10px;
+       height: 8px;
+       margin-bottom: 0.5rem;
+     }
+
+     .progress-fill {
+       background: var(--primary);
+       height: 100%;
+       border-radius: 10px;
+       width: 0%;
+       transition: width 0.5s ease;
+     }
+
+         .progress-text {
+       font-size: 0.9rem;
+       color: #026670;
+       font-weight: 600;
+     }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+         /* Sidebar */
+    .sidebar {
+       background: white;
+       border-radius: 12px;
+       padding: 1.5rem;
+       height: calc(100vh - 140px);
+      position: sticky;
+       top: 120px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+       overflow-x: hidden;
+     }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">Safe Online Shopping</h1>
+      <p class="course-subtitle">Learn how to shop online securely and with confidence. This course will guide you through the essentials of protecting your personal and financial information while enjoying the convenience of online shopping.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>📚</span>
+          <span>3 Units • 9 Lessons</span>
+        </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~1.5 hours total</span>
+        </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner Level</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: The Basics of Online Shopping</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="introduction">
+              <div class="lesson-status active">1</div>
+              <span>Why Shop Online? Benefits & Risks</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="getting-started">
+              <div class="lesson-status">2</div>
+              <span>What You Need to Get Started</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="navigating-websites">
+              <div class="lesson-status">3</div>
+              <span>Navigating Shopping Websites</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Staying Safe and Secure</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="strong-passwords">
+              <div class="lesson-status">4</div>
+              <span>Creating Strong Passwords</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="secure-websites">
+              <div class="lesson-status">5</div>
+              <span>Recognizing Secure Websites (HTTPS)</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="payment-options">
+              <div class="lesson-status">6</div>
+              <span>Understanding Payment Options</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: Smart Shopping Habits</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="scams-phishing">
+              <div class="lesson-status">7</div>
+              <span>Identifying Scams and Phishing</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="reviews-policies">
+              <div class="lesson-status">8</div>
+              <span>Reading Reviews and Policies</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="completing-purchase">
+              <div class="lesson-status">9</div>
+              <span>Completing Your Purchase & What's Next</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - Khan Academy Structure ======
+    const lessons = {
+      introduction: {
+        title: "Why Shop Online? Benefits & Risks",
+        description: "Explore the advantages of online shopping and learn about the potential risks to watch out for.",
+        objectives: [
+          "Understand the convenience of online shopping",
+          "Recognize common types of online stores",
+          "Be aware of potential risks like scams and data theft",
+          "Feel prepared to start shopping online safely"
+        ],
+        videoTitle: "The World of Online Shopping",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "🛒 Let's Practice: Weighing Pros and Cons",
+          devices: {
+            computer: {
+              title: "Exploring Online Shopping",
+              steps: [
+                { title: "Think about convenience", content: "Imagine buying a gift for a grandchild without leaving your home. That's a key benefit of online shopping!" },
+                { title: "Consider the variety", content: "Online stores offer a much wider selection of products than most physical stores." },
+                { title: "Acknowledge the risks", content: "It's important to know that there are fake websites and scams. We'll learn how to spot them." },
+                { title: "Protecting your information", content: "Your payment details are valuable. We'll focus on how to keep them safe throughout this course." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is a major benefit of shopping online?",
+            options: [
+              "You can touch the product before buying",
+              "It's always cheaper than in-store", 
+              "You can shop from home at any time",
+              "There are no risks involved"
+            ],
+            answer: 2,
+            explanation: "The ability to shop from the comfort of your home at any hour is one of the biggest advantages of online shopping."
+          },
+          {
+            question: "What is a potential risk of online shopping?",
+            options: [
+              "Getting too many packages",
+              "Websites can be scams or not secure",
+              "Products are always low quality",
+              "It's too complicated for anyone to learn"
+            ],
+            answer: 1,
+            explanation: "While most online shopping is safe, it's important to be aware of fraudulent websites and to ensure your connection is secure before entering personal information."
+          }
+        ]
+      },
+      
+      "getting-started": {
+        title: "What You Need to Get Started",
+        description: "Gather the essential tools and information you'll need to begin your online shopping journey.",
+        objectives: [
+          "Identify the necessary device and internet connection",
+          "Understand the need for an email address",
+          "Know what payment information is required",
+          "Prepare a physical address for shipping"
+        ],
+        videoTitle: "Your Online Shopping Checklist",
+        videoDuration: "4 minutes",
+        practice: {
+          title: "📋 Let's Practice: Your Shopping Checklist",
+          devices: {
+            computer: {
+              title: "Preparing for Your First Purchase",
+              steps: [
+                { title: "Check your device", content: "You'll need a computer, tablet, or smartphone connected to the internet." },
+                { title: "Have an email address ready", content: "You'll need an email for order confirmations and to create accounts. We have a course on that!" },
+                { title: "Prepare your payment method", content: "Have your credit card, debit card, or a service like PayPal ready. We'll discuss the safest options later." },
+                { title: "Know your shipping address", content: "You'll need to type in the exact address where you want your items delivered." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Why do you need an email address for online shopping?",
+            options: [
+              "To get spam mail",
+              "To receive order confirmations and tracking info",
+              "You don't actually need one",
+              "To prove your identity"
+            ],
+            answer: 1,
+            explanation: "Your email address is crucial for receiving receipts, order confirmation messages, and updates on when your package will arrive."
+          },
+          {
+            question: "Which of these is NOT something you need to start shopping online?",
+            options: [
+              "A credit or debit card",
+              "A shipping address",
+              "A social security number",
+              "An internet connection"
+            ],
+            answer: 2,
+            explanation: "You should NEVER be asked for your social security number when shopping online. Legitimate retailers will not ask for this."
+          }
+        ]
+      },
+
+      "navigating-websites": {
+        title: "Navigating Shopping Websites",
+        description: "Learn how to find products, use a search bar, and understand the basic layout of a shopping website.",
+        objectives: [
+          "Identify the search bar and product categories",
+          "Understand how to use filters to narrow results", 
+          "Learn to view product details and images",
+          "Recognize the 'Add to Cart' button"
+        ],
+        videoTitle: "How to Find What You're Looking For",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔍 Let's Practice: Exploring a Store",
+          devices: {
+            computer: {
+              title: "Website Navigation Practice",
+              steps: [
+                { title: "Find the search bar", content: "Look for a box, usually at the top of the page, that says 'Search'. Type what you're looking for here." },
+                { title: "Browse categories", content: "Find links like 'Clothing', 'Electronics', or 'Home Goods'. Clicking these shows you all products in that group." },
+                { title: "Use filters", content: "After searching, look on the side of the page for 'Filters' like size, color, or price to narrow your options." },
+                { title: "'Add to Cart'", content: "When you find an item you like, click the 'Add to Cart' or 'Add to Bag' button. This holds the item for you while you keep shopping." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Where is the search bar usually located on a shopping website?",
+            options: [
+              "At the very bottom of the page",
+              "In the middle of the screen",
+              "At the top of the page",
+              "You have to find it in a menu"
+            ],
+            answer: 2,
+            explanation: "Most websites place the search bar in a prominent position at the top of the page to make it easy to find."
+          },
+          {
+            question: "What does the 'Add to Cart' button do?",
+            options: [
+              "Buys the item immediately",
+              "Saves the item in your virtual shopping cart to buy later",
+              "Shares the item with a friend", 
+              "Shows you similar items"
+            ],
+            answer: 1,
+            explanation: "Adding an item to your cart is like placing it in a physical shopping cart. It holds the item for you, but you haven't bought it yet."
+          }
+        ]
+      },
+
+      "strong-passwords": {
+        title: "Creating Strong Passwords",
+        description: "Learn why strong, unique passwords are your first line of defense in protecting your online accounts.",
+        objectives: [
+          "Understand what makes a password strong",
+          "Learn techniques for creating memorable, complex passwords",
+          "Recognize the danger of using the same password everywhere",
+          "Discover tools for managing passwords safely"
+        ],
+        videoTitle: "Your Digital Lock and Key",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🔐 Let's Practice: Building a Strong Password",
+          devices: {
+            computer: {
+              title: "Password Creation Strategy",
+              steps: [
+                { title: "Mix it up", content: "A strong password includes a mix of uppercase letters, lowercase letters, numbers, and symbols (like !, @, #)." },
+                { title: "Make it long", content: "Aim for at least 12 characters. The longer, the better. Think of a short, memorable sentence." },
+                { title: "Use a phrase", content: "Think of a phrase like 'My first pet was a turtle!' and turn it into a password like 'M1stP3twas@Turtl3!'." },
+                { title: "Avoid personal info", content: "Don't use your name, birthday, or address. This information is easy for others to find." },
+                { title: "Be unique", content: "Use a different password for every important account, especially for shopping and banking sites." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Which of the following is the strongest password?",
+            options: [
+              "password123",
+              "JohnSmith",
+              "MyDogFluffy",
+              "Gr3atSun-Sets@2day!"
+            ],
+            answer: 3,
+            explanation: "A strong password is long and combines uppercase letters, lowercase letters, numbers, and symbols, making it very hard to guess."
+          },
+          {
+            question: "Why is it a bad idea to use the same password for multiple websites?",
+            options: [
+              "It's hard to remember",
+              "Websites don't allow it",
+              "If one site is hacked, all your accounts are at risk",
+              "It's not a bad idea"
+            ],
+            answer: 2,
+            explanation: "If a hacker steals your password from one website, they will try using it on many other sites. Using unique passwords protects your other accounts."
+          }
+        ]
+      },
+
+      "secure-websites": {
+        title: "Recognizing Secure Websites (HTTPS)",
+        description: "Learn how to check if a website is secure before entering any personal or payment information.",
+        objectives: [
+          "Identify the padlock icon in the address bar",
+          "Understand the difference between 'http' and 'https'",
+          "Know where to look for security signals on a page",
+          "Feel confident in determining a site's basic security"
+        ],
+        videoTitle: "Spotting a Secure Connection",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔒 Let's Practice: The Security Check",
+          devices: {
+            computer: {
+              title: "Checking for Website Security",
+              steps: [
+                { title: "Look for the padlock", content: "In your browser's address bar (where the website name is), look for a small closed padlock icon. This is the best sign of a secure connection." },
+                { title: "Check for 'https://'", content: "The website address should start with 'https://'. The 's' stands for 'secure'." },
+                { title: "Click the padlock", content: "For more details, you can click the padlock icon to see information about the website's security certificate." },
+                { title: "What if there's no padlock?", content: "If you see 'Not Secure' or no padlock, do NOT enter any personal information, especially payment details." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does the 's' in 'https://' stand for?",
+            options: [
+              "Shopping",
+              "Special",
+              "Secure",
+              "Site"
+            ],
+            answer: 2,
+            explanation: "'https' stands for Hypertext Transfer Protocol Secure. It means the data you send to the site (like your password or credit card number) is encrypted and protected."
+          },
+          {
+            question: "You are on a checkout page and don't see a padlock icon in the address bar. What should you do?",
+            options: [
+              "Enter your credit card details anyway",
+              "Close the website and do not proceed with the purchase",
+              "Try a different web browser",
+              "Call the company to give them your details"
+            ],
+            answer: 1,
+            explanation: "The absence of a padlock on a payment page is a major red flag. It means the connection is not secure, and you should not enter any sensitive information."
+          }
+        ]
+      },
+
+      "payment-options": {
+        title: "Understanding Payment Options",
+        description: "Explore the different ways to pay online and learn which methods offer the best security.",
+        objectives: [
+          "Compare credit cards, debit cards, and payment services",
+          "Understand the security benefits of using a credit card",
+          "Learn about services like PayPal",
+          "Recognize red flags related to payment methods"
+        ],
+        videoTitle: "How to Pay Safely Online",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "💳 Let's Practice: Choosing Your Payment",
+          devices: {
+            computer: {
+              title: "Comparing Payment Methods",
+              steps: [
+                { title: "Credit Cards: The Safest Bet", content: "Credit cards offer the best fraud protection. If a charge is fraudulent, you can dispute it and you are typically not responsible for the amount." },
+                { title: "Debit Cards: Use with Caution", content: "Debit cards link directly to your bank account. If compromised, your actual money can be taken. It's safer to use a credit card if you can." },
+                { title: "Payment Services (PayPal)", content: "Services like PayPal act as a middleman. You pay them, and they pay the seller, so the seller never sees your card number. This is a very secure option." },
+                { title: "Avoid Wire Transfers & Gift Cards", content: "Never pay a standard online retailer with a wire transfer, money order, or by sending gift card codes. These are common scam methods as they are untraceable." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Which payment method generally offers the best protection against fraud?",
+            options: [
+              "Debit Card",
+              "Credit Card",
+              "Cash",
+              "Wire Transfer"
+            ],
+            answer: 1,
+            explanation: "Credit card companies have robust fraud protection policies, and your liability for unauthorized charges is legally limited, often to $0."
+          },
+          {
+            question: "A website asks you to pay for a new laptop with a bank wire transfer. This is likely...",
+            options: [
+              "A great deal",
+              "A normal practice",
+              "A scam",
+              "The most secure way to pay"
+            ],
+            answer: 2,
+            explanation: "Legitimate retailers will not ask for payment via wire transfer, as it's an untraceable method favored by scammers. Stick to credit cards or secure payment services."
+          }
+        ]
+      },
+
+      "scams-phishing": {
+        title: "Identifying Scams and Phishing",
+        description: "Learn how to spot fake emails, texts, and websites designed to steal your information.",
+        objectives: [
+          "Recognize the signs of a phishing email or text",
+          "Identify 'too good to be true' offers",
+          "Understand the danger of clicking suspicious links",
+          "Know what to do if you encounter a scam"
+        ],
+        videoTitle: "Don't Take the Bait! Spotting Scams",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🎣 Let's Practice: Spotting a Phish",
+          devices: {
+            computer: {
+              title: "Analyzing a Suspicious Email",
+              steps: [
+                { title: "Check the 'From' address", content: "Scammers often use email addresses that look official but are slightly off (e.g., 'Amaz0n-Support' instead of 'Amazon')." },
+                { title: "Look for urgent or threatening language", content: "Phishing emails often create a sense of panic, like 'Your account will be suspended!' or 'Suspicious activity detected!'" },
+                { title: "Hover over links", content: "Before clicking a link, hover your mouse over it. The actual web address will appear. If it looks suspicious, don't click." },
+                { title: "Watch for typos and bad grammar", content: "Many scam emails are written poorly. Obvious spelling and grammar mistakes are a big red flag." },
+                { title: "Be wary of attachments", content: "Don't open attachments from unexpected emails, as they can contain viruses." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "An email says you've won a free luxury vacation but you need to click a link and enter your credit card number to claim it. This is most likely:",
+            options: [
+              "Your lucky day",
+              "A legitimate offer",
+              "A phishing scam",
+              "A customer appreciation award"
+            ],
+            answer: 2,
+            explanation: "Offers that seem too good to be true and ask for personal information upfront are classic signs of a phishing scam."
+          },
+          {
+            question: "What should you do if you receive a suspicious email from your 'bank'?",
+            options: [
+              "Click the link to see if it's real",
+              "Reply with your account information to verify",
+              "Delete the email and contact your bank directly through their official website or phone number",
+              "Forward it to all your friends to warn them"
+            ],
+            answer: 2,
+            explanation: "Never use the links or phone numbers in a suspicious email. Always contact the institution directly using their known, official contact information to verify the message."
+          }
+        ]
+      },
+
+      "reviews-policies": {
+        title: "Reading Reviews and Policies",
+        description: "Learn how to use product reviews and store policies to make informed and confident purchasing decisions.",
+        objectives: [
+          "Understand the value of reading customer reviews",
+          "Learn to spot fake or unhelpful reviews",
+          "Know how to find a store's return policy",
+          "Recognize the importance of the shipping policy"
+        ],
+        videoTitle: "Doing Your Homework Before You Buy",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "📚 Let's Practice: Reading the Fine Print",
+          devices: {
+            computer: {
+              title: "Evaluating a Product and Store",
+              steps: [
+                { title: "Read product reviews", content: "Look at what other customers are saying. Pay attention to both positive and negative comments to get a balanced view." },
+                { title: "Check the return policy", content: "Before buying, find the 'Return Policy' link (often at the bottom of the page). Can you return the item if it's not right? Who pays for shipping?" },
+                { title: "Understand shipping costs", content: "Look for a 'Shipping Information' page. How much will shipping cost? How long will it take to arrive?" },
+                { title: "Look for a 'Contact Us' page", content: "A legitimate store should have a clear way to contact them, such as a phone number, email, or physical address." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "When reading product reviews, it's best to:",
+            options: [
+              "Only read the 5-star reviews",
+              "Only read the 1-star reviews",
+              "Read a mix of positive, negative, and average reviews",
+              "Not read reviews at all"
+            ],
+            answer: 2,
+            explanation: "Reading a variety of reviews gives you the most realistic picture of a product's strengths and weaknesses."
+          },
+          {
+            question: "Why is it important to check a store's return policy BEFORE buying?",
+            options: [
+              "So you know what to do if the item is broken or doesn't fit",
+              "It's not important",
+              "To see if they offer free shipping",
+              "To find their phone number"
+            ],
+            answer: 0,
+            explanation: "Knowing the return policy in advance prevents surprises later. It tells you if you can get a refund or exchange and what the process isn't right for you."
+          }
+        ]
+      },
+
+      "completing-purchase": {
+        title: "Completing Your Purchase & What's Next",
+        description: "Walk through the final steps of a purchase, from checkout to checking your order confirmation.",
+        objectives: [
+          "Navigate the checkout process confidently",
+          "Understand how to review your order before paying",
+          "Know what to look for in an order confirmation email",
+          "Learn how to track your package"
+        ],
+        videoTitle: "The Final Steps: Checkout and Confirmation",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "✅ Let's Practice: Finalizing Your Order",
+          devices: {
+            computer: {
+              title: "The Checkout Process",
+              steps: [
+                { title: "Go to your Cart", content: "Click the shopping cart icon to begin the checkout process." },
+                { title: "Review your order", content: "Carefully check the items, quantities, and prices. This is your last chance to make changes." },
+                { title: "Enter shipping and payment info", content: "Fill in your address and payment details on the secure (https://) page." },
+                { title: "Place your order", content: "Click the 'Place Order' or 'Complete Purchase' button. Only click it once!" },
+                { title: "Check your email", content: "You should receive a confirmation email within a few minutes. Save this email. It's your receipt." },
+                { title: "Track your package", content: "You'll get another email when your item ships, usually with a 'tracking number' link to see where your package is." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "After you click 'Place Order', what is the most important thing to look for?",
+            options: [
+              "A pop-up ad",
+              "An order confirmation email in your inbox",
+              "A phone call from the company",
+              "A letter in the mail"
+            ],
+            answer: 1,
+            explanation: "The order confirmation email is your official receipt and proof of purchase. You should receive it almost immediately."
+          },
+          {
+            question: "What does a 'tracking number' allow you to do?",
+            options: [
+              "Get a discount on your next purchase",
+              "Cancel your order",
+              "See the location of your package as it travels to you",
+              "Contact the delivery driver"
+            ],
+            answer: 2,
+            explanation: "A tracking number lets you follow your package's journey from the seller's warehouse to your doorstep, so you know when to expect it."
+          }
+        ]
+      }
+    };
+
+    let lessonData = {};
+    let lessonBtns = [];
+    let lessonStatuses = [];
+    let completedLessons = new Set();
+    const totalLessons = 9;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const lessonList = document.querySelector('.lesson-list');
+      lessonBtns = document.querySelectorAll('.lesson-btn');
+      lessonStatuses = document.querySelectorAll('.lesson-status');
+      
+      const courseKey = 'safe-online-shopping';
+      let storageKey = `progress_${courseKey}`; // A default for when no user is logged in
+
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (currentUser) {
+        // For guest users, use their guest ID; for regular users, use email
+        const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+        storageKey = `completedLessons_${courseKey}_${userId}`;
+      }
+
+      function loadProgress() {
+        const savedProgress = localStorage.getItem(storageKey);
+        if (savedProgress) {
+          const completed = JSON.parse(savedProgress);
+          completed.forEach(lessonId => completedLessons.add(lessonId));
+        }
+      }
+
+      function saveProgress() {
+        localStorage.setItem(storageKey, JSON.stringify(Array.from(completedLessons)));
+      }
+      
+      function updateSidebarUI() {
+        lessonBtns.forEach(btn => {
+          const lessonId = btn.dataset.lesson;
+          if (completedLessons.has(lessonId)) {
+            btn.classList.add('completed');
+            btn.querySelector('.lesson-status').classList.add('completed');
+            btn.querySelector('.lesson-status').innerHTML = '✓';
+          }
+        });
+        updateCourseProgress();
+      }
+
+      function updateCourseProgress() {
+        const progressPercent = Math.round((completedLessons.size / totalLessons) * 100);
+        document.getElementById('courseProgress').style.width = `${progressPercent}%`;
+        document.getElementById('progressPercent').innerText = `${progressPercent}%`;
+      }
+
+      function markLessonComplete(lessonId) {
+        if (!completedLessons.has(lessonId)) {
+          completedLessons.add(lessonId);
+          saveProgress();
+          updateSidebarUI();
+        }
+      }
+
+      function renderLesson(lessonId) {
+        lessonData = lessons[lessonId];
+        const lessonContentEl = document.getElementById('lessonContent');
+        
+        let quizHTML = '';
+        if (lessonData.quiz) {
+          quizHTML = `
+            <div class="quiz-section">
+              <h3 class="quiz-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Knowledge Check</span>
+              </h3>
+              ${lessonData.quiz.map((q, index) => `
+                <div class="question" id="question-${index}">
+                  <p class="question-text">${index + 1}. ${q.question}</p>
+                  <ul class="options">
+                    ${q.options.map((opt, i) => `
+                      <li class="option">
+                        <label>
+                          <input type="radio" name="q${index}" value="${i}">
+                          <span>${opt}</span>
+                        </label>
+                      </li>
+                    `).join('')}
+                  </ul>
+                  <div class="feedback" id="feedback-${index}"></div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        let practiceHTML = '';
+        if (lessonData.practice) {
+          const deviceKeys = Object.keys(lessonData.practice.devices);
+          practiceHTML = `
+            <div class="practice-section">
+              <h3 class="practice-title">${lessonData.practice.title}</h3>
+              ${deviceKeys.length > 1 ? `
+                <div class="device-tabs">
+                  ${deviceKeys.map((key, index) => `
+                    <button class="device-tab ${index === 0 ? 'active' : ''}" data-device="${key}">${lessonData.practice.devices[key].title}</button>
+                  `).join('')}
+                </div>
+              ` : ''}
+              ${deviceKeys.map((key, index) => `
+                <div class="device-content ${index === 0 ? 'active' : ''}" id="${key}-content">
+                  <div class="step-by-step">
+                    ${lessonData.practice.devices[key].steps.map(step => `
+                      <div class="step">
+                        <h4>${step.title}</h4>
+                        <p>${step.content}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+        
+        lessonContentEl.innerHTML = `
+          <div class="lesson-header">
+            <h2 class="lesson-title">${lessonData.title}</h2>
+            <p class="lesson-description">${lessonData.description}</p>
+          </div>
+
+          <div class="lesson-objectives">
+            <h3 class="objectives-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>What You'll Learn</span>
+            </h3>
+            <ul class="objectives-list">
+              ${lessonData.objectives.map(obj => `<li>${obj}</li>`).join('')}
+            </ul>
+          </div>
+          
+          <div class="video-section">
+            <div class="video-placeholder"></div>
+            <h4 class="video-title">${lessonData.videoTitle}</h4>
+            <p class="video-duration">Est. duration: ${lessonData.videoDuration}</p>
+          </div>
+
+          ${practiceHTML}
+          ${quizHTML}
+          
+          <div class="lesson-navigation">
+            <button class="nav-btn secondary" id="prevLessonBtn" disabled>← Previous</button>
+            <button class="nav-btn" id="nextLessonBtn">Next Lesson →</button>
+          </div>
+        `;
+
+        attachEventListeners(lessonId);
+      }
+      
+      function attachEventListeners(currentLessonId) {
+        // Quiz logic
+        if (lessonData.quiz) {
+          lessonData.quiz.forEach((q, index) => {
+            const radioButtons = document.querySelectorAll(`input[name="q${index}"]`);
+            radioButtons.forEach(radio => {
+              radio.addEventListener('change', () => {
+                const selectedValue = parseInt(radio.value);
+                const feedbackEl = document.getElementById(`feedback-${index}`);
+                if (selectedValue === q.answer) {
+                  feedbackEl.textContent = "Correct! " + q.explanation;
+                  feedbackEl.className = 'feedback correct';
+                } else {
+                  feedbackEl.textContent = "Not quite. " + q.explanation;
+                  feedbackEl.className = 'feedback incorrect';
+                }
+                feedbackEl.style.display = 'block';
+
+                if (checkAllQuizzesAnswered()) {
+                  markLessonComplete(currentLessonId);
+                }
+              });
+            });
+          });
+        } else {
+           markLessonComplete(currentLessonId);
+        }
+
+        // Device tabs logic
+        const deviceTabs = document.querySelectorAll('.device-tab');
+        deviceTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            document.querySelector('.device-tab.active').classList.remove('active');
+            tab.classList.add('active');
+            
+            document.querySelector('.device-content.active').classList.remove('active');
+            document.getElementById(`${tab.dataset.device}-content`).classList.add('active');
+          });
+        });
+
+        const currentIndex = Array.from(lessonBtns).findIndex(btn => btn.dataset.lesson === currentLessonId);
+        const prevLessonBtn = document.getElementById('prevLessonBtn');
+        const nextLessonBtn = document.getElementById('nextLessonBtn');
+
+        if (currentIndex > 0) {
+          prevLessonBtn.disabled = false;
+          prevLessonBtn.addEventListener('click', () => {
+            const prevLesson = lessonBtns[currentIndex - 1];
+            prevLesson.click();
+          });
+        }
+
+        if (currentIndex < lessonBtns.length - 1) {
+          nextLessonBtn.disabled = false;
+          nextLessonBtn.addEventListener('click', () => {
+            if (completedLessons.has(currentLessonId)) {
+                const nextLesson = lessonBtns[currentIndex + 1];
+                nextLesson.click();
+            } else {
+                alert("Please complete the current lesson's quiz to proceed.");
+            }
+          });
+        } else {
+            nextLessonBtn.textContent = 'Course Complete! 🎉';
+            nextLessonBtn.disabled = true;
+        }
+      }
+
+      function checkAllQuizzesAnswered() {
+        if (!lessonData.quiz) return false;
+        return lessonData.quiz.every((q, index) => {
+          return document.querySelector(`input[name="q${index}"]:checked`);
+        });
+      }
+
+      lessonBtns.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          document.querySelector('.lesson-btn.active')?.classList.remove('active');
+          document.querySelector('.lesson-status.active')?.classList.remove('active');
+
+          btn.classList.add('active');
+          btn.querySelector('.lesson-status').classList.add('active');
+          
+          renderLesson(btn.dataset.lesson);
+          window.scrollTo(0, 0);
+        });
+      });
+
+      loadProgress();
+      updateSidebarUI();
+      renderLesson('introduction');
+    });
+  </script>
+</body>
+</html> 

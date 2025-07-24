@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Mastery - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+         /* Course Header */
+     .course-intro {
+       background: #9FEDD7;
+       color: #026670;
+       padding: 3rem 0;
+       text-align: center;
+       margin-bottom: 2rem;
+     }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+         .course-title {
+       font-size: clamp(2rem, 5vw, 3.5rem);
+       font-weight: 700;
+       margin-bottom: 1rem;
+       line-height: 1.2;
+       color: #000000;
+     }
+
+     .course-subtitle {
+       font-size: 1.3rem;
+       color: #333333;
+       margin-bottom: 2rem;
+       max-width: 600px;
+       margin-left: auto;
+       margin-right: auto;
+       line-height: 1.4;
+     }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+         .meta-item {
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+       font-size: 1rem;
+      color: #026670;
+       font-weight: 500;
+     }
+
+         .progress-overview {
+       background: rgba(255, 255, 255, 0.8);
+       border: 1px solid rgba(2, 102, 112, 0.2);
+       border-radius: 12px;
+       padding: 1.5rem;
+       max-width: 400px;
+       margin: 0 auto;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+     }
+
+     .progress-bar {
+       background: #d0d0d0;
+       border-radius: 10px;
+       height: 8px;
+       margin-bottom: 0.5rem;
+     }
+
+     .progress-fill {
+       background: var(--primary);
+       height: 100%;
+       border-radius: 10px;
+       width: 0%;
+       transition: width 0.5s ease;
+     }
+
+         .progress-text {
+       font-size: 0.9rem;
+       color: #026670;
+       font-weight: 600;
+     }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+         /* Sidebar */
+    .sidebar {
+       background: white;
+       border-radius: 12px;
+       padding: 1.5rem;
+       height: calc(100vh - 140px);
+      position: sticky;
+       top: 120px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+       overflow-x: hidden;
+     }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">Email Mastery: Connect with Confidence</h1>
+      <p class="course-subtitle">Learn to send, receive, and manage emails like a pro. This course makes communicating online simple and secure for adults 50+.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>📚</span>
+          <span>3 Units • 9 Lessons</span>
+    </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~1.5 hours total</span>
+  </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner Level</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: Email Fundamentals</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="what-is-email">
+              <div class="lesson-status active">1</div>
+              <span>What is Email?</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="setting-up-account">
+              <div class="lesson-status">2</div>
+              <span>Setting Up Your Email Account</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="understanding-inbox">
+              <div class="lesson-status">3</div>
+              <span>Understanding the Inbox</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Composing & Sending</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="writing-first-email">
+              <div class="lesson-status">4</div>
+              <span>Writing Your First Email</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="attaching-files">
+              <div class="lesson-status">5</div>
+              <span>Attaching Photos & Files</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="replying-forwarding">
+              <div class="lesson-status">6</div>
+              <span>Replying & Forwarding</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: Staying Organized & Safe</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="managing-inbox">
+              <div class="lesson-status">7</div>
+              <span>Managing Your Inbox</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="recognizing-spam">
+              <div class="lesson-status">8</div>
+              <span>Recognizing Spam & Phishing</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="etiquette-safety">
+              <div class="lesson-status">9</div>
+              <span>Email Etiquette & Safety</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - Khan Academy Structure ======
+    const lessons = {
+      "what-is-email": {
+        title: "What is Email?",
+        description: "Discover what email is, why it's useful, and how it works.",
+        objectives: [
+          "Define email and its purpose",
+          "Understand the concept of an email address",
+          "Learn the benefits of using email for communication",
+          "Identify common email providers"
+        ],
+        videoTitle: "Understanding Email: The Basics",
+        videoDuration: "4 minutes",
+        practice: {
+          title: "🤔 Let's Think: Why Use Email?",
+          devices: {
+            computer: {
+              title: "Benefits of Email",
+              steps: [
+                { title: "Instant Communication", content: "Email lets you send messages to anyone in the world instantly, much faster than traditional mail." },
+                { title: "Record Keeping", content: "Your emails are saved, creating a searchable record of your conversations you can refer back to anytime." },
+                { title: "Sending More Than Words", content: "You can attach photos, documents, and other files to your emails to share with others." },
+                { title: "Connecting with Businesses", content: "Email is used for online shopping confirmations, newsletters, appointments, and official communications." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the primary purpose of email?",
+            options: [
+              "Playing games online",
+              "Sending and receiving digital messages", 
+              "Watching videos",
+              "Shopping for clothes"
+            ],
+            answer: 1,
+            explanation: "Email's main function is to send and receive digital messages over the internet, allowing for fast and efficient communication."
+          },
+          {
+            question: "What do you need to send and receive emails?",
+            options: [
+              "A special type of computer",
+              "A monthly subscription",
+              "An email address and internet access",
+              "A printer"
+            ],
+            answer: 2,
+            explanation: "All you need is your own unique email address and a connection to the internet to start sending and receiving messages."
+          }
+        ]
+      },
+      
+      "setting-up-account": {
+        title: "Setting Up Your Email Account",
+        description: "A step-by-step guide to creating your very first email address.",
+        objectives: [
+          "Choose a reputable email provider (like Gmail or Outlook)",
+          "Follow the steps to create a new account",
+          "Choose a strong, memorable password",
+          "Understand the different parts of an email address"
+        ],
+        videoTitle: "Creating Your First Email Address",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "✍️ Let's Practice: Creating an Account",
+          devices: {
+            computer: {
+              title: "Step-by-Step Account Creation (Gmail Example)",
+              steps: [
+                { title: "Go to the Provider's Website", content: "Open a web browser and type in 'gmail.com' or 'outlook.com' and press Enter." },
+                { title: "Find 'Create Account'", content: "Look for a button that says 'Create account', 'Sign up', or 'Create a free account' and click it." },
+                { title: "Enter Your Information", content: "Fill in your first and last name as requested." },
+                { title: "Choose Your Username", content: "Your username is the unique part of your email address before the '@' symbol. It must be unique. Example: 'jane.doe2023'." },
+                { title: "Create a Strong Password", content: "Create a password that is at least 8 characters long and includes a mix of uppercase letters, lowercase letters, numbers, and symbols." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does the '@' symbol in an email address do?",
+            options: [
+              "It's just for decoration",
+              "It separates your unique username from the email provider's domain",
+              "It indicates the email is urgent",
+              "It means the email has an attachment"
+            ],
+            answer: 1,
+            explanation: "The '@' symbol is a separator. The part before it is your personal username, and the part after it is the company that provides the email service (e.g., gmail.com)."
+          },
+          {
+            question: "What makes a password strong?",
+            options: [
+              "Using your pet's name",
+              "A short, easy-to-remember word",
+              "A long mix of letters, numbers, and symbols",
+              "Writing it down next to your computer"
+            ],
+            answer: 2,
+            explanation: "A strong password is long and complex, mixing different character types to make it difficult for others to guess."
+          }
+        ]
+      },
+
+      "understanding-inbox": {
+        title: "Understanding the Inbox",
+        description: "Learn to navigate your email inbox and understand its key features.",
+        objectives: [
+          "Identify the main parts of your inbox (Compose, Inbox, Sent, Spam)",
+          "Recognize read vs. unread emails",
+          "Understand what the subject and sender fields mean",
+          "Learn how to open and read an email"
+        ],
+        videoTitle: "Navigating Your Email Inbox",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "📬 Let's Practice: Exploring the Inbox",
+          devices: {
+            computer: {
+              title: "Key Areas of Your Inbox",
+              steps: [
+                { title: "Find the 'Compose' Button", content: "This is the button you'll click to start writing a new email. It usually has a plus (+) symbol or says 'Compose'." },
+                { title: "The 'Inbox' Folder", content: "This is where all your new, incoming emails arrive. Unread emails are usually shown in bold." },
+                { title: "The 'Sent' Folder", content: "Click here to see a list of all the emails you have sent to others. It's a great way to confirm a message was sent." },
+                { title: "The 'Spam' or 'Junk' Folder", content: "Your email provider automatically filters out suspicious emails into this folder to protect you. Check it occasionally for emails that were filtered by mistake." },
+                { title: "Open an Email", content: "In your inbox list, click anywhere on the row of an email to open it and read the full message." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Where do new emails you receive appear?",
+            options: [
+              "In the Sent folder",
+              "In the Spam folder",
+              "In the Inbox",
+              "In the Drafts folder"
+            ],
+            answer: 2,
+            explanation: "The Inbox is the primary folder for all new, incoming messages from other people."
+          },
+          {
+            question: "How can you usually tell if an email is unread?",
+            options: [
+              "It is highlighted in red",
+              "The text is bold or has a colored dot next to it",
+              "It automatically opens", 
+              "It has a star next to it"
+            ],
+            answer: 1,
+            explanation: "Most email systems use bold text to indicate that a message has not yet been opened and read."
+          }
+        ]
+      },
+
+      "writing-first-email": {
+        title: "Writing Your First Email",
+        description: "A step-by-step guide to composing and sending your first email message.",
+        objectives: [
+          "Learn to use the 'To', 'Subject', and 'Body' fields correctly",
+          "Practice writing a clear and concise email",
+          "Understand how to use CC and BCC",
+          "Confidently send an email"
+        ],
+        videoTitle: "How to Compose and Send an Email",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "✍️ Let's Practice: Composing an Email",
+          devices: {
+            computer: {
+              title: "The 4 Steps to Sending an Email",
+              steps: [
+                { title: "1. The 'To' Field", content: "Click 'Compose' to start a new email. In the 'To' field, type the full email address of the person you are sending it to. Double-check for typos!" },
+                { title: "2. The 'Subject' Line", content: "In the 'Subject' field, write a brief, clear title for your email. For example, 'Question about lunch' or 'Hello from Jane'." },
+                { title: "3. The Email Body", content: "Click in the large empty space (the body) and type your message. Start with a greeting, write your message, and end with a closing." },
+                { title: "4. Send!", content: "Once you've reviewed your email for mistakes, click the 'Send' button. Your email is on its way!" }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the purpose of the 'Subject' line?",
+            options: [
+              "It's where you write the main message",
+              "It's optional and not important",
+              "It gives the recipient a short summary of the email's content",
+              "It's where you put the recipient's email address"
+            ],
+            answer: 2,
+            explanation: "The Subject line provides a quick glimpse of what the email is about, helping the recipient prioritize and understand your message before opening it."
+          },
+          {
+            question: "What should you do before clicking 'Send'?",
+            options: [
+              "Close your eyes and hope for the best",
+              "Quickly proofread your email for typos and clarity",
+              "Add as many emojis as possible",
+              "Delete the subject line"
+            ],
+            answer: 1,
+            explanation: "Taking a moment to proofread your email helps you catch spelling mistakes and ensures your message is clear and easy to understand."
+          }
+        ]
+      },
+
+      "attaching-files": {
+        title: "Attaching Photos & Files",
+        description: "Learn how to attach documents, photos, and other files to your emails.",
+        objectives: [
+          "Understand what an email attachment is",
+          "Locate the attachment icon (usually a paperclip)",
+          "Practice attaching a file from your computer",
+          "Be aware of attachment size limits"
+        ],
+        videoTitle: "How to Send Email Attachments",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "📎 Let's Practice: Attaching a File",
+          devices: {
+            computer: {
+              title: "Step-by-Step Guide to Attachments",
+              steps: [
+                { title: "Compose a New Email", content: "Start by composing a new email, including the recipient's address and a subject line." },
+                { title: "Find the Paperclip Icon", content: "Look for an icon that looks like a paperclip. This is the universal symbol for attachments. Click on it." },
+                { title: "Choose Your File", content: "A window will open showing the files on your computer. Navigate to the file you want to attach (e.g., in your Pictures or Documents folder) and select it." },
+                { title: "Confirm the Attachment", content: "You should see the file name appear in your draft email, often near the bottom. This confirms it is attached." },
+                { title: "Send Your Email", content: "Once the file is attached, you can send the email as usual. The file will be sent along with your message." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What icon is almost always used for attaching files?",
+            options: [
+              "A smiley face",
+              "A star",
+              "A paperclip",
+              "An envelope"
+            ],
+            answer: 2,
+            explanation: "The paperclip icon is the standard, universally recognized symbol for adding an attachment to an email."
+          },
+          {
+            question: "What is a common reason an email with an attachment might fail to send?",
+            options: [
+              "The file is too small",
+              "The file is too large",
+              "You wrote too much text in the email body",
+              "You sent it at the wrong time of day"
+            ],
+            answer: 1,
+            explanation: "Email providers have limits on attachment size (usually around 25MB). If your file is too large, the email may not send."
+          }
+        ]
+      },
+
+      "replying-forwarding": {
+        title: "Replying & Forwarding",
+        description: "Learn the difference between replying, replying all, and forwarding emails.",
+        objectives: [
+          "Understand when to use 'Reply' vs. 'Reply All'",
+          "Practice replying to an email message",
+          "Learn how to forward an email to someone else",
+          "Recognize how email chains or 'threads' work"
+        ],
+        videoTitle: "Replying To and Forwarding Emails",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔄 Let's Practice: Replying and Forwarding",
+          devices: {
+            computer: {
+              title: "Managing Conversations",
+              steps: [
+                { title: "How to 'Reply'", content: "Open an email. Click the 'Reply' button to send a message back only to the original sender." },
+                { title: "How to 'Reply All'", content: "Use 'Reply All' when you want your response to go to every single person included on the original email. Use this carefully!" },
+                { title: "How to 'Forward'", content: "Click 'Forward' to send a copy of the email you received to a new person who wasn't on the original message." },
+                { title: "Email Threads", content: "Notice how replies create a conversation chain, or 'thread'. Most email systems group these messages together to keep them organized." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "When should you use 'Reply All'?",
+            options: [
+              "Always, to make sure everyone is included",
+              "Only when your response is relevant to every single person on the original email",
+              "When you want to send a private message to the sender",
+              "To forward the email to a new person"
+            ],
+            answer: 1,
+            explanation: "'Reply All' should be used carefully. Only use it when everyone on the email chain needs to see your response. Otherwise, just use 'Reply'."
+          },
+          {
+            question: "What is the purpose of 'Forward'?",
+            options: [
+              "To reply to the sender",
+              "To delete the email",
+              "To send a copy of an email to a new recipient",
+              "To save the email"
+            ],
+            answer: 2,
+            explanation: "Forwarding allows you to share an email you've received with someone else who didn't originally receive it."
+          }
+        ]
+      },
+
+      "managing-inbox": {
+        title: "Managing Your Inbox",
+        description: "Learn simple techniques to keep your email inbox clean, organized, and stress-free.",
+        objectives: [
+          "Learn how to delete unwanted emails",
+          "Understand how to create folders or labels to organize messages",
+          "Practice archiving emails to reduce clutter",
+          "Use the search bar to find specific emails quickly"
+        ],
+        videoTitle: "Tips for an Organized Inbox",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🗂️ Let's Practice: Inbox Organization",
+          devices: {
+            computer: {
+              title: "Keeping Your Inbox Tidy",
+              steps: [
+                { title: "Delete Unneeded Emails", content: "Select an email you don't need and look for a 'Delete' button (often a trash can icon). This moves it to the Trash folder." },
+                { title: "Archive Important Emails", content: "For emails you want to save but remove from your inbox view, use the 'Archive' button. This moves them to an 'All Mail' folder." },
+                { title: "Create Folders/Labels", content: "Look for an option to 'Create new label' or 'New folder'. You can create folders for 'Family', 'Receipts', or 'Travel' to organize emails." },
+                { title: "Use the Search Bar", content: "The search bar at the top of your email is very powerful. Type a sender's name, a subject, or a key word to find any email in your account." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the difference between 'Delete' and 'Archive'?",
+            options: [
+              "They do the same thing",
+              "Delete permanently removes an email (after a grace period), while Archive saves it in a separate folder",
+              "Archive sends the email back to the sender",
+              "Delete forwards the email to your contacts"
+            ],
+            answer: 1,
+            explanation: "Deleting is for emails you never want to see again. Archiving is for emails you want to save for your records but clear from your main inbox view."
+          },
+          {
+            question: "What is the best way to find an old email from a specific person?",
+            options: [
+              "Scroll through your entire inbox",
+              "Type the person's name into the search bar",
+              "Delete all your new emails to make it easier to see old ones",
+              "Check your spam folder"
+            ],
+            answer: 1,
+            explanation: "The search bar is the fastest and most efficient way to find any email, new or old. You can search by sender, subject, or content."
+          }
+        ]
+      },
+
+      "recognizing-spam": {
+        title: "Recognizing Spam & Phishing",
+        description: "Learn to identify and protect yourself from junk mail and malicious email scams.",
+        objectives: [
+          "Define spam and phishing",
+          "Identify the warning signs of a phishing scam",
+          "Learn what to do when you receive a suspicious email",
+          "Understand the importance of not clicking suspicious links"
+        ],
+        videoTitle: "How to Spot and Avoid Email Scams",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🛡️ Let's Practice: Spotting the Scams",
+          devices: {
+            computer: {
+              title: "Warning Signs of a Phishing Email",
+              steps: [
+                { title: "Check the Sender's Address", content: "Scammers often use email addresses that look official but are slightly misspelled. Hover your mouse over the sender's name to see the real address." },
+                { title: "Look for a Sense of Urgency", content: "Phishing emails often create a fake emergency, like 'Your account will be suspended!' to rush you into making a mistake." },
+                { title: "Beware of Generic Greetings", content: "Legitimate companies will usually address you by your name. Be wary of emails that start with 'Dear Customer' or 'Valued Member'." },
+                { title: "Don't Click Suspicious Links", content: "Hover your mouse over any link before you click it to see the actual web address. If it looks strange, don't click it." },
+                { title: "Check for Poor Grammar/Spelling", content: "Emails from professional companies are usually well-written. Multiple spelling or grammar errors are a major red flag." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is 'phishing'?",
+            options: [
+              "A fun water sport",
+              "An attempt by scammers to trick you into revealing personal information like passwords or credit card numbers",
+              "A type of email newsletter",
+              "A way to clean your inbox"
+            ],
+            answer: 1,
+            explanation: "Phishing is a fraudulent attempt to obtain your sensitive information by disguising as a trustworthy entity in an electronic communication."
+          },
+          {
+            question: "If you receive an email that looks suspicious, what should you do?",
+            options: [
+              "Click all the links to see where they go",
+              "Reply with your personal information to see if it's real",
+              "Forward it to all your friends",
+              "Delete it immediately or mark it as spam/junk without clicking anything"
+            ],
+            answer: 3,
+            explanation: "The safest action is to not interact with the email at all. Delete it or use your email provider's 'Mark as Spam' feature to help them block similar emails in the future."
+          }
+        ]
+      },
+
+      "etiquette-safety": {
+        title: "Email Etiquette & Safety",
+        description: "Learn the do's and don'ts of professional and personal email communication.",
+        objectives: [
+          "Understand basic email etiquette for polite communication",
+          "Learn best practices for writing professional emails",
+          "Know what kind of information is unsafe to share via email",
+          "Practice creating a professional email signature"
+        ],
+        videoTitle: "Email Do's and Don'ts",
+        videoDuration: "5 minutes",
+        practice: {
+          title: "👍 Let's Practice: Good Email Habits",
+          devices: {
+            computer: {
+              title: "Email Best Practices",
+              steps: [
+                { title: "Be Clear and Concise", content: "Write clear subject lines and get to the point quickly in the email body. People appreciate short, easy-to-read emails." },
+                { title: "Use a Professional Tone", content: "Avoid using all caps (which can seem like shouting), excessive exclamation points, and casual slang in professional emails." },
+                { title: "Proofread Before Sending", content: "Always take a moment to re-read your email to catch any spelling or grammar mistakes before you hit send." },
+                { title: "Be Careful What You Share", content: "Never send sensitive personal information like passwords, social security numbers, or full credit card numbers via email." },
+                { title: "Create a Signature", content: "In your email settings, create a signature with your name and phone number. It automatically adds a professional closing to all your emails." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Why should you avoid writing in ALL CAPS in an email?",
+            options: [
+              "It's harder to read",
+              "It can be interpreted as shouting or being angry",
+              "It uses more data to send",
+              "Both A and B are correct"
+            ],
+            answer: 3,
+            explanation: "Writing in all caps is difficult to read and is widely considered the digital equivalent of shouting, which can seem rude or aggressive."
+          },
+          {
+            question: "Which of the following should you NOT send in an email?",
+            options: [
+              "A dinner invitation to a friend",
+              "Your bank account password",
+              "A question to a customer service team",
+              "A photo of your pet"
+            ],
+            answer: 1,
+            explanation: "You should never send passwords, social security numbers, or other highly sensitive financial or personal information via email, as it is not a secure method of communication."
+          }
+        ]
+      }
+    };
+
+    // ====== CORE SCRIPT LOGIC (Identical for all courses) ======
+    let currentLesson = 'what-is-email';
+    const courseKey = 'email-mastery';
+    const lessonOrder = Object.keys(lessons);
+    const totalLessons = lessonOrder.length;
+
+    const lessonContentEl = document.getElementById('lessonContent');
+    const courseProgressEl = document.getElementById('courseProgress');
+    const progressPercentEl = document.getElementById('progressPercent');
+    
+    let completedLessons = [];
+
+    function saveProgress() {
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        if (currentUser) {
+            // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+            localStorage.setItem(`completedLessons_${courseKey}_${userId}`, JSON.stringify(Array.from(completedLessons)));
+        }
+    }
+
+    function loadProgress() {
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        if (currentUser) {
+            // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+            const savedProgress = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+            completedLessons = new Set(savedProgress);
+        } else {
+            completedLessons = new Set();
+        }
+    }
+
+    function renderLesson(lessonKey) {
+      const lesson = lessons[lessonKey];
+      if (!lesson) return;
+
+      let practiceHTML = '';
+      if (lesson.practice) {
+        const deviceTabs = Object.keys(lesson.practice.devices).map(deviceKey =>
+          `<button class="device-tab" data-device="${deviceKey}">${lesson.practice.devices[deviceKey].title}</button>`
+        ).join('');
+
+        const deviceContents = Object.keys(lesson.practice.devices).map(deviceKey => {
+          const deviceData = lesson.practice.devices[deviceKey];
+          const stepsHTML = deviceData.steps.map(step => `
+            <div class="step">
+              <h4>${step.title}</h4>
+              <p>${step.content}</p>
+            </div>
+          `).join('');
+          return `<div class="device-content" data-device="${deviceKey}">${stepsHTML}</div>`;
+        }).join('');
+
+        practiceHTML = `
+          <section class="practice-section">
+            <h3 class="practice-title">
+              <span role="img" aria-label="practice icon">${lesson.practice.title.split(' ')[0]}</span>
+              ${lesson.practice.title.substring(lesson.practice.title.indexOf(' ') + 1)}
+            </h3>
+            <div class="device-tabs">${deviceTabs}</div>
+            <div class="step-by-step">${deviceContents}</div>
+          </section>
+        `;
+      }
+      
+      let quizHTML = '';
+      if (lesson.quiz && lesson.quiz.length > 0) {
+        const questionsHTML = lesson.quiz.map((q, index) => {
+          const optionsHTML = q.options.map((opt, i) => `
+            <div class="option">
+              <label>
+                <input type="radio" name="question-${index}" value="${i}">
+                <span>${opt}</span>
+              </label>
+            </div>
+          `).join('');
+          return `
+            <div class="question" data-answer="${q.answer}">
+              <p class="question-text">${index + 1}. ${q.question}</p>
+              <div class="options">${optionsHTML}</div>
+              <div class="feedback correct"><strong>Correct!</strong> ${q.explanation}</div>
+              <div class="feedback incorrect"><strong>Not quite.</strong> ${q.explanation}</div>
+            </div>
+          `;
+        }).join('');
+
+        quizHTML = `
+          <section class="quiz-section">
+            <h3 class="quiz-title"><span role="img" aria-label="quiz icon">🧠</span> Knowledge Check</h3>
+            ${questionsHTML}
+          </section>
+        `;
+      }
+
+      const lessonHTML = `
+        <div class="lesson-header">
+          <h2 class="lesson-title">${lesson.title}</h2>
+          <p class="lesson-description">${lesson.description}</p>
+        </div>
+        
+        <section class="lesson-objectives">
+          <h3 class="objectives-title"><span role="img" aria-label="target icon">🎯</span> What You'll Learn</h3>
+          <ul class="objectives-list">
+            ${lesson.objectives.map(obj => `<li>${obj}</li>`).join('')}
+          </ul>
+        </section>
+
+        <section class="video-section">
+          <div class="video-placeholder"></div>
+          <h4 class="video-title">${lesson.videoTitle}</h4>
+          <p class="video-duration">${lesson.videoDuration}</p>
+        </section>
+
+        ${practiceHTML}
+        ${quizHTML}
+
+        <div class="lesson-navigation">
+            <button class="nav-btn secondary" id="prevLessonBtn">← Previous</button>
+            <button class="nav-btn" id="nextLessonBtn">Mark as Complete →</button>
+        </div>
+      `;
+      lessonContentEl.innerHTML = lessonHTML;
+      setupLessonFunctionality(lessonKey);
+    }
+
+    function setupLessonFunctionality(lessonKey) {
+      // Practice Tabs
+      const practiceSection = lessonContentEl.querySelector('.practice-section');
+      if (practiceSection) {
+        const deviceTabs = practiceSection.querySelectorAll('.device-tab');
+        const deviceContents = practiceSection.querySelectorAll('.device-content');
+
+        if (deviceTabs.length > 0) {
+            // Activate the first tab by default
+            deviceTabs[0].classList.add('active');
+            if (deviceContents.length > 0) {
+                deviceContents[0].classList.add('active');
+            }
+
+            deviceTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const device = tab.dataset.device;
+                    deviceTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    deviceContents.forEach(c => {
+                        c.classList.toggle('active', c.dataset.device === device);
+                    });
+                });
+            });
+        }
+      }
+
+      // Quiz functionality
+      const questions = lessonContentEl.querySelectorAll('.question');
+      questions.forEach(question => {
+        const radios = question.querySelectorAll('input[type="radio"]');
+        const correctAnswer = question.dataset.answer;
+        const feedbacks = {
+          correct: question.querySelector('.feedback.correct'),
+          incorrect: question.querySelector('.feedback.incorrect')
+        };
+
+        radios.forEach(radio => {
+          radio.addEventListener('change', () => {
+            feedbacks.correct.style.display = 'none';
+            feedbacks.incorrect.style.display = 'none';
+            if (radio.value == correctAnswer) {
+              feedbacks.correct.style.display = 'block';
+            } else {
+              feedbacks.incorrect.style.display = 'block';
+            }
+          });
+        });
+      });
+
+      // Navigation Buttons
+      const lessonKeys = Object.keys(lessons);
+      const currentIndex = lessonKeys.indexOf(lessonKey);
+      
+      const prevLessonBtn = document.getElementById('prevLessonBtn');
+      const nextLessonBtn = document.getElementById('nextLessonBtn');
+
+      prevLessonBtn.disabled = currentIndex === 0;
+      prevLessonBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          switchLesson(lessonKeys[currentIndex - 1]);
+        }
+      });
+      
+      if (completedLessons.has(lessonKey)) {
+        nextLessonBtn.textContent = 'Next Lesson →';
+      }
+
+      nextLessonBtn.addEventListener('click', () => {
+        completedLessons.add(lessonKey);
+        saveProgress();
+        updateProgress();
+        
+        const nextIndex = currentIndex + 1;
+        if (nextIndex < lessonKeys.length) {
+          switchLesson(lessonKeys[nextIndex]);
+        } else {
+            // Course Complete!
+            nextLessonBtn.textContent = 'Course Complete!';
+            nextLessonBtn.disabled = true;
+            alert("Congratulations! You've completed the Email Mastery course!");
+        }
+      });
+    }
+
+    function updateProgress() {
+      // Sidebar visual update
+      document.querySelectorAll('.lesson-btn').forEach(btn => {
+        const lessonKey = btn.dataset.lesson;
+        const statusEl = btn.querySelector('.lesson-status');
+
+        if (completedLessons.has(lessonKey)) {
+          btn.classList.add('completed');
+          statusEl.classList.add('completed');
+          statusEl.innerHTML = '✓';
+        }
+
+        if(lessonKey === currentLesson) {
+          btn.classList.add('active');
+          statusEl.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+          statusEl.classList.remove('active');
+        }
+      });
+
+      // Top progress bar update
+      const percent = Math.round((completedLessons.size / totalLessons) * 100);
+      courseProgressEl.style.width = `${percent}%`;
+      progressPercentEl.textContent = `${percent}%`;
+    }
+
+    function switchLesson(newLessonKey) {
+      currentLesson = newLessonKey;
+      renderLesson(newLessonKey);
+      updateProgress();
+      window.scrollTo(0, 0);
+    }
+    
+    // Sidebar lesson button listeners
+    document.querySelectorAll('.lesson-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchLesson(btn.dataset.lesson);
+        });
+    });
+
+    // Initial render
+    loadProgress();
+    renderLesson(currentLesson);
+    updateProgress();
+
+  </script>
+</body>
+</html> 

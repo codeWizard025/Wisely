@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigating the Internet - Wisely</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-image: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-yellow) 25%, var(--accent-jasmine) 50%, var(--background) 100%);
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 100px;
+    }
+
+    /* Course Header */
+    .course-intro {
+      background: #9FEDD7;
+      color: #026670;
+      padding: 3rem 0;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .course-intro .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .course-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: #000000;
+    }
+
+    .course-subtitle {
+      font-size: 1.3rem;
+      color: #333333;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      color: #026670;
+      font-weight: 500;
+    }
+
+    .progress-overview {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(2, 102, 112, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-bar {
+      background: #d0d0d0;
+      border-radius: 10px;
+      height: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-fill {
+      background: var(--primary);
+      height: 100%;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      font-size: 0.9rem;
+      color: #026670;
+      font-weight: 600;
+    }
+
+    /* Main Layout */
+    .course-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: calc(100vh - 140px);
+      position: sticky;
+      top: 120px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .unit-section {
+      margin-bottom: 2rem;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent-yellow);
+    }
+
+    .lesson-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .lesson-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .lesson-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lesson-btn:hover {
+      background: #f8f9fa;
+      color: var(--primary);
+    }
+
+    .lesson-btn.active {
+      background: var(--accent-yellow);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-btn.completed {
+      color: var(--primary);
+    }
+
+    .lesson-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .lesson-status.completed {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .lesson-status.active {
+      border-color: var(--primary);
+      background: var(--accent-yellow);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-height: 600px;
+    }
+
+    .lesson-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lesson-objectives {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .objectives-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .objectives-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .objectives-list li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.1rem;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .video-placeholder {
+      background: #e9ecef;
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: "▶";
+      font-size: 4rem;
+      color: var(--primary);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-duration {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      background: linear-gradient(135deg, #fff8e1 0%, #fef9c7 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      border-left: 4px solid var(--accent-jasmine);
+    }
+
+    .practice-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .device-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .device-tab {
+      padding: 0.8rem 1.5rem;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .device-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .device-content {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #ddd;
+    }
+
+    .device-content.active {
+      display: block;
+    }
+
+    .step-by-step {
+      counter-reset: step-counter;
+    }
+
+    .step {
+      counter-increment: step-counter;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .step::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option {
+      margin-bottom: 0.5rem;
+    }
+
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #ddd;
+    }
+
+    .option label:hover {
+      background: #f8f9fa;
+      border-color: var(--primary);
+    }
+
+    .option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Navigation */
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover {
+      background: #014e54;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .nav-btn.secondary {
+      background: #6c757d;
+    }
+
+    .nav-btn.secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .course-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+
+      .main-content {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .course-intro {
+        padding: 2rem 0;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .course-meta {
+        gap: 1rem;
+      }
+
+      .course-layout {
+        padding: 0 10px;
+      }
+
+      .main-content,
+      .sidebar {
+        padding: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 2rem;
+      }
+
+      .device-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .device-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <!-- Logo - Center -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="wisely.png" alt="Wisely Logo" class="logo-image" draggable="false">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Introduction -->
+  <section class="course-intro">
+    <div class="container">
+      <h1 class="course-title">Navigating the Internet</h1>
+      <p class="course-subtitle">Learn to confidently browse websites, search for information, and stay safe online. Perfect for beginners who want to explore the digital world with confidence.</p>
+      
+      <div class="course-meta">
+        <div class="meta-item">
+          <span>🌐</span>
+          <span>4 Units • 12 Lessons</span>
+        </div>
+        <div class="meta-item">
+          <span>⏱️</span>
+          <span>~2.5 hours total</span>
+        </div>
+        <div class="meta-item">
+          <span>🎯</span>
+          <span>Beginner Level</span>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-bar">
+          <div class="progress-fill" id="courseProgress"></div>
+        </div>
+        <p class="progress-text">Your Progress: <span id="progressPercent">0%</span> Complete</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="course-layout">
+    <aside class="sidebar">
+      <h3>Course Progress</h3>
+      
+      <div class="unit-section">
+        <div class="unit-title">Unit 1: Internet Basics</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn active" data-lesson="what-is-internet">
+              <div class="lesson-status active">1</div>
+              <span>What is the Internet?</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="getting-connected">
+              <div class="lesson-status">2</div>
+              <span>Getting Connected to Wi-Fi</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="understanding-websites">
+              <div class="lesson-status">3</div>
+              <span>Understanding Websites & URLs</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 2: Web Browsers</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="browser-basics">
+              <div class="lesson-status">4</div>
+              <span>Web Browser Fundamentals</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="address-bar">
+              <div class="lesson-status">5</div>
+              <span>Using the Address Bar</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="tabs-bookmarks">
+              <div class="lesson-status">6</div>
+              <span>Tabs & Bookmarks</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 3: Searching & Navigation</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="search-engines">
+              <div class="lesson-status">7</div>
+              <span>Using Search Engines</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="effective-searching">
+              <div class="lesson-status">8</div>
+              <span>Effective Search Techniques</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="evaluating-results">
+              <div class="lesson-status">9</div>
+              <span>Evaluating Search Results</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="unit-section">
+        <div class="unit-title">Unit 4: Online Safety & Practice</div>
+        <ul class="lesson-list">
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="online-safety">
+              <div class="lesson-status">10</div>
+              <span>Staying Safe Online</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="common-websites">
+              <div class="lesson-status">11</div>
+              <span>Exploring Common Websites</span>
+            </button>
+          </li>
+          <li class="lesson-item">
+            <button class="lesson-btn" data-lesson="internet-mastery">
+              <div class="lesson-status">12</div>
+              <span>Internet Navigation Mastery</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content" id="lessonContent">
+      <!-- Lesson content will be rendered by JavaScript -->
+    </main>
+  </div>
+
+  <div id="logout-modal-overlay" class="logout-modal-overlay">
+    <div class="logout-modal">
+        <h2>Log Out</h2>
+        <p>Are you sure you want to log out?</p>
+        <div class="logout-modal-buttons">
+            <button id="cancel-logout" class="cancel-logout">Cancel</button>
+            <button id="confirm-logout" class="confirm-logout">Log Out</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ====== COURSE DATA - Internet Navigation Structure ======
+    const lessons = {
+      "what-is-internet": {
+        title: "What is the Internet?",
+        description: "Discover what the internet is and how it connects the world, making information and communication accessible from your device.",
+        objectives: [
+          "Understand what the internet is and how it works",
+          "Learn the difference between the internet and the World Wide Web",
+          "Discover what you can do online",
+          "Feel confident about exploring the digital world"
+        ],
+        videoTitle: "Introduction to the Internet",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🌐 Let's Practice: Understanding the Internet",
+          devices: {
+            phone: {
+              title: "Internet on Your Phone",
+              steps: [
+                { title: "Check your connection", content: "Look at the top of your phone screen for Wi-Fi or mobile data symbols. These show you're connected to the internet." },
+                { title: "Open a web browser", content: "Find and tap the Safari (iPhone) or Chrome (Android) app. This is your gateway to the internet." },
+                { title: "Notice the address bar", content: "At the top, you'll see a long white bar. This is where web addresses (URLs) go." },
+                { title: "Understand connectivity", content: "Without internet connection, you can't browse websites, but you can still use apps that don't need the internet." }
+              ]
+            },
+            tablet: {
+              title: "Internet on Your Tablet",
+              steps: [
+                { title: "Identify internet apps", content: "Look for browser apps like Safari or Chrome, and notice apps that need internet like weather or news apps." },
+                { title: "Check connection status", content: "In Settings, find Wi-Fi to see which network you're connected to and signal strength." },
+                { title: "Experience the larger screen", content: "Notice how websites look better on tablets with more space to display content clearly." },
+                { title: "Practice opening web pages", content: "Try opening a simple website to see how the internet brings information to your tablet." }
+              ]
+            },
+            computer: {
+              title: "Internet on Your Computer",
+              steps: [
+                { title: "Find your web browser", content: "Look for icons like Chrome, Firefox, Safari, or Edge on your desktop or taskbar." },
+                { title: "Check internet connection", content: "Look for Wi-Fi or ethernet symbols in the bottom right corner (Windows) or top right (Mac)." },
+                { title: "Understand the browser window", content: "When you open a browser, you'll see the address bar, back/forward buttons, and the main viewing area." },
+                { title: "Practice basic navigation", content: "Click in the address bar and type a simple website address to see how the internet delivers web pages." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What is the main purpose of the internet?",
+            options: [
+              "To replace television and radio",
+              "To connect computers and share information worldwide",
+              "To make phone calls only",
+              "To store files on your device"
+            ],
+            answer: 1,
+            explanation: "The internet is a global network that connects computers worldwide, allowing people to share information, communicate, and access services from anywhere."
+          },
+          {
+            question: "What do you need to access the internet?",
+            options: [
+              "Just a device with a screen",
+              "A device and an internet connection (Wi-Fi or mobile data)",
+              "Only a computer, not phones or tablets",
+              "A special internet license"
+            ],
+            answer: 1,
+            explanation: "You need both a device (phone, tablet, computer) and an internet connection (Wi-Fi or mobile data) to access websites and online services."
+          }
+        ]
+      },
+
+      "getting-connected": {
+        title: "Getting Connected to Wi-Fi",
+        description: "Learn how to connect your devices to Wi-Fi networks safely and troubleshoot common connection issues.",
+        objectives: [
+          "Find and connect to Wi-Fi networks on different devices",
+          "Understand the difference between public and private networks",
+          "Learn basic Wi-Fi troubleshooting",
+          "Practice safe connection habits"
+        ],
+        videoTitle: "Connecting to Wi-Fi Networks",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "📶 Let's Practice: Wi-Fi Connection Mastery",
+          devices: {
+            phone: {
+              title: "Phone Wi-Fi Setup",
+              steps: [
+                { title: "Open Wi-Fi settings", content: "Go to Settings, then tap Wi-Fi. You'll see a list of available networks around you." },
+                { title: "Choose a network", content: "Tap on your home network name. Networks with a lock icon require a password." },
+                { title: "Enter the password", content: "If prompted, carefully type the Wi-Fi password. Check for correct capitalization and symbols." },
+                { title: "Confirm connection", content: "Once connected, you'll see a checkmark or 'Connected' next to the network name." },
+                { title: "Test your connection", content: "Open a web browser or app to make sure you can access the internet successfully." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Wi-Fi Connection",
+              steps: [
+                { title: "Access network settings", content: "In Settings, find and tap Wi-Fi or Network settings to see available connections." },
+                { title: "Scan for networks", content: "Your tablet will automatically scan for nearby Wi-Fi networks. Wait for the list to populate." },
+                { title: "Select your network", content: "Tap on the network you want to join. Home networks are usually the most secure option." },
+                { title: "Handle password entry", content: "Type the network password carefully. Use the show/hide password option to check your typing." },
+                { title: "Verify connection strength", content: "Check the Wi-Fi signal strength indicator to ensure you have a good connection." }
+              ]
+            },
+            computer: {
+              title: "Computer Wi-Fi Setup",
+              steps: [
+                { title: "Find network settings", content: "Click the Wi-Fi icon in your system tray (Windows) or menu bar (Mac) to see available networks." },
+                { title: "Select a network", content: "Click on your desired network from the list. Secure networks will show a lock symbol." },
+                { title: "Enter credentials", content: "Type the network password when prompted. Make sure to enter it exactly as provided." },
+                { title: "Set network type", content: "Choose 'Home' or 'Private' for trusted networks, 'Public' for coffee shops or public spaces." },
+                { title: "Test connectivity", content: "Open a web browser and visit a website to confirm your internet connection is working properly." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What should you do before connecting to a public Wi-Fi network?",
+            options: [
+              "Connect immediately to any available network",
+              "Make sure the network name matches the location and avoid sensitive activities",
+              "Always use the strongest signal available",
+              "Public Wi-Fi is always safe to use"
+            ],
+            answer: 1,
+            explanation: "Public Wi-Fi can be risky. Verify the network name with staff, avoid banking or sensitive activities, and be cautious about what information you access."
+          },
+          {
+            question: "If you can't connect to Wi-Fi, what should you try first?",
+            options: [
+              "Buy a new device",
+              "Reset your device to factory settings",
+              "Check if you're entering the correct password and restart your device",
+              "Call your internet provider immediately"
+            ],
+            answer: 2,
+            explanation: "Simple solutions first: double-check the password for typos, restart your device, and move closer to the router. These fix most connection issues."
+          }
+        ]
+      },
+
+      "understanding-websites": {
+        title: "Understanding Websites & URLs",
+        description: "Learn how to read and understand web addresses (URLs) and navigate between different websites with confidence.",
+        objectives: [
+          "Understand what URLs are and how they work",
+          "Learn to identify secure websites",
+          "Practice typing web addresses correctly",
+          "Navigate between different pages on websites"
+        ],
+        videoTitle: "Understanding Web Addresses",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🔗 Let's Practice: Website Navigation",
+          devices: {
+            phone: {
+              title: "Phone Website Navigation",
+              steps: [
+                { title: "Find the address bar", content: "In your browser, tap the address bar at the top. It might show a website address or just say 'Search or type web address'." },
+                { title: "Type a web address", content: "Try typing 'google.com' slowly and carefully. Notice how the browser suggests completions." },
+                { title: "Understand the parts", content: "A URL has parts: 'https://' (secure), 'www.google.com' (domain), and sometimes '/page' (specific page)." },
+                { title: "Practice navigation", content: "From Google, tap links to other pages. Notice how the address bar changes to show the new page's URL." },
+                { title: "Use the back button", content: "Practice using the back arrow to return to previous pages you've visited." }
+              ]
+            },
+            tablet: {
+              title: "Tablet URL Management",
+              steps: [
+                { title: "Locate address bar clearly", content: "The larger screen makes the address bar easier to see and use. It's typically at the top of your browser." },
+                { title: "Practice precise typing", content: "Use the tablet's larger keyboard to practice typing URLs like 'weather.com' or 'news.bbc.co.uk'." },
+                { title: "Recognize secure sites", content: "Look for 'https://' and a lock icon next to the address - these indicate secure, encrypted websites." },
+                { title: "Navigate website sections", content: "Most websites have menus at the top or side. Practice clicking different sections to explore." },
+                { title: "Bookmark useful sites", content: "When you find a useful website, learn to bookmark it for easy access later." }
+              ]
+            },
+            computer: {
+              title: "Computer Website Mastery",
+              steps: [
+                { title: "Master the address bar", content: "Click in the address bar and practice typing complete URLs. Notice auto-complete suggestions as you type." },
+                { title: "Understand URL structure", content: "Learn that 'https://www.example.com/page' breaks down into protocol, subdomain, domain, and path." },
+                { title: "Use keyboard shortcuts", content: "Try Ctrl+L (Windows) or Cmd+L (Mac) to quickly select the address bar for typing." },
+                { title: "Open links properly", content: "Left-click opens links in the same tab, right-click gives options including 'Open in new tab'." },
+                { title: "Manage multiple sites", content: "Practice having multiple websites open in different tabs and switching between them." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does 'https://' at the beginning of a URL indicate?",
+            options: [
+              "The website is very fast",
+              "The website is secure and encrypted", 
+              "The website is free to use",
+              "The website has no advertisements"
+            ],
+            answer: 1,
+            explanation: "HTTPS (with the 's' for 'secure') means the connection between you and the website is encrypted, making it safer for sensitive information."
+          },
+          {
+            question: "If you want to visit the BBC News website, which would be the correct URL to type?",
+            options: [
+              "bbc news",
+              "www.bbcnews",
+              "bbc.com/news or news.bbc.co.uk",
+              "news.bbc"
+            ],
+            answer: 2,
+            explanation: "Complete URLs need the full domain name. BBC News can be found at 'bbc.com/news' or 'news.bbc.co.uk' - both are valid web addresses."
+          }
+        ]
+      },
+
+      "browser-basics": {
+        title: "Web Browser Fundamentals",
+        description: "Master the essential features of web browsers and learn how to navigate websites efficiently and safely.",
+        objectives: [
+          "Identify different web browsers and their features",
+          "Understand browser buttons and navigation tools",
+          "Learn to use the back, forward, and refresh buttons",
+          "Practice basic browser settings and customization"
+        ],
+        videoTitle: "Mastering Your Web Browser",
+        videoDuration: "9 minutes",
+        practice: {
+          title: "🌍 Let's Practice: Browser Navigation Skills",
+          devices: {
+            phone: {
+              title: "Phone Browser Mastery",
+              steps: [
+                { title: "Identify your browser", content: "Find your main browser app - Safari on iPhone, Chrome on Android. These are your tools for visiting websites." },
+                { title: "Learn the interface", content: "Notice the address bar at top, back/forward arrows, and menu button (usually three dots or lines)." },
+                { title: "Practice basic navigation", content: "Visit a website, then use the back button to return. Try the forward button to go ahead again." },
+                { title: "Use the refresh option", content: "If a page doesn't load properly, pull down from the top or tap the refresh icon to reload it." },
+                { title: "Access browser menu", content: "Tap the menu button to find options like bookmarks, history, and settings for customization." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Browser Control",
+              steps: [
+                { title: "Explore browser layout", content: "Notice how the larger screen shows more browser controls and makes websites easier to read and navigate." },
+                { title: "Master touch navigation", content: "Practice scrolling smoothly through web pages using one finger, and learn to scroll back to the top quickly." },
+                { title: "Use gesture controls", content: "Try swiping left or right on some browsers to go back/forward, or pinch to zoom in/out on content." },
+                { title: "Handle multiple windows", content: "Some tablet browsers support multiple windows. Learn to manage these for better multitasking." },
+                { title: "Customize your view", content: "Adjust text size in browser settings to make reading more comfortable on your tablet's screen." }
+              ]
+            },
+            computer: {
+              title: "Computer Browser Proficiency",
+              steps: [
+                { title: "Learn browser anatomy", content: "Identify the address bar, navigation buttons (back/forward/refresh), bookmarks bar, and tabs area." },
+                { title: "Master keyboard shortcuts", content: "Practice Alt+Left Arrow (back), Alt+Right Arrow (forward), F5 (refresh), and Ctrl+R (refresh)." },
+                { title: "Use mouse navigation", content: "Right-click on links for more options, use the mouse wheel to scroll, middle-click to open links in new tabs." },
+                { title: "Explore browser settings", content: "Click the menu button (⋮ or ≡) to access settings, where you can change homepage, search engine, and privacy options." },
+                { title: "Practice window management", content: "Learn to resize browser windows, use full-screen mode (F11), and manage multiple browser windows." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What should you do if a web page isn't loading properly?",
+            options: [
+              "Close the browser and restart your device",
+              "Try refreshing the page first, then check your internet connection",
+              "Switch to a different browser immediately",
+              "Clear all your browser data"
+            ],
+            answer: 1,
+            explanation: "Refreshing (reloading) the page is the first and simplest solution. If that doesn't work, check your internet connection before trying more complex solutions."
+          },
+          {
+            question: "What's the difference between the back button and closing a tab?",
+            options: [
+              "There's no difference - they do the same thing",
+              "Back button returns to the previous page; closing a tab shuts down that entire browsing session",
+              "Back button is faster than closing tabs",
+              "Closing tabs is safer than using the back button"
+            ],
+            answer: 1,
+            explanation: "The back button keeps you in the same tab but shows the previous page you visited. Closing a tab ends that entire browsing session completely."
+          }
+        ]
+      },
+
+      "address-bar": {
+        title: "Using the Address Bar",
+        description: "Learn to effectively use the address bar for navigation, searching, and accessing websites quickly and accurately.",
+        objectives: [
+          "Master typing URLs and web addresses",
+          "Learn to use the address bar for searching",
+          "Understand auto-complete and suggestions",
+          "Practice efficient web navigation techniques"
+        ],
+        videoTitle: "Address Bar Mastery",
+        videoDuration: "6 minutes",
+        practice: {
+          title: "🔍 Let's Practice: Address Bar Excellence",
+          devices: {
+            phone: {
+              title: "Phone Address Bar Skills",
+              steps: [
+                { title: "Access the address bar", content: "Tap the address bar at the top of your browser. It will highlight and show the keyboard for typing." },
+                { title: "Practice typing URLs", content: "Try typing 'bbc.com' or 'weather.com'. Notice how the browser suggests completions as you type." },
+                { title: "Use it for searching", content: "Instead of a website, type 'weather today' - most browsers will search for this automatically." },
+                { title: "Learn from suggestions", content: "Pay attention to the dropdown suggestions that appear - they can save time and prevent typing mistakes." },
+                { title: "Clear and start over", content: "Tap the X or clear button to erase what you've typed and start with a new search or website." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Address Navigation",
+              steps: [
+                { title: "Utilize the larger interface", content: "The bigger screen makes typing in the address bar easier and shows more helpful suggestions." },
+                { title: "Practice precise entry", content: "Type complete websites like 'news.google.com' or 'wikipedia.org' to practice accuracy." },
+                { title: "Explore auto-complete", content: "Start typing a site you've visited before - notice how the browser remembers and suggests it." },
+                { title: "Switch between search and sites", content: "Practice both direct website navigation and search queries from the same address bar." },
+                { title: "Handle corrections", content: "Learn to select all text (tap and hold) to replace incorrect entries, or use backspace to edit." }
+              ]
+            },
+            computer: {
+              title: "Computer Address Bar Mastery",
+              steps: [
+                { title: "Quick address bar access", content: "Use Ctrl+L (Windows) or Cmd+L (Mac) to instantly select the address bar from anywhere on the page." },
+                { title: "Master efficient typing", content: "Practice typing common sites. You often only need to type part of the name - like 'goog' for Google." },
+                { title: "Use search suggestions", content: "Type search terms directly in the address bar. Most browsers will show both website and search suggestions." },
+                { title: "Navigate browser history", content: "Use up/down arrow keys to browse through your recent address bar entries and select one to revisit." },
+                { title: "Utilize advanced features", content: "Try typing 'calculator' or 'weather [your city]' to see instant results without visiting a website." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What happens when you type a search term (like 'best pizza recipe') in the address bar?",
+            options: [
+              "It will show an error message",
+              "Most browsers will automatically search for that term using your default search engine",
+              "You must go to a search engine website first",
+              "It only works with website addresses"
+            ],
+            answer: 1,
+            explanation: "Modern browsers are smart - when you type search terms instead of website addresses, they automatically perform a search using your default search engine."
+          },
+          {
+            question: "If you start typing 'face' in the address bar and Facebook.com appears as a suggestion, what should you do?",
+            options: [
+              "Keep typing the full address",
+              "Click or tap on the suggestion to go there quickly",
+              "Clear the address bar and start over",
+              "Open a new tab instead"
+            ],
+            answer: 1,
+            explanation: "Browser suggestions save time and prevent typing errors. If you see the site you want in the suggestions, click/tap it instead of typing the full address."
+          }
+        ]
+      },
+
+      "tabs-bookmarks": {
+        title: "Tabs & Bookmarks",
+        description: "Learn to efficiently manage multiple websites using tabs and save your favorite sites with bookmarks for easy access.",
+        objectives: [
+          "Open, close, and switch between browser tabs",
+          "Create and organize bookmarks effectively",
+          "Understand the benefits of using tabs for multitasking",
+          "Practice bookmark management and organization"
+        ],
+        videoTitle: "Managing Tabs and Bookmarks",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "📑 Let's Practice: Tab and Bookmark Management",
+          devices: {
+            phone: {
+              title: "Phone Tab & Bookmark Skills",
+              steps: [
+                { title: "Open a new tab", content: "Look for a '+' symbol or 'New Tab' option in your browser. Tap it to open a fresh browsing window." },
+                { title: "Switch between tabs", content: "Tap the tab icon (usually shows a number) to see all open tabs, then tap the one you want to view." },
+                { title: "Close unwanted tabs", content: "In the tab view, find the X on each tab or swipe tabs away to close them and free up memory." },
+                { title: "Create your first bookmark", content: "On a page you like, find the bookmark or star icon, tap it, and save the page for later access." },
+                { title: "Access saved bookmarks", content: "Find the bookmark menu (often three lines or a book icon) to see and revisit your saved websites." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Tab Organization",
+              steps: [
+                { title: "Manage multiple tabs", content: "The larger screen can show more tabs at once. Practice opening several tabs and switching between them smoothly." },
+                { title: "Use tab preview", content: "Long-press on tabs to see previews or get options to close multiple tabs at once for better organization." },
+                { title: "Organize bookmarks in folders", content: "Create bookmark folders by topic (News, Weather, Shopping) to keep your favorites organized and easy to find." },
+                { title: "Sync across devices", content: "If using the same browser account, your bookmarks can sync between your tablet and other devices." },
+                { title: "Practice efficient workflow", content: "Open multiple related tabs for research, then bookmark the most useful ones for future reference." }
+              ]
+            },
+            computer: {
+              title: "Computer Tab & Bookmark Mastery",
+              steps: [
+                { title: "Master tab shortcuts", content: "Use Ctrl+T (new tab), Ctrl+W (close tab), Ctrl+Shift+T (reopen closed tab), and Ctrl+Tab (switch tabs)." },
+                { title: "Organize bookmarks effectively", content: "Right-click the bookmarks bar to create folders like 'News', 'Shopping', 'Work' for better organization." },
+                { title: "Use tab management", content: "Right-click on tabs for options like 'Close other tabs', 'Pin tab', or 'Duplicate tab' for efficient browsing." },
+                { title: "Create bookmark shortcuts", content: "Use Ctrl+D to quickly bookmark the current page, or drag the URL from the address bar to the bookmarks bar." },
+                { title: "Practice tab workflows", content: "Open multiple tabs for comparison shopping, research, or reading multiple articles, then bookmark the best ones." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the main advantage of using browser tabs?",
+            options: [
+              "They make your device run faster",
+              "You can have multiple websites open at once without losing your place",
+              "They automatically save your browsing history",
+              "They protect you from viruses"
+            ],
+            answer: 1,
+            explanation: "Tabs let you keep multiple websites open simultaneously, so you can easily switch between them without having to reload pages or remember where you were."
+          },
+          {
+            question: "When should you bookmark a website?",
+            options: [
+              "After visiting any website once",
+              "Only for shopping websites",
+              "When you find a useful site you want to visit again easily",
+              "Never - bookmarks slow down your browser"
+            ],
+            answer: 2,
+            explanation: "Bookmark websites that you find valuable and want to revisit regularly, like news sites, useful tools, or favorite blogs - this saves time searching for them again."
+          }
+        ]
+      },
+
+      "search-engines": {
+        title: "Using Search Engines",
+        description: "Learn how to effectively use Google and other search engines to find information quickly and accurately.",
+        objectives: [
+          "Understand how search engines work",
+          "Learn to craft effective search queries",
+          "Discover different types of search engines",
+          "Practice finding reliable information online"
+        ],
+        videoTitle: "Search Engine Mastery",
+        videoDuration: "7 minutes",
+        practice: {
+          title: "🔍 Let's Practice: Effective Searching",
+          devices: {
+            phone: {
+              title: "Phone Search Skills",
+              steps: [
+                { title: "Access Google", content: "Open your browser and go to 'google.com' or use the Google app. This is your main tool for finding information." },
+                { title: "Try basic searches", content: "Search for something simple like 'weather today' or 'news'. Notice how Google shows results instantly." },
+                { title: "Use voice search", content: "Tap the microphone icon and speak your search instead of typing - great for longer or complex queries." },
+                { title: "Explore search suggestions", content: "As you type, Google suggests related searches. These can help you find what you're looking for faster." },
+                { title: "Navigate search results", content: "Scroll through results and tap on links that look relevant to your search query." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Search Mastery",
+              steps: [
+                { title: "Utilize the larger screen", content: "Take advantage of seeing more search results at once and having more space to read result descriptions." },
+                { title: "Practice specific searches", content: "Try searching for 'best restaurants near me' or 'how to cook pasta' to see location-based and instructional results." },
+                { title: "Use search filters", content: "After searching, look for options like 'Images', 'News', 'Videos' to filter results by type." },
+                { title: "Refine your searches", content: "If you don't find what you want, try different words or be more specific with your search terms." },
+                { title: "Bookmark useful results", content: "When you find helpful information, bookmark those pages for easy access later." }
+              ]
+            },
+            computer: {
+              title: "Computer Search Excellence",
+              steps: [
+                { title: "Master search techniques", content: "Learn to use quotes for exact phrases ('best pizza recipe'), plus signs for required words (+pizza +recipe)." },
+                { title: "Use advanced search", content: "Try Google's advanced search options to filter by date, language, region, or file type." },
+                { title: "Explore different engines", content: "Try Bing, DuckDuckGo, or Yahoo to see how different search engines can give different results." },
+                { title: "Search within sites", content: "Use 'site:bbc.com weather' to search only within specific websites for targeted information." },
+                { title: "Practice research skills", content: "Compare multiple sources for the same information to get a complete picture of any topic." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the best way to search for an exact phrase?",
+            options: [
+              "Type the words separated by commas",
+              "Put the phrase in quotation marks",
+              "Use capital letters for emphasis",
+              "Search for each word separately"
+            ],
+            answer: 1,
+            explanation: "Putting phrases in quotation marks tells the search engine to look for those exact words in that exact order, which is more precise than individual word searches."
+          },
+          {
+            question: "If your first search doesn't give good results, what should you do?",
+            options: [
+              "Give up and try a different website",
+              "Use the same search terms but try a different search engine",
+              "Try different keywords or be more specific with your search terms",
+              "Clear your browser history and search again"
+            ],
+            answer: 2,
+            explanation: "Different keywords or more specific terms often yield better results. Think of alternative ways to describe what you're looking for."
+          }
+        ]
+      },
+
+      "effective-searching": {
+        title: "Effective Search Techniques",
+        description: "Master advanced search strategies to find exactly what you need online quickly and efficiently.",
+        objectives: [
+          "Learn to use search operators and advanced techniques",
+          "Understand how to evaluate search results",
+          "Practice refining searches for better results",
+          "Discover specialized search types (images, news, videos)"
+        ],
+        videoTitle: "Advanced Search Strategies",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🎯 Let's Practice: Advanced Search Techniques",
+          devices: {
+            phone: {
+              title: "Phone Advanced Searching",
+              steps: [
+                { title: "Use search filters", content: "After searching, tap 'Images', 'News', or 'Videos' to find specific types of content related to your search." },
+                { title: "Try location-based searches", content: "Search for 'restaurants near me' or 'weather in [your city]' to get location-specific results." },
+                { title: "Use time-based searches", content: "Add words like 'today', 'this week', or '2024' to find recent information on your topic." },
+                { title: "Practice question searches", content: "Try asking complete questions like 'How do I change a tire?' or 'What is the weather like today?'" },
+                { title: "Refine with related searches", content: "Look at the 'Related searches' section at the bottom of results for ideas to improve your search." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Search Optimization",
+              steps: [
+                { title: "Compare multiple results", content: "Open several promising results in different tabs to compare information from multiple sources." },
+                { title: "Use search tools", content: "Look for 'Tools' or 'Settings' in search results to filter by date, reading level, or other criteria." },
+                { title: "Practice image searches", content: "Use image search to find pictures, then click 'Visit page' to see the source website for more information." },
+                { title: "Try reverse image search", content: "Upload or take a photo to search for similar images or information about what's in the picture." },
+                { title: "Explore news searches", content: "Use news search to find current events and recent articles about topics you're interested in." }
+              ]
+            },
+            computer: {
+              title: "Computer Search Mastery",
+              steps: [
+                { title: "Master keyboard shortcuts", content: "Use Ctrl+F to search within a webpage, Ctrl+K to jump to search bar, Ctrl+T for new tab searches." },
+                { title: "Use advanced operators", content: "Try searches like 'recipes -spicy' (exclude spicy), 'cats OR dogs' (either term), 'intitle:news' (in page titles)." },
+                { title: "Search specific file types", content: "Use 'filetype:pdf climate change' to find only PDF documents about your topic." },
+                { title: "Practice date range searches", content: "Use search tools to find information from specific time periods, like 'last year' or 'past month'." },
+                { title: "Research effectively", content: "Use multiple search engines and compare results to get comprehensive information on complex topics." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What does adding a minus sign (-) before a word in your search do?",
+            options: [
+              "Makes that word more important in the search",
+              "Excludes results that contain that word",
+              "Searches for the opposite of that word",
+              "Finds results from a year ago"
+            ],
+            answer: 1,
+            explanation: "The minus sign (-) tells the search engine to exclude results containing that word. For example, 'cats -dogs' finds pages about cats but not dogs."
+          },
+          {
+            question: "When should you use image search instead of regular web search?",
+            options: [
+              "When you want to find pictures related to your topic",
+              "Only when looking for free images to download",
+              "When regular search doesn't work",
+              "Image search is always better than web search"
+            ],
+            answer: 0,
+            explanation: "Image search is perfect for finding pictures, diagrams, charts, or visual information related to your topic, or when you want to see what something looks like."
+          }
+        ]
+      },
+
+      "evaluating-results": {
+        title: "Evaluating Search Results",
+        description: "Learn to identify reliable sources and evaluate the quality and credibility of information you find online.",
+        objectives: [
+          "Recognize trustworthy vs. unreliable sources",
+          "Understand how to check website credibility",
+          "Learn to identify biased or misleading information",
+          "Practice fact-checking and verification techniques"
+        ],
+        videoTitle: "Evaluating Online Information",
+        videoDuration: "9 minutes",
+        practice: {
+          title: "🔍 Let's Practice: Source Evaluation",
+          devices: {
+            phone: {
+              title: "Phone Source Checking",
+              steps: [
+                { title: "Check website addresses", content: "Look at URLs in search results. Government (.gov), education (.edu), and established news sites are often reliable." },
+                { title: "Read result descriptions", content: "Google shows brief descriptions under each result. Read these to see if the source seems credible and relevant." },
+                { title: "Look for author information", content: "On articles, look for author names, credentials, and publication dates to assess credibility." },
+                { title: "Check multiple sources", content: "Don't rely on just one source. Compare information from 2-3 different websites to verify facts." },
+                { title: "Be wary of bias", content: "Notice if a website seems to push a particular viewpoint rather than presenting balanced information." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Information Verification",
+              steps: [
+                { title: "Explore website credibility", content: "Look for 'About Us' pages to learn about the organization behind the website and their expertise." },
+                { title: "Check publication dates", content: "Make sure information is current, especially for news, health, or technology topics that change frequently." },
+                { title: "Look for citations", content: "Reliable articles often cite their sources. Look for links to studies, official documents, or expert quotes." },
+                { title: "Compare different viewpoints", content: "Open multiple sources in tabs to compare how different sites present the same information." },
+                { title: "Use fact-checking sites", content: "When in doubt, search for fact-checking websites like Snopes or FactCheck.org to verify claims." }
+              ]
+            },
+            computer: {
+              title: "Computer Advanced Verification",
+              steps: [
+                { title: "Investigate source credibility", content: "Right-click links to open in new tabs, then explore the website's about page, contact information, and overall design quality." },
+                { title: "Cross-reference information", content: "Use multiple search engines and compare results to see if the same information appears across different reliable sources." },
+                { title: "Check domain age and reputation", content: "Use tools like Whois lookup to see how long a website has existed - newer sites may be less established." },
+                { title: "Look for bias indicators", content: "Notice loaded language, missing citations, or information that seems too good/bad to be true." },
+                { title: "Verify with official sources", content: "For important information, check official government, academic, or organizational websites to confirm facts." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "Which type of website is generally most reliable for factual information?",
+            options: [
+              "Personal blogs and opinion sites",
+              "Government (.gov) and educational (.edu) institutions",
+              "Social media posts and forums",
+              "Websites with lots of advertisements"
+            ],
+            answer: 1,
+            explanation: "Government and educational websites are typically held to higher standards for accuracy and are less likely to have commercial or personal bias in their information."
+          },
+          {
+            question: "What should you do if you find conflicting information on different websites?",
+            options: [
+              "Always trust the first result you found",
+              "Choose the website with the most colorful design",
+              "Look for additional sources and check with authoritative organizations",
+              "Ignore the information completely"
+            ],
+            answer: 2,
+            explanation: "When sources conflict, seek out additional authoritative sources and official organizations to determine which information is most accurate and reliable."
+          }
+        ]
+      },
+
+      "online-safety": {
+        title: "Staying Safe Online",
+        description: "Learn essential online safety practices to protect yourself from scams, malware, and privacy risks while browsing the internet.",
+        objectives: [
+          "Recognize common online scams and threats",
+          "Learn safe browsing habits and best practices",
+          "Understand how to protect personal information",
+          "Know what to do if something seems suspicious"
+        ],
+        videoTitle: "Essential Online Safety",
+        videoDuration: "10 minutes",
+        practice: {
+          title: "🛡️ Let's Practice: Safe Internet Habits",
+          devices: {
+            phone: {
+              title: "Phone Safety Practices",
+              steps: [
+                { title: "Recognize secure websites", content: "Look for 'https://' and a lock icon in your browser's address bar, especially before entering personal information." },
+                { title: "Be cautious with downloads", content: "Only download apps from official app stores (App Store, Google Play). Avoid downloading files from unfamiliar websites." },
+                { title: "Handle suspicious messages", content: "Be wary of text messages or emails with urgent requests for personal information or money. When in doubt, don't click." },
+                { title: "Use strong passwords", content: "Create unique passwords for important accounts and consider using your phone's built-in password manager." },
+                { title: "Check app permissions", content: "Review what permissions apps request. A flashlight app shouldn't need access to your contacts or camera." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Security Measures",
+              steps: [
+                { title: "Safe browsing practices", content: "Avoid clicking on pop-up ads or warnings that claim your device is infected. Close these windows immediately." },
+                { title: "Manage privacy settings", content: "Review your browser's privacy settings to control what information websites can collect about you." },
+                { title: "Be selective with personal info", content: "Think twice before sharing personal details like your address, phone number, or financial information online." },
+                { title: "Use official sources", content: "Download software and apps only from official websites or app stores to avoid malware and scams." },
+                { title: "Regular security updates", content: "Keep your tablet's operating system and apps updated to protect against the latest security threats." }
+              ]
+            },
+            computer: {
+              title: "Computer Security Excellence",
+              steps: [
+                { title: "Recognize phishing attempts", content: "Be suspicious of emails asking for passwords or personal information, even if they look official. Verify independently." },
+                { title: "Use antivirus software", content: "Install reputable antivirus software and keep it updated to protect against malware and viruses." },
+                { title: "Practice safe downloading", content: "Only download software from official websites. Avoid downloading from pop-up ads or unfamiliar sources." },
+                { title: "Manage cookies and privacy", content: "Learn to clear cookies regularly and adjust browser privacy settings to control tracking." },
+                { title: "Create secure passwords", content: "Use a mix of letters, numbers, and symbols. Consider using a password manager to generate and store strong passwords." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What should you do if you receive an email claiming to be from your bank asking for your password?",
+            options: [
+              "Reply with your password immediately",
+              "Call your bank directly using the number on your bank card to verify",
+              "Click the link in the email to log in",
+              "Forward the email to your friends"
+            ],
+            answer: 1,
+            explanation: "Banks never ask for passwords via email. Always contact your bank directly through official channels to verify any suspicious communications."
+          },
+          {
+            question: "How can you tell if a website is secure for entering personal information?",
+            options: [
+              "The website has lots of colors and graphics",
+              "The URL starts with 'https://' and shows a lock icon",
+              "The website loads very quickly",
+              "The website has a .com address"
+            ],
+            answer: 1,
+            explanation: "HTTPS (with a lock icon) indicates the connection is encrypted and more secure for transmitting personal information like passwords or credit card numbers."
+          }
+        ]
+      },
+
+      "common-websites": {
+        title: "Exploring Common Websites",
+        description: "Get familiar with popular and useful websites for news, weather, shopping, and other daily activities.",
+        objectives: [
+          "Discover essential websites for daily life",
+          "Learn to navigate news and information sites",
+          "Practice using weather and local information sites",
+          "Explore safe shopping and service websites"
+        ],
+        videoTitle: "Navigating Popular Websites",
+        videoDuration: "11 minutes",
+        practice: {
+          title: "🌟 Let's Practice: Essential Website Tour",
+          devices: {
+            phone: {
+              title: "Phone Website Exploration",
+              steps: [
+                { title: "Visit news websites", content: "Try bbc.com, cnn.com, or your local news station's website to practice reading news on your phone." },
+                { title: "Check weather information", content: "Visit weather.com or weather.gov to see how weather sites work and bookmark your local weather page." },
+                { title: "Explore government services", content: "Visit your city or state government website to see what services are available online." },
+                { title: "Browse shopping sites safely", content: "Visit well-known retailers like target.com or walmart.com to see how online shopping works (no need to buy anything)." },
+                { title: "Try search and maps", content: "Use Google Maps or Apple Maps to search for local businesses and get directions to places near you." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Website Navigation",
+              steps: [
+                { title: "Read news comfortably", content: "Take advantage of the larger screen to read full articles on news websites without zooming in." },
+                { title: "Explore educational sites", content: "Visit wikipedia.org or khan academy to see how educational content displays on your tablet." },
+                { title: "Use service websites", content: "Try your bank's website, utility company, or other service providers to see what you can do online." },
+                { title: "Browse entertainment sites", content: "Visit youtube.com or netflix.com to see how video content works on your tablet." },
+                { title: "Practice online forms", content: "Try filling out a simple contact form or newsletter signup to practice entering information safely." }
+              ]
+            },
+            computer: {
+              title: "Computer Website Mastery",
+              steps: [
+                { title: "Master government websites", content: "Visit irs.gov, ssa.gov, or your state's website to see what official services are available online." },
+                { title: "Explore online banking", content: "If you have online banking, practice logging in safely and navigating your account features." },
+                { title: "Use comparison sites", content: "Try sites like Consumer Reports or review sites to learn how to research products and services." },
+                { title: "Navigate complex sites", content: "Practice using larger websites like Amazon or eBay to understand how complex e-commerce sites work." },
+                { title: "Access online tools", content: "Try online calculators, calendars, or other tools to see how the internet can help with daily tasks." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's a good way to find your local government's website?",
+            options: [
+              "Search for '[your city name] government' or '[your state] official website'",
+              "Look for it on social media only",
+              "Ask friends for the link",
+              "Government websites don't exist"
+            ],
+            answer: 0,
+            explanation: "Searching for your city or state name plus 'government' or 'official website' will usually bring up the correct official government website."
+          },
+          {
+            question: "When first exploring a new website, what should you look for?",
+            options: [
+              "The most colorful buttons to click",
+              "Navigation menus, search functions, and 'About' or 'Help' sections",
+              "The newest articles or posts",
+              "Advertisement sections"
+            ],
+            answer: 1,
+            explanation: "Navigation menus help you understand the site's structure, search functions help you find specific information, and About/Help sections explain what the site offers."
+          }
+        ]
+      },
+
+      "internet-mastery": {
+        title: "Internet Navigation Mastery",
+        description: "Put all your skills together and build confidence in exploring the internet independently and safely.",
+        objectives: [
+          "Demonstrate comprehensive internet navigation skills",
+          "Practice real-world internet tasks confidently",
+          "Troubleshoot common internet problems independently",
+          "Plan your continued internet learning journey"
+        ],
+        videoTitle: "Your Internet Journey Continues",
+        videoDuration: "8 minutes",
+        practice: {
+          title: "🎓 Let's Practice: Internet Mastery Challenge",
+          devices: {
+            phone: {
+              title: "Phone Internet Confidence",
+              steps: [
+                { title: "Complete a research task", content: "Choose a topic you're interested in and use your phone to research it thoroughly using multiple websites." },
+                { title: "Practice safe browsing", content: "Visit various websites while demonstrating safe browsing habits - checking URLs, avoiding suspicious links." },
+                { title: "Organize your browsing", content: "Create a bookmark folder for a hobby or interest, and save 3-5 useful websites in it." },
+                { title: "Help someone else", content: "Teach a friend or family member one thing you've learned about using the internet on a phone." },
+                { title: "Plan your online goals", content: "Think about what you'd like to learn to do online next - online banking, shopping, video calls, etc." }
+              ]
+            },
+            tablet: {
+              title: "Tablet Internet Proficiency",
+              steps: [
+                { title: "Multi-tab research project", content: "Open multiple tabs to research a topic, compare information, and bookmark the best sources." },
+                { title: "Navigate complex websites", content: "Practice using larger websites with multiple sections, search functions, and navigation menus." },
+                { title: "Demonstrate safety skills", content: "Show how you can identify secure websites, avoid suspicious content, and protect your privacy." },
+                { title: "Use internet tools", content: "Try online calculators, maps, weather sites, or other tools to accomplish real tasks." },
+                { title: "Share your knowledge", content: "Help someone else learn something about internet navigation using your tablet." }
+              ]
+            },
+            computer: {
+              title: "Computer Internet Excellence",
+              steps: [
+                { title: "Advanced research skills", content: "Conduct comprehensive research using multiple search engines, advanced search techniques, and source verification." },
+                { title: "Efficient browsing workflow", content: "Demonstrate bookmark organization, tab management, and efficient navigation between multiple websites." },
+                { title: "Online problem solving", content: "Practice troubleshooting common internet issues like slow loading, connection problems, or suspicious content." },
+                { title: "Digital citizenship", content: "Show understanding of online safety, privacy protection, and responsible internet use." },
+                { title: "Continuous learning plan", content: "Identify what internet skills you want to develop next and create a plan for continued learning." }
+              ]
+            }
+          }
+        },
+        quiz: [
+          {
+            question: "What's the most important skill for successful internet navigation?",
+            options: [
+              "Typing very fast",
+              "Memorizing website addresses",
+              "Being curious and willing to explore while staying safe",
+              "Using only one search engine"
+            ],
+            answer: 2,
+            explanation: "Curiosity and willingness to explore, combined with safe browsing practices, are the foundation of successful internet use. Speed and memorization are less important than confidence and safety."
+          },
+          {
+            question: "How should you continue learning about the internet after this course?",
+            options: [
+              "Stop learning - you know everything you need",
+              "Practice regularly and gradually try new things",
+              "Only use the internet for the same tasks you already know",
+              "Wait for someone else to teach you new things"
+            ],
+            answer: 1,
+            explanation: "The internet is constantly evolving. Regular practice and gradual exploration of new features and sites will help you build confidence and discover new capabilities."
+          }
+        ]
+      }
+    };
+
+    // ====== LESSON STATE MANAGEMENT ======
+    let currentLesson = 'what-is-internet';
+    const courseKey = 'navigating-internet';
+    
+    // Function to get user-specific progress (supports both regular and guest users)
+    function getUserSpecificData() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser) {
+        return { completedLessons: [], courseProgress: {} };
+      }
+      
+      // For guest users, use their guest ID; for regular users, use email
+      const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const completedLessons = JSON.parse(localStorage.getItem(`completedLessons_${courseKey}_${userId}`) || '[]');
+      const courseProgress = JSON.parse(localStorage.getItem(`courseProgress_${courseKey}_${userId}`) || '{}');
+      
+      return { completedLessons, courseProgress, userId };
+    }
+    
+    let { completedLessons, courseProgress } = getUserSpecificData();
+
+    // ====== RENDER LESSON CONTENT ======
+    function renderLesson(lessonId) {
+      const lesson = lessons[lessonId];
+      if (!lesson) return;
+
+      const mainContent = document.getElementById('lessonContent');
+
+      let html = `
+        <div class="lesson-header">
+          <h1 class="lesson-title">${lesson.title}</h1>
+          <p class="lesson-description">${lesson.description}</p>
+        </div>
+
+        <div class="lesson-objectives">
+          <h3 class="objectives-title">🎯 Learning Objectives</h3>
+          <ul class="objectives-list">
+            ${lesson.objectives.map(obj => `<li>${obj}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="video-section">
+          <div class="video-placeholder">
+            <h4 class="video-title">${lesson.videoTitle}</h4>
+            <p class="video-duration">${lesson.videoDuration}</p>
+          </div>
+          <p><strong>📺 Watch this video</strong> to see these concepts demonstrated step-by-step. You can pause and rewatch any part as many times as you need.</p>
+        </div>
+
+        <div class="practice-section">
+          <h3 class="practice-title">${lesson.practice.title}</h3>
+          <div class="device-tabs">
+            ${Object.keys(lesson.practice.devices).map(device => 
+              `<button class="device-tab ${device === 'phone' ? 'active' : ''}" data-device="${device}">
+                ${device === 'phone' ? '📱 Phone' : device === 'tablet' ? '📱 Tablet' : '💻 Computer'}
+              </button>`
+            ).join('')}
+          </div>
+          
+          ${Object.entries(lesson.practice.devices).map(([deviceType, deviceData]) => `
+            <div class="device-content ${deviceType === 'phone' ? 'active' : ''}" data-device="${deviceType}">
+              <h4>${deviceData.title}</h4>
+              <div class="step-by-step">
+                ${deviceData.steps.map(step => `
+                  <div class="step">
+                    <h4>${step.title}</h4>
+                    <p>${step.content}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="quiz-section">
+          <h3 class="quiz-title">🧠 Knowledge Check</h3>
+          ${lesson.quiz.map((question, idx) => `
+            <div class="question" data-question="${idx}">
+              <p class="question-text">${question.question}</p>
+              <ul class="options">
+                ${question.options.map((option, optionIdx) => `
+                  <li class="option">
+                    <label>
+                      <input type="radio" name="q${idx}" value="${optionIdx}">
+                      <span>${option}</span>
+                    </label>
+                  </li>
+                `).join('')}
+              </ul>
+              <div class="feedback" id="feedback-${idx}"></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="lesson-navigation">
+          <button class="nav-btn secondary" id="prevBtn" ${getPreviousLesson(lessonId) ? '' : 'disabled'}>
+            ← Previous Lesson
+          </button>
+          <button class="nav-btn" id="nextBtn" onclick="completeLesson('${lessonId}')">
+            ${getNextLesson(lessonId) ? 'Mark Complete & Continue →' : 'Complete Course 🎉'}
+          </button>
+        </div>
+      `;
+
+      mainContent.innerHTML = html;
+      setupLessonInteractions(lesson, lessonId);
+      updateProgress();
+    }
+
+    // ====== LESSON INTERACTIONS ======
+    function setupLessonInteractions(lesson, lessonId) {
+      // Device tab switching
+      document.querySelectorAll('.device-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const device = tab.dataset.device;
+          
+          // Update tab states
+          document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Update content visibility
+          document.querySelectorAll('.device-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          document.querySelector(`[data-device="${device}"]`).classList.add('active');
+        });
+      });
+
+      // Quiz interactions
+      document.querySelectorAll('.question').forEach((questionEl, questionIdx) => {
+        const question = lesson.quiz[questionIdx];
+        const options = questionEl.querySelectorAll('input[type="radio"]');
+        
+        options.forEach(option => {
+          option.addEventListener('change', () => {
+            const selectedAnswer = parseInt(option.value);
+            const feedback = document.getElementById(`feedback-${questionIdx}`);
+            
+            if (selectedAnswer === question.answer) {
+              feedback.innerHTML = `<strong>✅ Correct!</strong> ${question.explanation}`;
+              feedback.className = 'feedback correct';
+              feedback.style.display = 'block';
+            } else {
+              feedback.innerHTML = `<strong>❌ Not quite.</strong> ${question.explanation}`;
+              feedback.className = 'feedback incorrect';
+              feedback.style.display = 'block';
+            }
+          });
+        });
+      });
+
+      // Navigation
+      const prevBtn = document.getElementById('prevBtn');
+      const prevLesson = getPreviousLesson(lessonId);
+      if (prevBtn && prevLesson) {
+        prevBtn.addEventListener('click', () => loadLesson(prevLesson));
+      }
+    }
+
+    // ====== LESSON NAVIGATION ======
+    const lessonOrder = [
+      'what-is-internet', 'getting-connected', 'understanding-websites', 'browser-basics',
+      'address-bar', 'tabs-bookmarks', 'search-engines', 'effective-searching',
+      'evaluating-results', 'online-safety', 'common-websites', 'internet-mastery'
+    ];
+
+    function getNextLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex < lessonOrder.length - 1 ? lessonOrder[currentIndex + 1] : null;
+    }
+
+    function getPreviousLesson(currentLessonId) {
+      const currentIndex = lessonOrder.indexOf(currentLessonId);
+      return currentIndex > 0 ? lessonOrder[currentIndex - 1] : null;
+    }
+
+    function loadLesson(lessonId) {
+      currentLesson = lessonId;
+      
+      // Update last accessed time whenever a lesson is loaded
+      localStorage.setItem(`lastAccessed_${courseKey}`, new Date().toISOString());
+      
+      // Update sidebar
+      document.querySelectorAll('.lesson-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lesson === lessonId) {
+          btn.classList.add('active');
+        }
+      });
+      
+      renderLesson(lessonId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function completeLesson(lessonId) {
+      // Get current user data
+      const { completedLessons: currentCompleted, userId } = getUserSpecificData();
+      
+      // Only save progress if user is logged in
+      if (!userId) {
+        alert('Please log in to save your progress!');
+        return;
+      }
+      
+      if (!currentCompleted.includes(lessonId)) {
+        currentCompleted.push(lessonId);
+        localStorage.setItem(`completedLessons_${courseKey}_${userId}`, JSON.stringify(currentCompleted));
+        completedLessons = currentCompleted; // Update global variable
+      }
+      
+      // Update last accessed time (user-specific)
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, new Date().toISOString());
+      
+      // Update all lesson statuses (this will auto-complete previous lessons)
+      updateAllLessonStatus();
+      
+      const nextLesson = getNextLesson(lessonId);
+      if (nextLesson) {
+        setTimeout(() => loadLesson(nextLesson), 500);
+      } else {
+        // Course completed!
+        alert('🎉 Congratulations! You\'ve completed the Internet Navigation course!');
+      }
+      
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalLessons = lessonOrder.length;
+      const completedCount = completedLessons.length;
+      const progressPercent = Math.round((completedCount / totalLessons) * 100);
+      
+      document.getElementById('progressPercent').textContent = `${progressPercent}%`;
+      document.getElementById('courseProgress').style.width = `${progressPercent}%`;
+    }
+
+    function updateAllLessonStatus() {
+      // Mark each lesson based on its completion status
+      lessonOrder.forEach((lessonId, index) => {
+        const lessonBtn = document.querySelector(`[data-lesson="${lessonId}"]`);
+        if (lessonBtn) {
+          const status = lessonBtn.querySelector('.lesson-status');
+          
+          if (completedLessons.includes(lessonId)) {
+            // Mark as completed
+            lessonBtn.classList.add('completed');
+            if (status) {
+              status.classList.add('completed');
+              status.textContent = '✓';
+            }
+          } else {
+            // Not completed yet
+            lessonBtn.classList.remove('completed');
+            if (status) {
+              status.classList.remove('completed');
+              status.textContent = index + 1;
+            }
+          }
+        }
+      });
+    }
+
+    // ====== SIDEBAR INTERACTIONS ======
+    document.querySelectorAll('.lesson-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lessonId = btn.dataset.lesson;
+        loadLesson(lessonId);
+      });
+    });
+
+    // ====== COURSE ACCESS TRACKING ======
+    function trackCourseAccess() {
+      // Only track if user is logged in
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (!currentUser || !currentUser.email) {
+        return; // Don't track if not logged in
+      }
+      
+                  // For guest users, use their guest ID; for regular users, use email
+            const userId = currentUser.isGuest ? currentUser.guestId : currentUser.email;
+      const courseKey = 'navigating-internet';
+      const timestamp = new Date().toISOString();
+      
+      // Store last accessed time for this specific user
+      localStorage.setItem(`lastAccessed_${courseKey}_${userId}`, timestamp);
+      
+      // Also track in user-specific recent courses list
+      let recentCourses = JSON.parse(localStorage.getItem(`recentCourses_${userId}`) || '[]');
+      recentCourses = recentCourses.filter(course => course.courseKey !== courseKey);
+      recentCourses.unshift({
+        courseKey: courseKey,
+        courseUrl: window.location.pathname,
+        lastAccessed: timestamp
+      });
+      recentCourses = recentCourses.slice(0, 10);
+      localStorage.setItem(`recentCourses_${userId}`, JSON.stringify(recentCourses));
+    }
+
+    // Function to refresh user-specific data
+    function refreshUserData() {
+      const userData = getUserSpecificData();
+      completedLessons = userData.completedLessons;
+      courseProgress = userData.courseProgress;
+      
+      // Update UI to reflect current user's progress
+      updateAllLessonStatus();
+      updateProgress();
+    }
+
+    // ====== USER AUTHENTICATION ======
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track that user accessed this course
+      trackCourseAccess();
+      
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const modalOverlay = document.getElementById('logout-modal-overlay');
+
+      // Hide login/signup buttons for all users on course pages
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (signupBtn) signupBtn.style.display = 'none';
+
+      if (modalOverlay) {
+        const cancelBtn = document.getElementById('cancel-logout');
+        const confirmBtn = document.getElementById('confirm-logout');
+
+        cancelBtn?.addEventListener('click', () => {
+          modalOverlay.classList.remove('active');
+        });
+
+        confirmBtn?.addEventListener('click', () => {
+          sessionStorage.removeItem('currentUser');
+          // Refresh data after logout (will clear progress display)
+          refreshUserData();
+          window.location.href = 'index.html';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+          }
+        });
+      }
+
+      // Load initial lesson
+      loadLesson('what-is-internet');
+      
+      // Refresh user data to load their specific progress
+      refreshUserData();
+    });
+  </script>
+</body>
+</html>
